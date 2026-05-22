@@ -25,6 +25,227 @@
 
   <!-- ═══ Stylesheet ═══ -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- ═══════════════════════════════════════════
+       Premium Glassmorphic Access Terminal Styles
+       ═══════════════════════════════════════════ -->
+  <style>
+    .reg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(5, 5, 5, 0.45); /* High-end dark translucency */
+      backdrop-filter: blur(20px) saturate(1.8); /* Gorgeous glass blur over portfolio background */
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      z-index: 9999999; /* Force rendering above all page lightboxes & navbars */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                  visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  backdrop-filter 0.5s ease;
+      padding: 1.5rem;
+    }
+
+    /* Bypass for returning users */
+    .reg-overlay.registered-bypass {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* Elegant entry scale and exit fade animation */
+    .reg-overlay.reg-fade-out {
+      opacity: 0;
+      visibility: hidden;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    .reg-card {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      background: rgba(15, 15, 15, 0.65); /* Elegant frosted card body */
+      border: 1px solid rgba(239, 68, 68, 0.25); /* Sleek translucent red borders */
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      overflow: hidden;
+      box-shadow: 
+        0 30px 100px rgba(0, 0, 0, 0.85),
+        0 0 50px rgba(239, 68, 68, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(25px); /* Double blur card overlay */
+      -webkit-backdrop-filter: blur(25px);
+      animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 10;
+    }
+
+    @keyframes reg-card-intro {
+      from {
+        opacity: 0;
+        transform: scale(0.94) translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .reg-glow {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 180px;
+      background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .reg-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 2.25rem;
+    }
+
+    .reg-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ef4444;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .reg-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: #f5f5f5;
+    }
+
+    .reg-header h2 .accent-text {
+      color: #ef4444;
+      text-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+    }
+
+    .reg-subtitle {
+      font-size: 0.8rem;
+      color: #888888;
+      line-height: 1.5;
+    }
+
+    .reg-form {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888888;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.85rem;
+      background: rgba(5, 5, 5, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: #f5f5f5;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #ef4444;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .error-msg {
+      font-size: 0.7rem;
+      color: #ef4444;
+      margin-top: 0.2rem;
+      min-height: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+
+    .submit-button {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.9rem;
+      background: transparent;
+      color: #ef4444;
+      border: 1px solid #ef4444;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 48px;
+      margin-top: 0.5rem;
+    }
+
+    .submit-button:hover,
+    .submit-button:focus-visible {
+      outline: none;
+      background: #ef4444;
+      color: #000000;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.4);
+    }
+
+    .submit-button:disabled {
+      border-color: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.25);
+      cursor: not-allowed;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    @media (max-width: 480px) {
+      .reg-card {
+        padding: 2.25rem 1.75rem;
+      }
+      .reg-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -379,6 +600,8 @@
       <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
       <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 11"></iframe>
     </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════
        Registration Overlay Script
        ═══════════════════════════════════════════ -->
