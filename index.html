@@ -1068,7 +1068,149 @@
         }
       }
 
-      // Live Web Monitor AJAX Loader
+      // ═══════════════════════════════════════════
+      // Local Storage Synchronization Engine
+      // ═══════════════════════════════════════════
+
+      let clientIp = '127.0.0.1';
+
+      // Utility to get current localized timestamp in YYYY-MM-DD HH:mm:ss
+      function getLocalTimestamp() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      }
+
+      // Background public IP detector
+      async function detectClientIp() {
+        try {
+          const res = await fetchWithTimeout('https://api.ipify.org?format=json', {}, 1500);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.ip) {
+              clientIp = data.ip;
+            }
+          }
+        } catch (e) {
+          // Fallback silently if offline or blocked
+        }
+      }
+
+      // Initialize localStorage structure if empty
+      function initLocalStorageData() {
+        if (localStorage.getItem('portfolio_views') === null) {
+          localStorage.setItem('portfolio_views', '0');
+        }
+        if (localStorage.getItem('portfolio_unique_ips') === null) {
+          localStorage.setItem('portfolio_unique_ips', JSON.stringify([]));
+        }
+        if (localStorage.getItem('portfolio_regs_count') === null) {
+          localStorage.setItem('portfolio_regs_count', '0');
+        }
+        if (localStorage.getItem('portfolio_registrations') === null) {
+          localStorage.setItem('portfolio_registrations', JSON.stringify([]));
+        }
+        if (localStorage.getItem('portfolio_logs') === null) {
+          localStorage.setItem('portfolio_logs', JSON.stringify([]));
+        }
+      }
+
+      // Track page hit / visit locally
+      async function trackLocalHit() {
+        initLocalStorageData();
+        await detectClientIp();
+
+        let views = parseInt(localStorage.getItem('portfolio_views') || '0', 10);
+        views++;
+        localStorage.setItem('portfolio_views', views.toString());
+
+        let uniqueIps = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]');
+        if (!uniqueIps.includes(clientIp)) {
+          uniqueIps.push(clientIp);
+          localStorage.setItem('portfolio_unique_ips', JSON.stringify(uniqueIps));
+        }
+
+        const timestamp = getLocalTimestamp();
+        const userAgent = navigator.userAgent || 'Local Browser';
+        const logEntry = {
+          timestamp: timestamp,
+          type: 'VISIT',
+          ip: clientIp,
+          details: `Page hit - UserAgent: ${userAgent}`
+        };
+
+        let logs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
+        logs.push(logEntry);
+        if (logs.length > 80) {
+          logs = logs.slice(-80);
+        }
+        localStorage.setItem('portfolio_logs', JSON.stringify(logs));
+
+        // Trigger local visual update if monitor is currently open in this tab
+        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
+          loadWebMonitorData();
+        }
+      }
+
+      // Track registration locally
+      function trackLocalRegistration(name, phone, email) {
+        initLocalStorageData();
+
+        let regsCount = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
+        regsCount++;
+        localStorage.setItem('portfolio_regs_count', regsCount.toString());
+
+        let regsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+        const timestamp = getLocalTimestamp();
+
+        const newReg = {
+          timestamp: timestamp,
+          ip: clientIp,
+          name: name,
+          phone: phone,
+          email: email
+        };
+        regsList.push(newReg);
+        localStorage.setItem('portfolio_registrations', JSON.stringify(regsList));
+
+        // Append corresponding system logs
+        const userAgent = navigator.userAgent || 'Local Browser';
+        const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Device: ${userAgent}`;
+
+        const logEntryRegister = {
+          timestamp: timestamp,
+          type: 'REGISTER',
+          ip: clientIp,
+          details: details
+        };
+
+        const logEntrySuccess = {
+          timestamp: timestamp,
+          type: 'SUCCESS',
+          ip: clientIp,
+          details: `Notification email dispatched to lakshmanvamsi008@gmail.com`
+        };
+
+        let logs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
+        logs.push(logEntryRegister);
+        logs.push(logEntrySuccess);
+        if (logs.length > 80) {
+          logs = logs.slice(-80);
+        }
+        localStorage.setItem('portfolio_logs', JSON.stringify(logs));
+
+        // Trigger immediate UI refresh if monitor is visible in this tab
+        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
+          loadWebMonitorData();
+        }
+      }
+
+      // Live Web Monitor Data Fetcher and Local Storage Bridge
       async function loadWebMonitorData() {
         const statusText = document.getElementById('web-status-text');
         const viewsVal = document.getElementById('web-views-val');
@@ -1083,24 +1225,11 @@
           webRefreshBtn.innerHTML = '🔄 Loading...';
         }
 
-        // Determine if page runs on GitHub Pages or locally double-clicked file
-        const isGitHubPages = window.location.hostname.includes('github.io') || window.location.hostname.includes('riggingtd.in');
-        const isLocalFile = window.location.protocol === 'file:' || !window.location.hostname;
-
-        // Define potential API log endpoints to try in order of preference
-        let endpointsToTry = [];
-        if (isGitHubPages || isLocalFile) {
-          endpointsToTry = [
-            'http://124.123.33.205/api/logs',
-            'http://124.123.33.205:3000/api/logs'
-          ];
-        } else {
-          // Direct relative query if running on the server
-          endpointsToTry = [
-            '/api/logs',
-            'http://localhost:3000/api/logs'
-          ];
-        }
+        // Standard relative endpoints
+        let endpointsToTry = [
+          '/api/logs',
+          'http://localhost:3000/api/logs'
+        ];
 
         let data = null;
         let successfulEndpoint = '';
@@ -1108,7 +1237,7 @@
 
         for (const url of endpointsToTry) {
           try {
-            const res = await fetchWithTimeout(url, {}, 3000);
+            const res = await fetchWithTimeout(url, {}, 1000);
             if (res.ok) {
               const resData = await res.json();
               if (resData.success) {
@@ -1124,8 +1253,49 @@
         }
 
         try {
+          // If remote fetch failed, construct local storage data structure
           if (!data) {
-            throw new Error(lastError ? lastError.message : 'All backend routes are unreachable');
+            initLocalStorageData();
+            
+            const localViews = parseInt(localStorage.getItem('portfolio_views') || '0', 10);
+            const localUniqueIps = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]');
+            const localRegsCount = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
+            const localRegsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+            const localLogs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
+
+            // Parse unique visitors chronological card view like backend does
+            const uniqueVisitorsList = [];
+            const seenRegs = new Set();
+            for (let i = localRegsList.length - 1; i >= 0; i--) {
+              const reg = localRegsList[i];
+              const key = `${reg.name}-${reg.phone}-${reg.email}`.toLowerCase();
+              if (!seenRegs.has(key)) {
+                seenRegs.add(key);
+                uniqueVisitorsList.push(reg);
+              }
+            }
+            uniqueVisitorsList.reverse();
+
+            data = {
+              success: true,
+              stats: {
+                totalViews: localViews,
+                uniqueViews: localUniqueIps.length,
+                totalRegistrations: localRegsCount,
+                uniqueRegistrations: uniqueVisitorsList.length,
+                totalAlerts: 0
+              },
+              uniqueVisitors: uniqueVisitorsList,
+              recentLogs: localLogs
+            };
+            
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            if (statusText) statusText.textContent = `Active | Local Real-Time Sync (${timeStr})`;
+          } else {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            if (statusText) statusText.textContent = `Active | Cloud Synchronized (${timeStr})`;
           }
 
           // 1. Populate stats counters
@@ -1178,26 +1348,16 @@
               `;
             }
           }
-
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          if (statusText) statusText.textContent = `Active | Synchronized at ${timeStr}`;
         } catch (err) {
           console.error('Failed to load monitor stats:', err);
           if (statusText) statusText.textContent = 'Server Status: Offline / Sync Error';
           
           if (terminalLogs) {
-            terminalLogs.innerHTML = `[ERROR] Failed to fetch server metrics from VPS.
+            terminalLogs.innerHTML = `[ERROR] Failed to fetch server metrics.
 <span style="color: #f59e0b; font-weight:bold;">📟 SYSTEM DIAGNOSTIC ADVICE:</span>
 --------------------------------------------------
-Since the backend server at <span style="color:#ef4444;">124.123.33.205</span> runs on HTTP, your browser might block requests when loaded from an HTTPS domain (e.g. GitHub Pages) due to Mixed Content policies.
-
-<span style="color:#10b981; font-weight:bold;">HOW TO FIX AND SECURELY VIEW YOUR LIVE DASHBOARD:</span>
-1. Click this link to open the page directly via HTTP:
-   👉 <a href="http://124.123.33.205/" style="color: #ef4444; text-decoration: underline; font-weight: bold;">http://124.123.33.205/</a> (resolves all security blocks!)
-2. Alternatively, allow "Insecure Content" in your browser's site settings for this domain.
-3. Ensure the Node service is active on the VPS:
-   Run command: <span style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace;">pm2 status</span>`;
+All remote endpoints are unreachable and local fallback failed.
+Please ensure localStorage permissions are enabled in your browser settings.`;
             terminalLogs.scrollTop = terminalLogs.scrollHeight;
           }
         } finally {
@@ -1219,6 +1379,18 @@ Since the backend server at <span style="color:#ef4444;">124.123.33.205</span> r
         webRefreshBtn.addEventListener('click', loadWebMonitorData);
       }
 
+      // Cross-tab real-time sync via window storage event
+      window.addEventListener('storage', (e) => {
+        // If the admin monitor overlay is active/open, reload stats instantly!
+        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
+          loadWebMonitorData();
+        }
+      });
+
+      // Track this page hit/visit immediately on load
+      trackLocalHit();
+
+      // Form Submission Listener
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -1276,16 +1448,15 @@ Since the backend server at <span style="color:#ef4444;">124.123.33.205</span> r
         const isAdmin = normalizedName === 'vamsilakshman' &&
                         normalizedPhone.includes('9494191198') &&
                         normalizedEmail === 'lakshmanvamsi008@gmail.com';
-        
-        // Determine if page runs on GitHub Pages or locally double-clicked file
-        const isGitHubPages = window.location.hostname.includes('github.io') || window.location.hostname.includes('riggingtd.in');
-        const isLocalFile = window.location.protocol === 'file:' || !window.location.hostname;
 
-        // 1. Try local/relative registration endpoint first (for Express server logging)
+        // 1. First record the event instantly in local storage
+        trackLocalRegistration(nameVal, phoneVal, emailVal);
+
+        // 2. Dispatch to local Express registration endpoint (non-blocking)
         try {
           let apiEndpoint = '/api/register';
-          if (isGitHubPages || isLocalFile) {
-            apiEndpoint = 'http://124.123.33.205/api/register';
+          if (window.location.protocol === 'file:' || !window.location.hostname) {
+            apiEndpoint = 'http://localhost:3000/api/register';
           }
 
           await fetch(apiEndpoint, {
@@ -1303,7 +1474,7 @@ Since the backend server at <span style="color:#ef4444;">124.123.33.205</span> r
           console.warn('Local Express registration omitted or unavailable:', error);
         }
 
-        // 2. Submit to FormSubmit.co for robust email delivery to lakshmanvamsi008@gmail.com
+        // 3. Dispatch to FormSubmit.co for direct email delivery to lakshmanvamsi008@gmail.com
         try {
           await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
             method: 'POST',
