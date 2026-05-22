@@ -881,3 +881,217 @@ body::after {
     color: #000;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   REGISTRATION BLOCKING OVERLAY (ACCESS TERMINAL)
+   ═══════════════════════════════════════════════════════════════ */
+.reg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(3, 3, 3, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  padding: 1.5rem;
+}
+
+/* Bypass if verified in local storage on page render */
+.reg-overlay.registered-bypass {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Exit fade animation */
+.reg-overlay.reg-fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.reg-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 80px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(239, 68, 68, 0.05);
+  animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reg-card-intro {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Glowing aesthetic accent inside card */
+.reg-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 150px;
+  background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reg-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.reg-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  opacity: 0.9;
+}
+
+.reg-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.reg-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.reg-form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.form-group input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  background: rgba(5, 5, 5, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  color: var(--text-primary);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+.form-group input::placeholder {
+  color: #444;
+}
+
+/* Error message typography */
+.error-msg {
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-top: 0.25rem;
+  min-height: 14px;
+  letter-spacing: 0.2px;
+}
+
+/* Primary submit/verification button styling */
+.submit-button {
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 48px;
+  margin-top: 0.5rem;
+}
+
+.submit-button:hover,
+.submit-button:focus-visible {
+  outline: none;
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.35);
+}
+
+.submit-button:disabled {
+  border-color: #333;
+  color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .reg-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .reg-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+

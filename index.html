@@ -29,6 +29,40 @@
 <body>
 
   <!-- ═══════════════════════════════════════════
+       Registration Blocking Overlay
+       ═══════════════════════════════════════════ -->
+  <div id="registration-overlay" class="reg-overlay">
+    <div class="reg-card">
+      <div class="reg-glow"></div>
+      <div class="reg-header">
+        <span class="reg-label">Access Terminal</span>
+        <h2>Visitor<br><span class="accent-text">Verification</span></h2>
+        <p class="reg-subtitle">Please verify your details to access the portfolio.</p>
+      </div>
+      <form id="registration-form" class="reg-form" novalidate>
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" required placeholder="e.g. John Doe" autocomplete="name">
+          <span class="error-msg" id="name-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-phone">Phone Number</label>
+          <input type="tel" id="reg-phone" required placeholder="e.g. +91 94941 91198" autocomplete="tel">
+          <span class="error-msg" id="phone-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" required placeholder="e.g. john@example.com" autocomplete="email">
+          <span class="error-msg" id="email-error"></span>
+        </div>
+        <button type="submit" class="submit-button" id="reg-submit-btn">
+          <span class="btn-text">Verify &amp; Enter</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
        Background: YouTube Video
        ═══════════════════════════════════════════ -->
   <div class="video-bg" aria-hidden="true">
@@ -345,7 +379,137 @@
       <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
       <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 11"></iframe>
     </div>
-  </div>
+  <!-- ═══════════════════════════════════════════
+       Registration Overlay Script
+       ═══════════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('registration-overlay');
+      const form = document.getElementById('registration-form');
+      const submitBtn = document.getElementById('reg-submit-btn');
+      
+      const nameInput = document.getElementById('reg-name');
+      const phoneInput = document.getElementById('reg-phone');
+      const emailInput = document.getElementById('reg-email');
+
+      const nameError = document.getElementById('name-error');
+      const phoneError = document.getElementById('phone-error');
+      const emailError = document.getElementById('email-error');
+
+      // Check if user is already verified/registered in local storage
+      if (localStorage.getItem('portfolio_registered') === 'true') {
+        overlay.classList.add('registered-bypass');
+        document.body.style.overflow = 'auto';
+      } else {
+        // Enforce no-scroll
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Email format regex validation
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      // Phone format validation (7 to 15 digits)
+      function isValidPhone(phone) {
+        const digits = phone.replace(/[^0-9]/g, '');
+        return digits.length >= 7 && digits.length <= 15;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Reset errors
+        nameError.textContent = '';
+        phoneError.textContent = '';
+        emailError.textContent = '';
+        
+        let isValid = true;
+        
+        // Validation checks
+        const nameVal = nameInput.value.trim();
+        const phoneVal = phoneInput.value.trim();
+        const emailVal = emailInput.value.trim();
+        
+        if (!nameVal) {
+          nameError.textContent = 'Name is required.';
+          isValid = false;
+        } else if (nameVal.length < 2) {
+          nameError.textContent = 'Name must be at least 2 characters.';
+          isValid = false;
+        }
+        
+        if (!phoneVal) {
+          phoneError.textContent = 'Phone number is required.';
+          isValid = false;
+        } else if (!isValidPhone(phoneVal)) {
+          phoneError.textContent = 'Please enter a valid phone number (7-15 digits).';
+          isValid = false;
+        }
+        
+        if (!emailVal) {
+          emailError.textContent = 'Email address is required.';
+          isValid = false;
+        } else if (!isValidEmail(emailVal)) {
+          emailError.textContent = 'Please enter a valid email address.';
+          isValid = false;
+        }
+        
+        if (!isValid) return;
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.classList.add('btn-loading');
+        submitBtn.querySelector('.btn-text').textContent = 'Verifying...';
+        
+        try {
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: nameVal,
+              phone: phoneVal,
+              email: emailVal
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok && result.success) {
+            // Store registration flag in localStorage
+            localStorage.setItem('portfolio_registered', 'true');
+            
+            // Trigger exit animation
+            overlay.classList.add('reg-fade-out');
+            
+            // Restore page scrolling
+            document.body.style.overflow = 'auto';
+            
+            // Completely remove overlay from DOM after animation completes
+            setTimeout(() => {
+              overlay.style.display = 'none';
+            }, 600);
+          } else {
+            emailError.textContent = result.message || 'Registration failed. Please try again.';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-loading');
+            submitBtn.querySelector('.btn-text').textContent = 'Verify & Enter';
+          }
+        } catch (error) {
+          console.error('Registration API Error:', error);
+          // Resilient bypass: Even if API network is down, we let them view the portfolio
+          localStorage.setItem('portfolio_registered', 'true');
+          overlay.classList.add('reg-fade-out');
+          document.body.style.overflow = 'auto';
+          setTimeout(() => {
+            overlay.style.display = 'none';
+          }, 600);
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
