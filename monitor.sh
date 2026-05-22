@@ -25,9 +25,9 @@ fi
 # Function to clear screen and print terminal header
 print_header() {
     clear
-    echo -e "${RED}${BOLD}======================================================================${NC}"
-    echo -e "${WHITE}${BOLD}               AVSSR PORTFOLIO REAL-TIME SERVER MONITOR                ${NC}"
-    echo -e "${RED}${BOLD}======================================================================${NC}"
+    echo -e "${RED}${BOLD}================================================================================${NC}"
+    echo -e "${WHITE}${BOLD}                  AVSSR PORTFOLIO REAL-TIME SERVER MONITOR                      ${NC}"
+    echo -e "${RED}${BOLD}================================================================================${NC}"
     echo -e "Server Time: $(date '+%Y-%m-%d %H:%M:%S') | Logging File: ${CYAN}${LOG_FILE}${NC}"
     
     # Calculate statistics from log file
@@ -41,12 +41,37 @@ print_header() {
 
     local total_warns=$(grep -c -E "WARN|ERROR" "$LOG_FILE" 2>/dev/null || echo 0)
 
-    echo -e "----------------------------------------------------------------------"
+    echo -e "--------------------------------------------------------------------------------"
     echo -e "  📊 STATS BAR:"
     echo -e "  • Page Views   : Total: ${CYAN}${BOLD}${total_views}${NC} / Unique Visitors (IP): ${CYAN}${BOLD}${unique_visitors}${NC}"
     echo -e "  • Registrations: Total: ${GREEN}${BOLD}${total_regs}${NC} / Unique Visitors (Card): ${GREEN}${BOLD}${unique_regs}${NC}"
     echo -e "  • Alerts/Warns : ${YELLOW}${BOLD}${total_warns}${NC}"
-    echo -e "----------------------------------------------------------------------"
+    echo -e "--------------------------------------------------------------------------------"
+    echo ""
+    echo -e "  📋 UNIQUE VERIFIED VISITORS RECORD:"
+    printf "     ${WHITE}${BOLD}%-3s %-18s │ %-15s │ %-25s${NC}\n" " # " "VISITOR NAME" "PHONE NUMBER" "EMAIL ADDRESS"
+    echo -e "     ---------------------------------------------------------------------------"
+    
+    local regs_found=0
+    if [ -f "$LOG_FILE" ] && [ "$unique_regs" -gt 0 ]; then
+        # Parse and print each unique registration from history
+        while read -r reg_line; do
+            if [ ! -z "$reg_line" ]; then
+                regs_found=$((regs_found + 1))
+                local r_name=$(echo "$reg_line" | cut -d'|' -f1 | xargs)
+                local r_phone=$(echo "$reg_line" | cut -d'|' -f2 | xargs)
+                local r_email=$(echo "$reg_line" | cut -d'|' -f3 | xargs)
+                
+                printf "     ${GREEN}%-3s${NC} %-18s │ %-15s │ %-25s\n" "${regs_found}." "$r_name" "$r_phone" "$r_email"
+            fi
+        done < <(grep "REGISTER" "$LOG_FILE" 2>/dev/null | sed -E 's/.*Name: ([^|]+) \| Phone: ([^|]+) \| Email: ([^|]+).*/\1|\2|\3/' | sort -u | grep -v "^$")
+    fi
+    
+    if [ "$regs_found" -eq 0 ]; then
+        echo -e "     ${YELLOW}(No verified visitors registered yet)${NC}"
+    fi
+    echo -e "     ---------------------------------------------------------------------------"
+    echo ""
     echo -e "${YELLOW}Waiting for server logs... (Press Ctrl+C to exit)${NC}"
     echo ""
 }
