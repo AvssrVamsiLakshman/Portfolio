@@ -32,11 +32,20 @@ print_header() {
     
     # Calculate statistics from log file
     local total_views=$(grep -c "VISIT" "$LOG_FILE" 2>/dev/null || echo 0)
+    local unique_visitors=$(grep "VISIT" "$LOG_FILE" 2>/dev/null | sed -E 's/.*IP: ([^| ]+).*/\1/' | sort -u | grep -v "^$" | wc -l | xargs)
+    unique_visitors=${unique_visitors:-0}
+
     local total_regs=$(grep -c "REGISTER" "$LOG_FILE" 2>/dev/null || echo 0)
+    local unique_regs=$(grep "REGISTER" "$LOG_FILE" 2>/dev/null | sed -E 's/.*Name: ([^|]+) \| Phone: ([^|]+) \| Email: ([^|]+).*/\1-\2-\3/' | sort -u | grep -v "^$" | wc -l | xargs)
+    unique_regs=${unique_regs:-0}
+
     local total_warns=$(grep -c -E "WARN|ERROR" "$LOG_FILE" 2>/dev/null || echo 0)
 
     echo -e "----------------------------------------------------------------------"
-    echo -e "  📊 STATS BAR:  Total Page Views: ${CYAN}${BOLD}${total_views}${NC}  |  Registrations: ${GREEN}${BOLD}${total_regs}${NC}  |  Alert Warnings: ${YELLOW}${BOLD}${total_warns}${NC}"
+    echo -e "  📊 STATS BAR:"
+    echo -e "  • Page Views   : Total: ${CYAN}${BOLD}${total_views}${NC} / Unique Visitors (IP): ${CYAN}${BOLD}${unique_visitors}${NC}"
+    echo -e "  • Registrations: Total: ${GREEN}${BOLD}${total_regs}${NC} / Unique Visitors (Card): ${GREEN}${BOLD}${unique_regs}${NC}"
+    echo -e "  • Alerts/Warns : ${YELLOW}${BOLD}${total_warns}${NC}"
     echo -e "----------------------------------------------------------------------"
     echo -e "${YELLOW}Waiting for server logs... (Press Ctrl+C to exit)${NC}"
     echo ""
