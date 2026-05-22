@@ -9,6 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const LOG_FILE = path.join(__dirname, 'visitors.log');
 
+// Active sessions registry (sessionId -> sessionDetails)
+const sessions = new Map();
+
 // Setup standard middleware
 app.use(cors());
 app.use(express.json());
@@ -71,7 +74,7 @@ app.get('/index.html', (req, res, next) => {
 
 // Endpoint to handle visitor registration submissions
 app.post('/api/register', async (req, res) => {
-  const { name, phone, email } = req.body;
+  const { name, phone, email, company, sessionId } = req.body;
   const ip = getClientIp(req);
   const userAgent = req.headers['user-agent'] || 'Unknown Agent';
 
@@ -81,8 +84,22 @@ app.post('/api/register', async (req, res) => {
     return res.status(400).json({ success: false, message: 'All fields are required.' });
   }
 
+  // Save session details in memory
+  const timestamp = getTimestamp();
+  if (sessionId) {
+    sessions.set(sessionId, {
+      name,
+      phone,
+      email,
+      company: company || 'Individual',
+      loginTime: timestamp,
+      lastHeartbeat: Date.now(),
+      logoutTime: ''
+    });
+  }
+
   // Log successful registration details
-  const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Device: ${userAgent}`;
+  const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Company: ${company || 'Individual'} | SessionId: ${sessionId || 'N/A'} | Device: ${userAgent}`;
   writeLog('REGISTER', ip, details);
 
   // Attempt to email notification
@@ -107,7 +124,7 @@ app.post('/api/register', async (req, res) => {
         from: `"Portfolio Monitor" <${smtpUser}>`,
         to: emailTo,
         subject: `★ Portfolio Visitor: ${name}`,
-        text: `New Portfolio Visitor Registered!\n\nDetails:\n-----------------\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nIP Addr: ${ip}\nTime: ${getTimestamp()}\nDevice: ${userAgent}\n`,
+        text: `New Portfolio Visitor Registered!\n\nDetails:\n-----------------\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nCompany: ${company || 'Individual'}\nIP Addr: ${ip}\nTime: ${getTimestamp()}\nDevice: ${userAgent}\n`,
         html: `
           <div style="font-family: monospace; background-color: #050505; color: #f5f5f5; padding: 20px; border: 1px solid #ef4444; border-radius: 8px; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #ef4444; border-bottom: 1px solid #ef4444; padding-bottom: 10px; margin-top: 0;">★ New Visitor Registered</h2>
@@ -124,6 +141,10 @@ app.post('/api/register', async (req, res) => {
               <tr style="border-bottom: 1px solid #1a1a1a;">
                 <td style="padding: 8px 0; font-weight: bold; color: #ef4444;">Email:</td>
                 <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #ef4444; text-decoration: none;">${email}</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #1a1a1a;">
+                <td style="padding: 8px 0; font-weight: bold; color: #ef4444;">Company:</td>
+                <td style="padding: 8px 0;">${company || 'Individual'}</td>
               </tr>
               <tr style="border-bottom: 1px solid #1a1a1a;">
                 <td style="padding: 8px 0; font-weight: bold; color: #ef4444;">IP Address:</td>
@@ -160,6 +181,49 @@ app.post('/api/register', async (req, res) => {
   return res.status(200).json({ success: true, message: 'Registration logged successfully' });
 });
 
+// Endpoint to receive client heartbeats
+app.post('/api/heartbeat', (req, res) => {
+  const { sessionId, name, phone, email, company } = req.body;
+  if (!sessionId) {
+    return res.status(400).json({ success: false, message: 'sessionId is required.' });
+  }
+
+  const timestamp = getTimestamp();
+  if (sessions.has(sessionId)) {
+    const s = sessions.get(sessionId);
+    s.lastHeartbeat = Date.now();
+  } else {
+    // Recreate session if server restarted
+    sessions.set(sessionId, {
+      name: name || 'Unknown',
+      phone: phone || 'Unknown',
+      email: email || 'Unknown',
+      company: company || 'Individual',
+      loginTime: timestamp,
+      lastHeartbeat: Date.now(),
+      logoutTime: ''
+    });
+  }
+  return res.json({ success: true });
+});
+
+// Endpoint to receive client logout event
+app.post('/api/logout', (req, res) => {
+  const { sessionId } = req.body;
+  if (!sessionId) {
+    return res.status(400).json({ success: false, message: 'sessionId is required.' });
+  }
+
+  const timestamp = getTimestamp();
+  if (sessions.has(sessionId)) {
+    const s = sessions.get(sessionId);
+    s.logoutTime = timestamp;
+    const ip = getClientIp(req);
+    writeLog('LOGOUT', ip, `Session closed - Name: ${s.name} | Phone: ${s.phone} | Email: ${s.email} | SessionId: ${sessionId}`);
+  }
+  return res.json({ success: true });
+});
+
 // Endpoint to retrieve and parse visitors.log for the live web monitor dashboard
 app.get('/api/logs', (req, res) => {
   fs.readFile(LOG_FILE, 'utf8', (err, data) => {
@@ -176,6 +240,7 @@ app.get('/api/logs', (req, res) => {
     let warns = 0;
 
     const parsedRegs = [];
+    const logoutsMap = {};
 
     lines.forEach((line) => {
       if (!line.trim()) return;
@@ -199,19 +264,31 @@ app.get('/api/logs', (req, res) => {
           let name = 'Unknown';
           let phone = 'Unknown';
           let email = 'Unknown';
+          let company = 'Individual';
+          let sessionId = '';
 
           const nameMatch = details.match(/Name:\ ([^|]+)/);
           const phoneMatch = details.match(/Phone:\ ([^|]+)/);
           const emailMatch = details.match(/Email:\ ([^|]+)/);
+          const companyMatch = details.match(/Company:\ ([^|]+)/);
+          const sessionIdMatch = details.match(/SessionId:\ ([^|]+)/);
 
           if (nameMatch) name = nameMatch[1].trim();
           if (phoneMatch) phone = phoneMatch[1].trim();
           if (emailMatch) email = emailMatch[1].trim();
+          if (companyMatch) company = companyMatch[1].trim();
+          if (sessionIdMatch) sessionId = sessionIdMatch[1].trim();
 
           const regKey = `${name}-${phone}-${email}`;
           uniqueRegs.add(regKey);
 
-          parsedRegs.push({ timestamp, ip, name, phone, email });
+          parsedRegs.push({ timestamp, ip, name, phone, email, company, sessionId });
+        } else if (type === 'LOGOUT') {
+          const sessionIdMatch = details.match(/SessionId:\ ([^|]+)/);
+          if (sessionIdMatch) {
+            const sessId = sessionIdMatch[1].trim();
+            logoutsMap[sessId] = timestamp;
+          }
         } else if (type === 'WARN' || type === 'ERROR') {
           warns++;
         }
@@ -226,7 +303,50 @@ app.get('/api/logs', (req, res) => {
       const key = `${reg.name}-${reg.phone}-${reg.email}`.toLowerCase();
       if (!seenRegs.has(key)) {
         seenRegs.add(key);
-        uniqueVisitorsList.push(reg);
+
+        // Enrich session status
+        let status = '🔴 Offline';
+        let logoutTime = logoutsMap[reg.sessionId] || '';
+
+        if (reg.sessionId && sessions.has(reg.sessionId)) {
+          const sess = sessions.get(reg.sessionId);
+          // Check if online
+          const isOnline = !sess.logoutTime && !logoutsMap[reg.sessionId] && (Date.now() - sess.lastHeartbeat < 8000);
+          if (isOnline) {
+            status = '🟢 Online';
+            logoutTime = '';
+          } else {
+            status = '🔴 Offline';
+            logoutTime = logoutsMap[reg.sessionId] || sess.logoutTime;
+
+            // Fallback to last heartbeat if they abruptly closed tab and no clean logoutTime
+            if (!logoutTime && sess.lastHeartbeat) {
+              const hbDate = new Date(sess.lastHeartbeat);
+              const year = hbDate.getFullYear();
+              const month = String(hbDate.getMonth() + 1).padStart(2, '0');
+              const day = String(hbDate.getDate()).padStart(2, '0');
+              const hours = String(hbDate.getHours()).padStart(2, '0');
+              const minutes = String(hbDate.getMinutes()).padStart(2, '0');
+              const seconds = String(hbDate.getSeconds()).padStart(2, '0');
+              logoutTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            }
+          }
+        } else if (logoutsMap[reg.sessionId]) {
+          status = '🔴 Offline';
+          logoutTime = logoutsMap[reg.sessionId];
+        }
+
+        uniqueVisitorsList.push({
+          timestamp: reg.timestamp,
+          ip: reg.ip,
+          name: reg.name,
+          phone: reg.phone,
+          email: reg.email,
+          company: reg.company,
+          sessionId: reg.sessionId,
+          status: status,
+          logoutTime: logoutTime || '—'
+        });
       }
     }
     // Reverse back to maintain chronological order

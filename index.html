@@ -200,6 +200,67 @@
       letter-spacing: 0.1px;
     }
 
+    /* Premium Glassmorphic Checkbox Selector */
+    .visitor-type-options {
+      display: flex;
+      gap: 1.5rem;
+      margin: 0.25rem 0 0.5rem 0;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: #f5f5f5;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .checkbox-label:hover {
+      color: #ef4444;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      outline: none;
+      background: rgba(5, 5, 5, 0.65);
+      cursor: pointer;
+      display: inline-grid;
+      place-content: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .checkbox-label input[type="checkbox"]::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 1px;
+      transform: scale(0);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+
+    .checkbox-label input[type="checkbox"]:checked {
+      border-color: #ef4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+    }
+
+    .checkbox-label input[type="checkbox"]:checked::before {
+      transform: scale(1);
+    }
+
     .submit-button {
       font-family: 'JetBrains Mono', 'Fira Code', monospace;
       display: flex;
@@ -251,10 +312,9 @@
        ========================================== */
     .monitor-card {
       position: relative;
-      width: 100%;
-      max-width: 960px;
-      height: 85vh;
-      max-height: 720px;
+      width: 98%;
+      max-width: 1750px;
+      height: 92vh;
       background: rgba(10, 10, 10, 0.85);
       border: 1px solid rgba(239, 68, 68, 0.35);
       border-radius: 16px;
@@ -390,7 +450,7 @@
     .monitor-body-grid {
       flex: 1;
       display: grid;
-      grid-template-columns: 55% 45%;
+      grid-template-columns: 35% 65%;
       gap: 1.25rem;
       min-height: 0; /* Important for inner scrolls */
     }
@@ -444,6 +504,7 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 8px;
       overflow-y: auto;
+      overflow-x: auto;
     }
 
     .visitor-table {
@@ -586,6 +647,19 @@
       </div>
       <form id="registration-form" class="reg-form" novalidate>
         <div class="form-group">
+          <label>Visitor Type</label>
+          <div class="visitor-type-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="type-individual" value="individual" checked>
+              Individual
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="type-organization" value="organization">
+              Organization
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
           <label for="reg-name">Full Name</label>
           <input type="text" id="reg-name" required placeholder="e.g. John Doe" autocomplete="name">
           <span class="error-msg" id="name-error"></span>
@@ -599,6 +673,11 @@
           <label for="reg-email">Email Address</label>
           <input type="email" id="reg-email" required placeholder="e.g. john@example.com" autocomplete="email">
           <span class="error-msg" id="email-error"></span>
+        </div>
+        <div class="form-group" id="company-group">
+          <label for="reg-company">Company <span id="company-asterisk" style="color: #ef4444; display: none;">*</span></label>
+          <input type="text" id="reg-company" placeholder="e.g. Acme Corp (Optional)">
+          <span class="error-msg" id="company-error"></span>
         </div>
         <button type="submit" class="submit-button" id="reg-submit-btn">
           <span class="btn-text">Verify &amp; Enter</span>
@@ -657,15 +736,19 @@
             <table class="visitor-table">
               <thead>
                 <tr>
-                  <th style="width: 10%;">#</th>
-                  <th style="width: 35%;">Visitor Name</th>
-                  <th style="width: 25%;">Phone</th>
-                  <th style="width: 30%;">Email Address</th>
+                  <th style="width: 5%;">#</th>
+                  <th style="width: 18%;">Visitor Name</th>
+                  <th style="width: 12%;">Phone</th>
+                  <th style="width: 15%;">Email Address</th>
+                  <th style="width: 12%;">Company</th>
+                  <th style="width: 15%;">Log In</th>
+                  <th style="width: 10%;">Status</th>
+                  <th style="width: 13%;">Log Out</th>
                 </tr>
               </thead>
               <tbody id="web-visitor-table-body">
                 <tr>
-                  <td colspan="4" style="text-align: center; color: #888888; padding: 2rem;">Fetching databases...</td>
+                  <td colspan="8" style="text-align: center; color: #888888; padding: 2rem;">Fetching databases...</td>
                 </tr>
               </tbody>
             </table>
@@ -1019,10 +1102,15 @@
       const nameInput = document.getElementById('reg-name');
       const phoneInput = document.getElementById('reg-phone');
       const emailInput = document.getElementById('reg-email');
+      const companyInput = document.getElementById('reg-company');
+      const typeIndividual = document.getElementById('type-individual');
+      const typeOrganization = document.getElementById('type-organization');
 
       const nameError = document.getElementById('name-error');
       const phoneError = document.getElementById('phone-error');
       const emailError = document.getElementById('email-error');
+      const companyError = document.getElementById('company-error');
+      const companyAsterisk = document.getElementById('company-asterisk');
 
       // Admin Backdoor Elements
       const visitorCard = document.getElementById('visitor-card');
@@ -1031,8 +1119,32 @@
       const webEnterBtn = document.getElementById('web-enter-btn');
       const webRefreshBtn = document.getElementById('web-refresh-btn');
 
+      // Generate a unique Session ID for this specific tab session
+      const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+
       // Enforce no-scroll on page startup to show the Visitor Verification popup on every page open
       document.body.style.overflow = 'hidden';
+
+      // Dynamic checkbox changes with mutual exclusion to adjust asterisk and placeholder
+      typeIndividual.addEventListener('change', () => {
+        if (typeIndividual.checked) {
+          typeOrganization.checked = false;
+          companyAsterisk.style.display = 'none';
+          companyInput.placeholder = 'e.g. Acme Corp (Optional)';
+        } else {
+          typeIndividual.checked = true; // Prevent both being unchecked
+        }
+      });
+
+      typeOrganization.addEventListener('change', () => {
+        if (typeOrganization.checked) {
+          typeIndividual.checked = false;
+          companyAsterisk.style.display = 'inline';
+          companyInput.placeholder = 'e.g. Acme Corp (Required)';
+        } else {
+          typeOrganization.checked = true; // Prevent both being unchecked
+        }
+      });
 
       // Email format regex validation
       function isValidEmail(email) {
@@ -1118,6 +1230,9 @@
         if (localStorage.getItem('portfolio_logs') === null) {
           localStorage.setItem('portfolio_logs', JSON.stringify([]));
         }
+        if (localStorage.getItem('portfolio_heartbeats') === null) {
+          localStorage.setItem('portfolio_heartbeats', JSON.stringify({}));
+        }
       }
 
       // Track page hit / visit locally
@@ -1157,8 +1272,86 @@
         }
       }
 
+      // Start live session heartbeats and unload tracker
+      function startVisitorSession(name, phone, email, company) {
+        initLocalStorageData();
+
+        // 1. Set initial heartbeat locally
+        let heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
+        heartbeats[sessionId] = Date.now();
+        localStorage.setItem('portfolio_heartbeats', JSON.stringify(heartbeats));
+
+        // Helper to send heartbeat to server
+        async function sendServerHeartbeat() {
+          try {
+            let apiEndpoint = '/api/heartbeat';
+            if (window.location.protocol === 'file:' || !window.location.hostname) {
+              apiEndpoint = 'http://localhost:3000/api/heartbeat';
+            }
+            await fetch(apiEndpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                sessionId: sessionId,
+                name: name,
+                phone: phone,
+                email: email,
+                company: company
+              })
+            });
+          } catch (e) {
+            // Silently ignore
+          }
+        }
+
+        // Send initial heartbeat to server
+        sendServerHeartbeat();
+
+        // 2. Set 3-second heartbeat pulse
+        setInterval(() => {
+          let hbs = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
+          hbs[sessionId] = Date.now();
+          localStorage.setItem('portfolio_heartbeats', JSON.stringify(hbs));
+
+          // Send heartbeat to server
+          sendServerHeartbeat();
+        }, 3000);
+
+        // 3. Tab Closed listener to update logoutTime in localStorage and Server
+        window.addEventListener('beforeunload', () => {
+          let regsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+          const updatedRegs = regsList.map(r => {
+            if (r.sessionId === sessionId) {
+              r.logoutTime = getLocalTimestamp();
+            }
+            return r;
+          });
+          localStorage.setItem('portfolio_registrations', JSON.stringify(updatedRegs));
+
+          // Send logout to server
+          try {
+            let apiEndpoint = '/api/logout';
+            if (window.location.protocol === 'file:' || !window.location.hostname) {
+              apiEndpoint = 'http://localhost:3000/api/logout';
+            }
+            fetch(apiEndpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ sessionId: sessionId }),
+              keepalive: true
+            });
+          } catch (e) {
+            // Silently ignore
+          }
+        });
+      }
+
       // Track registration locally
-      function trackLocalRegistration(name, phone, email) {
+      function trackLocalRegistration(name, phone, email, company) {
         initLocalStorageData();
 
         let regsCount = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
@@ -1173,14 +1366,18 @@
           ip: clientIp,
           name: name,
           phone: phone,
-          email: email
+          email: email,
+          company: company || 'Individual',
+          sessionId: sessionId,
+          loginTime: timestamp,
+          logoutTime: ''
         };
         regsList.push(newReg);
         localStorage.setItem('portfolio_registrations', JSON.stringify(regsList));
 
         // Append corresponding system logs
         const userAgent = navigator.userAgent || 'Local Browser';
-        const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Device: ${userAgent}`;
+        const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Company: ${company || 'Individual'} | Device: ${userAgent}`;
 
         const logEntryRegister = {
           timestamp: timestamp,
@@ -1327,23 +1524,61 @@
             terminalLogs.scrollTop = terminalLogs.scrollHeight;
           }
 
-          // 3. Render visitors table
+          // 3. Render visitors table with 8 detailed session status tracking columns
           if (visitorTableBody) {
+            const heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
+            const registrations = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+
             if (data.uniqueVisitors && data.uniqueVisitors.length > 0) {
               visitorTableBody.innerHTML = data.uniqueVisitors
-                .map((visitor, idx) => `
-                  <tr>
-                    <td>${idx + 1}</td>
-                    <td title="${visitor.name}">${visitor.name}</td>
-                    <td title="${visitor.phone}">${visitor.phone}</td>
-                    <td title="${visitor.email}">${visitor.email}</td>
-                  </tr>
-                `)
+                .map((visitor, idx) => {
+                  // Attempt to match and retrieve additional local real-time session tracking fields
+                  let matchedReg = registrations.find(r => 
+                    r.sessionId === visitor.sessionId || 
+                    (r.name === visitor.name && r.phone === visitor.phone && r.email === visitor.email)
+                  );
+
+                  let companyVal = visitor.company || (matchedReg ? matchedReg.company : 'Individual');
+                  let loginTimeVal = visitor.loginTime || visitor.timestamp || (matchedReg ? matchedReg.loginTime : visitor.timestamp);
+                  let logoutTimeVal = visitor.logoutTime || (matchedReg ? matchedReg.logoutTime : '');
+                  let sessionID = visitor.sessionId || (matchedReg ? matchedReg.sessionId : '');
+
+                  let lastHeartbeat = heartbeats[sessionID];
+                  let isOnline = !logoutTimeVal && lastHeartbeat && (Date.now() - lastHeartbeat < 8000);
+                  
+                  let statusText = isOnline ? '🟢 Online' : '🔴 Offline';
+                  let statusStyle = isOnline ? 'color: #10b981; font-weight: bold;' : 'color: #888888;';
+                  
+                  let logoutDisplay = logoutTimeVal || '—';
+                  if (!isOnline && !logoutTimeVal && lastHeartbeat) {
+                    const hbDate = new Date(lastHeartbeat);
+                    const year = hbDate.getFullYear();
+                    const month = String(hbDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(hbDate.getDate()).padStart(2, '0');
+                    const hours = String(hbDate.getHours()).padStart(2, '0');
+                    const minutes = String(hbDate.getMinutes()).padStart(2, '0');
+                    const seconds = String(hbDate.getSeconds()).padStart(2, '0');
+                    logoutDisplay = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                  }
+
+                  return `
+                    <tr>
+                      <td>${idx + 1}</td>
+                      <td title="${visitor.name}">${visitor.name}</td>
+                      <td title="${visitor.phone}">${visitor.phone}</td>
+                      <td title="${visitor.email}">${visitor.email}</td>
+                      <td title="${companyVal}">${companyVal}</td>
+                      <td title="${loginTimeVal}">${loginTimeVal}</td>
+                      <td style="${statusStyle}">${statusText}</td>
+                      <td title="${logoutDisplay}">${logoutDisplay}</td>
+                    </tr>
+                  `;
+                })
                 .join('');
             } else {
               visitorTableBody.innerHTML = `
                 <tr>
-                  <td colspan="4" style="text-align: center; color: #888888; padding: 2rem;">No verified visitor records found.</td>
+                  <td colspan="8" style="text-align: center; color: #888888; padding: 2rem;">No verified visitor records found.</td>
                 </tr>
               `;
             }
@@ -1398,14 +1633,36 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
         nameError.textContent = '';
         phoneError.textContent = '';
         emailError.textContent = '';
+        companyError.textContent = '';
         
         let isValid = true;
         
-        // Validation checks
+        // Retrieve values
         const nameVal = nameInput.value.trim();
         const phoneVal = phoneInput.value.trim();
         const emailVal = emailInput.value.trim();
+        const companyVal = companyInput.value.trim();
+        const selectedType = typeOrganization.checked ? 'organization' : 'individual';
+
+        // Check Backdoor admin Credentials first
+        const isBackdoorAdmin = nameVal.toLowerCase() === 'admin' &&
+                                phoneVal.toLowerCase() === 'admin' &&
+                                emailVal.toLowerCase() === 'admin' &&
+                                companyVal.toLowerCase() === 'admin';
+
+        if (isBackdoorAdmin) {
+          // Bypass all validations, skip email alerts completely and unlock live monitor instantly
+          if (visitorCard) visitorCard.style.display = 'none';
+          if (webMonitorCard) {
+            webMonitorCard.style.display = 'flex';
+            loadWebMonitorData();
+            // Automatically poll server logs every 5 seconds while the admin panel is visible
+            setInterval(loadWebMonitorData, 5000);
+          }
+          return;
+        }
         
+        // Normal validations checks
         if (!nameVal) {
           nameError.textContent = 'Name is required.';
           isValid = false;
@@ -1429,6 +1686,11 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
           emailError.textContent = 'Please enter a valid email address.';
           isValid = false;
         }
+
+        if (selectedType === 'organization' && !companyVal) {
+          companyError.textContent = 'Company Name is strictly required for Organizations.';
+          isValid = false;
+        }
         
         if (!isValid) return;
 
@@ -1437,20 +1699,20 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
         submitBtn.classList.add('btn-loading');
         submitBtn.querySelector('.btn-text').textContent = 'Verifying...';
 
-        // Check if admin backdoor details are entered:
-        // Name: Vamsi Lakshman (case-insensitive, space-insensitive)
-        // Phone: +919494191198 (ignores formatting, extracts digits for '9494191198')
-        // Email: lakshmanvamsi008@gmail.com (case-insensitive)
+        // Check legacy admin credentials fallback
         const normalizedName = nameVal.toLowerCase().replace(/\s+/g, '');
         const normalizedPhone = phoneVal.replace(/[^0-9]/g, '');
         const normalizedEmail = emailVal.toLowerCase().trim();
 
-        const isAdmin = normalizedName === 'vamsilakshman' &&
-                        normalizedPhone.includes('9494191198') &&
-                        normalizedEmail === 'lakshmanvamsi008@gmail.com';
+        const isLegacyAdmin = normalizedName === 'vamsilakshman' &&
+                              normalizedPhone.includes('9494191198') &&
+                              normalizedEmail === 'lakshmanvamsi008@gmail.com';
 
         // 1. First record the event instantly in local storage
-        trackLocalRegistration(nameVal, phoneVal, emailVal);
+        trackLocalRegistration(nameVal, phoneVal, emailVal, companyVal || 'Individual');
+
+        // Start live heartbeat session
+        startVisitorSession(nameVal, phoneVal, emailVal, companyVal || 'Individual');
 
         // 2. Dispatch to local Express registration endpoint (non-blocking)
         try {
@@ -1467,7 +1729,9 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
             body: JSON.stringify({
               name: nameVal,
               phone: phoneVal,
-              email: emailVal
+              email: emailVal,
+              company: companyVal || 'Individual',
+              sessionId: sessionId
             })
           });
         } catch (error) {
@@ -1486,6 +1750,7 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
               name: nameVal,
               phone: phoneVal,
               email: emailVal,
+              company: companyVal || 'Individual',
               _subject: `★ Portfolio Visitor: ${nameVal}`,
               _captcha: "false"
             })
@@ -1494,7 +1759,7 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
           console.error('FormSubmit dispatch failed:', error);
         }
 
-        if (isAdmin) {
+        if (isLegacyAdmin) {
           // Unlock Real-Time Server Monitor instead of going straight to the portfolio
           submitBtn.disabled = false;
           submitBtn.classList.remove('btn-loading');
