@@ -231,6 +231,49 @@ EOT
         echo -e "Restarting Nginx service..."
         systemctl restart nginx
         echo -e "${GREEN}✔ Nginx reverse proxy successfully configured for www.riggingtd.in!${NC}"
+        
+        # ═══════════════════════════════════════════
+        # Certbot / SSL Provisioning
+        # ═══════════════════════════════════════════
+        echo ""
+        echo -e "${CYAN}${BOLD}🔒 Configure Secure SSL Connection (HTTPS)${NC}"
+        echo -e "----------------------------------------"
+        echo -e "To ensure mobile logins are instantly synchronized with the desktop admin"
+        echo -e "console (resolving browser Mixed Content blocks on GitHub Pages HTTPS),"
+        echo -e "we can generate a free, official SSL Certificate using Let's Encrypt."
+        read -p "Would you like to automate SSL/HTTPS setup now? (Highly Recommended) [Y/n]: " SET_SSL
+        SET_SSL=${SET_SSL:-"y"}
+        
+        if [[ "$SET_SSL" =~ ^[Yy]$ ]]; then
+            echo -e "Installing Certbot and Nginx module..."
+            apt-get install -y certbot python3-certbot-nginx >/dev/null
+            
+            echo -e "Configuring SSL Certificates automatically..."
+            echo -e "${YELLOW}Please enter your email for Let's Encrypt registration (e.g. lakshmanvamsi008@gmail.com):${NC}"
+            read -p "Email: " SSL_EMAIL
+            SSL_EMAIL=${SSL_EMAIL:-"lakshmanvamsi008@gmail.com"}
+            
+            # Execute certbot automatic nginx installation
+            certbot --nginx \
+                    --non-interactive \
+                    --agree-tos \
+                    -m "$SSL_EMAIL" \
+                    -d riggingtd.in \
+                    -d www.riggingtd.in \
+                    --redirect
+            
+            if [ $? -eq 0 ]; then
+                echo -e "${GREEN}✔ SSL/HTTPS certificate successfully generated and active!${NC}"
+                echo -e "${GREEN}✔ Automatic Nginx HTTP to HTTPS redirect configured.${NC}"
+                
+                # Verify cron renewal is active
+                systemctl status cron --no-pager &>/dev/null || systemctl start cron
+                echo -e "${GREEN}✔ Certbot auto-renewal timer verified.${NC}"
+            else
+                echo -e "${RED}✘ Certbot SSL generation failed.${NC}"
+                echo -e "Ensure your domain DNS 'A' records are pointing correctly to this server's IP: ${BOLD}${PUBLIC_IP}${NC}"
+            fi
+        fi
     else
         echo -e "${RED}✘ Nginx configuration test failed. Restoring Nginx defaults...${NC}"
         rm -f /etc/nginx/sites-enabled/portfolio

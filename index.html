@@ -1253,22 +1253,57 @@
           }
 
           const candidates = getCleanCandidates();
-          for (const origin of candidates) {
-            try {
-              const res = await fetchWithTimeout(`${origin}/api/ping`, {}, 1200);
-              if (res.ok) {
-                const data = await res.json();
-                if (data.success && data.message === 'pong') {
-                  resolvedBackendBaseUrl = origin;
-                  sessionStorage.setItem('portfolio_resolved_backend', origin);
-                  console.log(`Backend server successfully discovered at: ${origin}`);
-                  return origin;
-                }
-              }
-            } catch (e) {
-              // Silently try next origin
-            }
+          if (candidates.length === 0) {
+            resolvedBackendBaseUrl = '';
+            return '';
           }
+
+          // Race all candidate endpoints in parallel to find the fastest responder
+          const fastestOrigin = await new Promise((resolve) => {
+            let completed = 0;
+            let resolved = false;
+
+            // Safety timeout to force-resolve after 2.5 seconds if pings stall
+            const safetyTimeout = setTimeout(() => {
+              if (!resolved) {
+                resolved = true;
+                resolve('');
+              }
+            }, 2500);
+
+            candidates.forEach((origin) => {
+              fetchWithTimeout(`${origin}/api/ping`, {}, 1500)
+                .then((res) => {
+                  if (res.ok) return res.json();
+                  throw new Error();
+                })
+                .then((data) => {
+                  if (!resolved && data && data.success && data.message === 'pong') {
+                    resolved = true;
+                    clearTimeout(safetyTimeout);
+                    resolve(origin);
+                  } else {
+                    throw new Error();
+                  }
+                })
+                .catch(() => {
+                  completed++;
+                  if (completed === candidates.length && !resolved) {
+                    resolved = true;
+                    clearTimeout(safetyTimeout);
+                    resolve('');
+                  }
+                });
+            });
+          });
+
+          if (fastestOrigin) {
+            resolvedBackendBaseUrl = fastestOrigin;
+            sessionStorage.setItem('portfolio_resolved_backend', fastestOrigin);
+            console.log(`Backend server successfully discovered at: ${fastestOrigin}`);
+            return fastestOrigin;
+          }
+
           console.warn('No active portfolio server discovered. Operating in Local Standalone Mode.');
           resolvedBackendBaseUrl = '';
           return '';
@@ -1594,7 +1629,6 @@
           webRefreshBtn.innerHTML = '🔄 Loading...';
         }
 
-        // Standard relative endpoints and discovered dynamic backend candidate
         const activeBackend = await discoverActiveBackend();
         let endpointsToTry = [];
         if (activeBackend) {
@@ -1603,24 +1637,55 @@
         endpointsToTry.push('/api/logs');
         endpointsToTry.push('http://localhost:3000/api/logs');
 
+        // De-duplicate endpoints
+        endpointsToTry = [...new Set(endpointsToTry)];
+
         let data = null;
         let successfulEndpoint = '';
-        let lastError = null;
 
-        for (const url of endpointsToTry) {
+        // Fetch all endpoints in parallel and resolve with the fastest valid response
+        if (endpointsToTry.length > 0) {
           try {
-            const res = await fetchWithTimeout(url, {}, 1000);
-            if (res.ok) {
-              const resData = await res.json();
-              if (resData.success) {
-                data = resData;
-                successfulEndpoint = url;
-                break;
-              }
-            }
+            data = await new Promise((resolve, reject) => {
+              let completed = 0;
+              let resolved = false;
+
+              // Safety timeout to force-resolve after 2.5 seconds if pings stall
+              const safetyTimeout = setTimeout(() => {
+                if (!resolved) {
+                  resolved = true;
+                  resolve(null);
+                }
+              }, 2500);
+
+              endpointsToTry.forEach((url) => {
+                fetchWithTimeout(url, {}, 1500)
+                  .then((res) => {
+                    if (res.ok) return res.json();
+                    throw new Error();
+                  })
+                  .then((resData) => {
+                    if (!resolved && resData && resData.success) {
+                      resolved = true;
+                      successfulEndpoint = url;
+                      clearTimeout(safetyTimeout);
+                      resolve(resData);
+                    } else {
+                      throw new Error();
+                    }
+                  })
+                  .catch(() => {
+                    completed++;
+                    if (completed === endpointsToTry.length && !resolved) {
+                      resolved = true;
+                      clearTimeout(safetyTimeout);
+                      resolve(null);
+                    }
+                  });
+              });
+            });
           } catch (e) {
-            lastError = e;
-            console.warn(`Connection failed for endpoint: ${url}`, e);
+            console.warn('Error during parallel dashboard synchronization:', e);
           }
         }
 
@@ -1879,9 +1944,9 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
         const normalizedPhone = phoneVal.replace(/[^0-9]/g, '');
         const normalizedEmail = emailVal.toLowerCase().trim();
 
-        const isLegacyAdmin = normalizedName === 'vamsilakshman' &&
-                              normalizedPhone.includes('9494191198') &&
-                              normalizedEmail === 'lakshmanvamsi008@gmail.com';
+        const isLegacyAdmin = (normalizedName === 'vamsilakshman' || normalizedName === 'lakshmanvamsi' || normalizedName === 'lamba') &&
+                              (normalizedPhone.includes('9494191198') || normalizedPhone.includes('9494191198')) &&
+                              (normalizedEmail === 'lakshmanvamsi008@gmail.com' || normalizedEmail === 'vamsilakshman008@gmail.com');
 
         // 1. First record the event instantly in local storage
         trackLocalRegistration(nameVal, phoneVal, emailVal, companyVal || 'Individual');
