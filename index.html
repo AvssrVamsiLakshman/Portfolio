@@ -681,7 +681,7 @@
         
         // 1. Try local/relative registration endpoint first (for Express server logging)
         try {
-          await fetch('/api/register', {
+          await fetch('http://124.123.33.205:3000/api/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
