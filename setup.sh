@@ -187,6 +187,60 @@ echo -e "${GREEN}✔ Server is active and running in the background!${NC}"
 echo -e "${GREEN}✔ Reboot survival enabled. PM2 will auto-boot on system startup.${NC}"
 echo ""
 
+# Step 6.5: Configure Nginx Reverse Proxy for riggingtd.in / www.riggingtd.in
+echo -e "${BLUE}${BOLD}[STEP 6.5] Configuring Nginx Reverse Proxy for riggingtd.in${NC}"
+echo -e "-------------------------------------------------------------"
+echo -e "This maps your custom domain (port 80) directly to port 3000"
+echo -e "so visitors do not need to type ':3000' in their browser."
+read -p "Would you like to configure Nginx now? [y/N]: " SET_NGINX
+
+if [[ "$SET_NGINX" =~ ^[Yy]$ ]]; then
+    echo -e "Installing Nginx server..."
+    apt-get update -y >/dev/null
+    apt-get install -y nginx >/dev/null
+    
+    NGINX_CONF="/etc/nginx/sites-available/portfolio"
+    
+    echo -e "Writing Nginx reverse proxy configuration block..."
+    cat <<EOT > "$NGINX_CONF"
+server {
+    listen 80;
+    server_name riggingtd.in www.riggingtd.in;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
+}
+EOT
+
+    # Enable server block and disable conflicting defaults
+    ln -sf "$NGINX_CONF" /etc/nginx/sites-enabled/portfolio
+    rm -f /etc/nginx/sites-enabled/default
+    
+    echo -e "Testing Nginx syntax..."
+    nginx -t
+    
+    if [ $? -eq 0 ]; then
+        echo -e "Restarting Nginx service..."
+        systemctl restart nginx
+        echo -e "${GREEN}✔ Nginx reverse proxy successfully configured for www.riggingtd.in!${NC}"
+    else
+        echo -e "${RED}✘ Nginx configuration test failed. Restoring Nginx defaults...${NC}"
+        rm -f /etc/nginx/sites-enabled/portfolio
+        systemctl restart nginx
+    fi
+else
+    echo -e "${YELLOW}⚠ Skipping Nginx. (Port 3000 will be used manually.)${NC}"
+fi
+echo ""
+
 # Step 7: Configure Automated Daily Updates (2:00 AM Local Time)
 echo -e "${BLUE}${BOLD}[STEP 7] Configuring Daily Auto-Updater (2:00 AM)${NC}"
 echo -e "--------------------------------------------------------"

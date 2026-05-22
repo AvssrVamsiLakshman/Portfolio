@@ -681,7 +681,16 @@
         
         // 1. Try local/relative registration endpoint first (for Express server logging)
         try {
-          await fetch('http://124.123.33.205:3000/api/register', {
+          // Dynamic resolver: Uses local relative route if running on the server, or absolute static IP if on GitHub Pages
+          let apiEndpoint = '/api/register';
+          const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+          const isSelfHosted = window.location.hostname === '124.123.33.205' || window.location.hostname.includes('riggingtd.in');
+          
+          if (!isLocal && !isSelfHosted) {
+            apiEndpoint = 'http://124.123.33.205:3000/api/register';
+          }
+
+          await fetch(apiEndpoint, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
