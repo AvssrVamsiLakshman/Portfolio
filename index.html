@@ -245,6 +245,329 @@
         font-size: 1.5rem;
       }
     }
+
+    /* ==========================================
+       Premium Glassmorphic Web Monitor Dashboard
+       ========================================== */
+    .monitor-card {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      height: 85vh;
+      max-height: 720px;
+      background: rgba(10, 10, 10, 0.85);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 16px;
+      box-shadow: 
+        0 40px 120px rgba(0, 0, 0, 0.95),
+        0 0 60px rgba(239, 68, 68, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(35px) saturate(2);
+      -webkit-backdrop-filter: blur(35px) saturate(2);
+      padding: 2rem;
+      display: none; /* Initially hidden */
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow: hidden;
+      animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 20;
+    }
+
+    .monitor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 1rem;
+    }
+
+    .monitor-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .monitor-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .monitor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .monitor-badge-pulse {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse-green 1.5s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .monitor-close-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #888888;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .monitor-close-btn:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    /* Stats Dashboard Row */
+    .monitor-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-widget {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stat-widget-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888888;
+      font-weight: 500;
+    }
+
+    .stat-widget-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #f5f5f5;
+    }
+
+    .stat-widget-value span.subval {
+      font-size: 0.8rem;
+      color: #888888;
+      font-weight: 400;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-views .stat-widget-value { color: #3b82f6; }
+    .stat-regs .stat-widget-value { color: #10b981; }
+    .stat-warns .stat-widget-value { color: #f59e0b; }
+
+    /* Split Dashboard Content */
+    .monitor-body-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      gap: 1.25rem;
+      min-height: 0; /* Important for inner scrolls */
+    }
+
+    .monitor-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-height: 0;
+    }
+
+    .panel-header {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Monospace Terminal Panel */
+    .terminal-feed {
+      flex: 1;
+      background: #050505;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #f5f5f5;
+      padding: 1rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.4;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .terminal-feed::-webkit-scrollbar {
+      width: 6px;
+    }
+    .terminal-feed::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    /* Visitor Grid Table */
+    .visitor-table-container {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow-y: auto;
+    }
+
+    .visitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-align: left;
+    }
+
+    .visitor-table th {
+      background: rgba(255, 255, 255, 0.03);
+      position: sticky;
+      top: 0;
+      padding: 0.6rem 0.8rem;
+      color: #888888;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 5;
+    }
+
+    .visitor-table td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #f5f5f5;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .visitor-table tr:hover td {
+      background: rgba(239, 68, 68, 0.03);
+      color: #ef4444;
+    }
+
+    .visitor-table-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .visitor-table-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    /* Footer Dashboard Row */
+    .monitor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .monitor-status-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #888888;
+    }
+
+    .monitor-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .monitor-btn-refresh {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #10b981;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .monitor-btn-refresh:hover {
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+
+    .monitor-btn-enter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: #ef4444;
+      border: 1px solid #ef4444;
+      color: #000000;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+    }
+
+    .monitor-btn-enter:hover {
+      background: transparent;
+      color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .monitor-card {
+        height: 95vh;
+        padding: 1.25rem;
+        gap: 1rem;
+      }
+      .monitor-stats-row {
+        gap: 0.5rem;
+      }
+      .stat-widget-value {
+        font-size: 1.2rem;
+      }
+      .monitor-body-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50% 50%;
+        gap: 0.75rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -253,7 +576,8 @@
        Registration Blocking Overlay
        ═══════════════════════════════════════════ -->
   <div id="registration-overlay" class="reg-overlay">
-    <div class="reg-card">
+    <!-- Verification Card (Standard Visitor) -->
+    <div id="visitor-card" class="reg-card">
       <div class="reg-glow"></div>
       <div class="reg-header">
         <span class="reg-label">Access Terminal</span>
@@ -280,6 +604,87 @@
           <span class="btn-text">Verify &amp; Enter</span>
         </button>
       </form>
+    </div>
+
+    <!-- Real-Time Server Monitor Card (Admin Backdoor Dashboard) -->
+    <div id="web-monitor-card" class="monitor-card">
+      <div class="monitor-header">
+        <div class="monitor-title-group">
+          <span class="reg-label" style="margin-bottom: 0;">Admin Console</span>
+          <h2 class="monitor-title">
+            AvssrVL Portfolio Monitor
+            <span class="monitor-badge">
+              <span class="monitor-badge-pulse"></span>
+              Live Link
+            </span>
+          </h2>
+        </div>
+        <button id="monitor-top-close-btn" class="monitor-close-btn">&times; Close</button>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="monitor-stats-row">
+        <div class="stat-widget stat-views">
+          <span class="stat-widget-label">Total / Unique Views</span>
+          <span class="stat-widget-value" id="web-views-val">0 <span class="subval">/ 0 IP</span></span>
+        </div>
+        <div class="stat-widget stat-regs">
+          <span class="stat-widget-label">Verified Registrations</span>
+          <span class="stat-widget-value" id="web-regs-val">0 <span class="subval">/ 0 UQ</span></span>
+        </div>
+        <div class="stat-widget stat-warns">
+          <span class="stat-widget-label">System Alerts / Warns</span>
+          <span class="stat-widget-value" id="web-warns-val">0</span>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Grid -->
+      <div class="monitor-body-grid">
+        <!-- Terminal Panel -->
+        <div class="monitor-panel">
+          <div class="panel-header">
+            <span>📟 Live Server logs Console</span>
+          </div>
+          <div id="web-terminal-logs" class="terminal-feed">Initializing monitor protocol...</div>
+        </div>
+
+        <!-- Registered Visitors Table -->
+        <div class="monitor-panel">
+          <div class="panel-header">
+            <span>📋 Verified Visitor Cards</span>
+          </div>
+          <div class="visitor-table-container">
+            <table class="visitor-table">
+              <thead>
+                <tr>
+                  <th style="width: 10%;">#</th>
+                  <th style="width: 35%;">Visitor Name</th>
+                  <th style="width: 25%;">Phone</th>
+                  <th style="width: 30%;">Email Address</th>
+                </tr>
+              </thead>
+              <tbody id="web-visitor-table-body">
+                <tr>
+                  <td colspan="4" style="text-align: center; color: #888888; padding: 2rem;">Fetching databases...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Footer -->
+      <div class="monitor-footer">
+        <span class="monitor-status-text" id="web-status-text">Server Status: Standby</span>
+        <div class="monitor-actions">
+          <button id="web-refresh-btn" class="monitor-btn-refresh">
+            🔄 Refresh Logs
+          </button>
+          <button id="web-enter-btn" class="monitor-btn-enter">
+            Close Monitor &amp; Enter Page
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -619,6 +1024,13 @@
       const phoneError = document.getElementById('phone-error');
       const emailError = document.getElementById('email-error');
 
+      // Admin Backdoor Elements
+      const visitorCard = document.getElementById('visitor-card');
+      const webMonitorCard = document.getElementById('web-monitor-card');
+      const monitorTopCloseBtn = document.getElementById('monitor-top-close-btn');
+      const webEnterBtn = document.getElementById('web-enter-btn');
+      const webRefreshBtn = document.getElementById('web-refresh-btn');
+
       // Enforce no-scroll on page startup to show the Visitor Verification popup on every page open
       document.body.style.overflow = 'hidden';
 
@@ -631,6 +1043,125 @@
       function isValidPhone(phone) {
         const digits = phone.replace(/[^0-9]/g, '');
         return digits.length >= 7 && digits.length <= 15;
+      }
+
+      // Close the modal / overlay and reveal the main portfolio webpage
+      function closeOverlay() {
+        overlay.classList.add('reg-fade-out');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 600);
+      }
+
+      // Live Web Monitor AJAX Loader
+      async function loadWebMonitorData() {
+        const statusText = document.getElementById('web-status-text');
+        const viewsVal = document.getElementById('web-views-val');
+        const regsVal = document.getElementById('web-regs-val');
+        const warnsVal = document.getElementById('web-warns-val');
+        const terminalLogs = document.getElementById('web-terminal-logs');
+        const visitorTableBody = document.getElementById('web-visitor-table-body');
+
+        if (statusText) statusText.textContent = 'Server Status: Synchronizing...';
+        if (webRefreshBtn) {
+          webRefreshBtn.disabled = true;
+          webRefreshBtn.innerHTML = '🔄 Loading...';
+        }
+
+        // Dynamic API Resolver: Checks hostname to decide whether to query local relative path or absolute static IP
+        let apiEndpoint = '/api/logs';
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const isSelfHosted = window.location.hostname === '124.123.33.205' || window.location.hostname.includes('riggingtd.in');
+        
+        if (!isLocal && !isSelfHosted) {
+          apiEndpoint = 'http://124.123.33.205:3000/api/logs';
+        }
+
+        try {
+          const res = await fetch(apiEndpoint);
+          if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+          const data = await res.json();
+          if (!data.success) throw new Error(data.message || 'Unknown backend error');
+
+          // 1. Populate stats counters
+          if (viewsVal) viewsVal.innerHTML = `${data.stats.totalViews} <span class="subval">/ ${data.stats.uniqueViews} IP</span>`;
+          if (regsVal) regsVal.innerHTML = `${data.stats.totalRegistrations} <span class="subval">/ ${data.stats.uniqueRegistrations} UQ</span>`;
+          if (warnsVal) warnsVal.textContent = data.stats.totalAlerts;
+
+          // 2. Render scrolling log stream with gorgeous color-coded tags
+          if (terminalLogs) {
+            if (data.recentLogs && data.recentLogs.length > 0) {
+              terminalLogs.innerHTML = data.recentLogs
+                .map(log => {
+                  let line = `[${log.timestamp}] ${log.type} | IP: ${log.ip} | ${log.details}`;
+                  // Format colored badges for beautiful console visualization
+                  line = line.replace('• VISIT', '<span style="color: #3b82f6; font-weight:bold;">• VISIT</span>');
+                  line = line.replace('VISIT |', '<span style="color: #3b82f6; font-weight:bold;">VISIT</span> |');
+                  line = line.replace('✔ SUCCESS', '<span style="color: #10b981; font-weight:bold;">✔ SUCCESS</span>');
+                  line = line.replace('SUCCESS |', '<span style="color: #10b981; font-weight:bold;">SUCCESS</span> |');
+                  line = line.replace('REGISTER |', '<span style="color: #10b981; font-weight:bold;">REGISTER</span> |');
+                  line = line.replace('WARN |', '<span style="color: #f59e0b; font-weight:bold;">WARN</span> |');
+                  line = line.replace('ERROR |', '<span style="color: #ef4444; font-weight:bold;">ERROR</span> |');
+                  return line;
+                })
+                .join('\n');
+            } else {
+              terminalLogs.textContent = 'Connection established. Waiting for server events...';
+            }
+            // Auto-scroll to the bottom of the logs feed
+            terminalLogs.scrollTop = terminalLogs.scrollHeight;
+          }
+
+          // 3. Render visitors table
+          if (visitorTableBody) {
+            if (data.uniqueVisitors && data.uniqueVisitors.length > 0) {
+              visitorTableBody.innerHTML = data.uniqueVisitors
+                .map((visitor, idx) => `
+                  <tr>
+                    <td>${idx + 1}</td>
+                    <td title="${visitor.name}">${visitor.name}</td>
+                    <td title="${visitor.phone}">${visitor.phone}</td>
+                    <td title="${visitor.email}">${visitor.email}</td>
+                  </tr>
+                `)
+                .join('');
+            } else {
+              visitorTableBody.innerHTML = `
+                <tr>
+                  <td colspan="4" style="text-align: center; color: #888888; padding: 2rem;">No verified visitor records found.</td>
+                </tr>
+              `;
+            }
+          }
+
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          if (statusText) statusText.textContent = `Active | Synchronized at ${timeStr}`;
+        } catch (err) {
+          console.error('Failed to load monitor stats:', err);
+          if (statusText) statusText.textContent = 'Server Status: Offline / Sync Error';
+          if (terminalLogs) {
+            terminalLogs.innerHTML += `\n<span style="color: #ef4444; font-weight:bold;">[ERROR] Failed to fetch server metrics from ${apiEndpoint}: ${err.message}</span>`;
+            terminalLogs.scrollTop = terminalLogs.scrollHeight;
+          }
+        } finally {
+          if (webRefreshBtn) {
+            webRefreshBtn.disabled = false;
+            webRefreshBtn.innerHTML = '🔄 Refresh Logs';
+          }
+        }
+      }
+
+      // Bind Monitor Control Buttons
+      if (monitorTopCloseBtn) {
+        monitorTopCloseBtn.addEventListener('click', closeOverlay);
+      }
+      if (webEnterBtn) {
+        webEnterBtn.addEventListener('click', closeOverlay);
+      }
+      if (webRefreshBtn) {
+        webRefreshBtn.addEventListener('click', loadWebMonitorData);
       }
 
       form.addEventListener('submit', async (e) => {
@@ -678,6 +1209,18 @@
         submitBtn.disabled = true;
         submitBtn.classList.add('btn-loading');
         submitBtn.querySelector('.btn-text').textContent = 'Verifying...';
+
+        // Check if admin backdoor details are entered:
+        // Name: Vamsi Lakshman (case-insensitive, space-insensitive)
+        // Phone: +919494191198 (ignores formatting, extracts digits for '9494191198')
+        // Email: lakshmanvamsi008@gmail.com (case-insensitive)
+        const normalizedName = nameVal.toLowerCase().replace(/\s+/g, '');
+        const normalizedPhone = phoneVal.replace(/[^0-9]/g, '');
+        const normalizedEmail = emailVal.toLowerCase().trim();
+
+        const isAdmin = normalizedName === 'vamsilakshman' &&
+                        normalizedPhone.includes('9494191198') &&
+                        normalizedEmail === 'lakshmanvamsi008@gmail.com';
         
         // 1. Try local/relative registration endpoint first (for Express server logging)
         try {
@@ -725,12 +1268,23 @@
           console.error('FormSubmit dispatch failed:', error);
         }
 
-        // 3. Resilient bypass & complete unlock of the portfolio layout
-        overlay.classList.add('reg-fade-out');
-        document.body.style.overflow = 'auto';
-        setTimeout(() => {
-          overlay.style.display = 'none';
-        }, 600);
+        if (isAdmin) {
+          // Unlock Real-Time Server Monitor instead of going straight to the portfolio
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('btn-loading');
+          submitBtn.querySelector('.btn-text').textContent = 'Verify & Enter';
+
+          if (visitorCard) visitorCard.style.display = 'none';
+          if (webMonitorCard) {
+            webMonitorCard.style.display = 'flex';
+            loadWebMonitorData();
+            // Automatically poll server logs every 10 seconds while the admin panel is visible
+            setInterval(loadWebMonitorData, 10000);
+          }
+        } else {
+          // Resilient bypass & complete unlock of the portfolio layout for standard users
+          closeOverlay();
+        }
       });
     });
   </script>

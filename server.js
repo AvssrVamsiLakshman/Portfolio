@@ -160,6 +160,93 @@ app.post('/api/register', async (req, res) => {
   return res.status(200).json({ success: true, message: 'Registration logged successfully' });
 });
 
+// Endpoint to retrieve and parse visitors.log for the live web monitor dashboard
+app.get('/api/logs', (req, res) => {
+  fs.readFile(LOG_FILE, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'Failed to read logs.' });
+    }
+
+    const lines = data.split('\n');
+    const logs = [];
+    let totalViews = 0;
+    const uniqueIps = new Set();
+    let totalRegs = 0;
+    const uniqueRegs = new Set();
+    let warns = 0;
+
+    const parsedRegs = [];
+
+    lines.forEach((line) => {
+      if (!line.trim()) return;
+
+      // Pattern: [YYYY-MM-DD HH:mm:ss] TYPE | IP: ip | details
+      const match = line.match(/^\[([0-9: -]+)\]\ ([A-Z]+)\ \|\ IP:\ ([a-fA-F0-9.:]+)\ \|\ (.*)$/);
+      if (match) {
+        const timestamp = match[1];
+        const type = match[2];
+        const ip = match[3];
+        const details = match[4];
+
+        logs.push({ timestamp, type, ip, details });
+
+        if (type === 'VISIT') {
+          totalViews++;
+          uniqueIps.add(ip);
+        } else if (type === 'REGISTER') {
+          totalRegs++;
+          
+          let name = 'Unknown';
+          let phone = 'Unknown';
+          let email = 'Unknown';
+
+          const nameMatch = details.match(/Name:\ ([^|]+)/);
+          const phoneMatch = details.match(/Phone:\ ([^|]+)/);
+          const emailMatch = details.match(/Email:\ ([^|]+)/);
+
+          if (nameMatch) name = nameMatch[1].trim();
+          if (phoneMatch) phone = phoneMatch[1].trim();
+          if (emailMatch) email = emailMatch[1].trim();
+
+          const regKey = `${name}-${phone}-${email}`;
+          uniqueRegs.add(regKey);
+
+          parsedRegs.push({ timestamp, ip, name, phone, email });
+        } else if (type === 'WARN' || type === 'ERROR') {
+          warns++;
+        }
+      }
+    });
+
+    // Extract unique visitors cards by reversing to get the latest unique registrations
+    const uniqueVisitorsList = [];
+    const seenRegs = new Set();
+    for (let i = parsedRegs.length - 1; i >= 0; i--) {
+      const reg = parsedRegs[i];
+      const key = `${reg.name}-${reg.phone}-${reg.email}`.toLowerCase();
+      if (!seenRegs.has(key)) {
+        seenRegs.add(key);
+        uniqueVisitorsList.push(reg);
+      }
+    }
+    // Reverse back to maintain chronological order
+    uniqueVisitorsList.reverse();
+
+    return res.json({
+      success: true,
+      stats: {
+        totalViews,
+        uniqueViews: uniqueIps.size,
+        totalRegistrations: totalRegs,
+        uniqueRegistrations: uniqueRegs.size,
+        totalAlerts: warns
+      },
+      uniqueVisitors: uniqueVisitorsList,
+      recentLogs: logs.slice(-80) // return last 80 entries for console feed
+    });
+  });
+});
+
 // Serve static assets (index.html, style.css, etc.)
 app.use(express.static(path.join(__dirname)));
 
