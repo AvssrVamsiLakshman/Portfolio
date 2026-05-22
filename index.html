@@ -629,6 +629,81 @@
         gap: 0.75rem;
       }
     }
+
+    @media (max-width: 480px) {
+      .monitor-card {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        padding: 1rem;
+        gap: 0.75rem;
+        border: none;
+      }
+      .monitor-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .monitor-close-btn {
+        align-self: flex-end;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+      .monitor-title {
+        font-size: 1.1rem;
+      }
+      .monitor-stats-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.35rem;
+      }
+      .stat-widget {
+        padding: 0.5rem;
+        align-items: center;
+        text-align: center;
+      }
+      .stat-widget-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+      }
+      .stat-widget-value {
+        font-size: 0.9rem;
+      }
+      .stat-widget-value span.subval {
+        font-size: 0.6rem;
+        display: block;
+      }
+      .monitor-body-grid {
+        grid-template-rows: 40% 60%;
+        gap: 0.5rem;
+      }
+      .terminal-feed {
+        font-size: 0.65rem;
+        padding: 0.5rem;
+      }
+      .visitor-table th, .visitor-table td {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.65rem;
+      }
+      .monitor-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        padding-top: 0.5rem;
+      }
+      .monitor-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .monitor-btn-refresh, .monitor-btn-enter {
+        flex: 1;
+        font-size: 0.7rem;
+        padding: 0.5rem;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1122,6 +1197,88 @@
       // Generate a unique Session ID for this specific tab session
       const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
 
+      // ═══════════════════════════════════════════
+      // Server Auto-Discovery Manager
+      // ═══════════════════════════════════════════
+      const BACKEND_CANDIDATES = [
+        window.location.origin,
+        'http://localhost:3000',
+        'http://www.riggingtd.in',
+        'https://www.riggingtd.in',
+        'http://riggingtd.in',
+        'https://riggingtd.in',
+        'http://124.123.33.205:3000'
+      ];
+
+      let resolvedBackendBaseUrl = sessionStorage.getItem('portfolio_resolved_backend') || '';
+      let discoveryPromise = null;
+
+      // Normalize candidate URLs
+      function getCleanCandidates() {
+        const unique = [];
+        const seen = new Set();
+        for (const candidate of BACKEND_CANDIDATES) {
+          if (!candidate || candidate.startsWith('file:') || candidate.includes('github.io')) {
+            continue;
+          }
+          const clean = candidate.replace(/\/$/, '');
+          if (!seen.has(clean)) {
+            seen.add(clean);
+            unique.push(clean);
+          }
+        }
+        return unique;
+      }
+
+      async function discoverActiveBackend() {
+        if (discoveryPromise) {
+          return discoveryPromise;
+        }
+
+        discoveryPromise = (async () => {
+          // If we already resolved it in this session, verify it's still alive
+          if (resolvedBackendBaseUrl) {
+            try {
+              const res = await fetchWithTimeout(`${resolvedBackendBaseUrl}/api/ping`, {}, 1200);
+              if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.message === 'pong') {
+                  return resolvedBackendBaseUrl;
+                }
+              }
+            } catch (e) {
+              resolvedBackendBaseUrl = '';
+              sessionStorage.removeItem('portfolio_resolved_backend');
+            }
+          }
+
+          const candidates = getCleanCandidates();
+          for (const origin of candidates) {
+            try {
+              const res = await fetchWithTimeout(`${origin}/api/ping`, {}, 1200);
+              if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.message === 'pong') {
+                  resolvedBackendBaseUrl = origin;
+                  sessionStorage.setItem('portfolio_resolved_backend', origin);
+                  console.log(`Backend server successfully discovered at: ${origin}`);
+                  return origin;
+                }
+              }
+            } catch (e) {
+              // Silently try next origin
+            }
+          }
+          console.warn('No active portfolio server discovered. Operating in Local Standalone Mode.');
+          resolvedBackendBaseUrl = '';
+          return '';
+        })();
+
+        const result = await discoveryPromise;
+        discoveryPromise = null; // Reset to allow subsequent re-discovery calls if network/server states change
+        return result;
+      }
+
       // Enforce no-scroll on page startup to show the Visitor Verification popup on every page open
       document.body.style.overflow = 'hidden';
 
@@ -1266,6 +1423,19 @@
         }
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
+        // Dynamically log the visit on the discovered Express backend if present
+        const activeBackend = await discoverActiveBackend();
+        if (activeBackend) {
+          try {
+            await fetchWithTimeout(`${activeBackend}/api/visit`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            }, 2000);
+          } catch (e) {
+            console.warn('Failed to register visit hit on active backend:', e);
+          }
+        }
+
         // Trigger local visual update if monitor is currently open in this tab
         if (webMonitorCard && webMonitorCard.style.display === 'flex') {
           loadWebMonitorData();
@@ -1284,8 +1454,9 @@
         // Helper to send heartbeat to server
         async function sendServerHeartbeat() {
           try {
-            let apiEndpoint = '/api/heartbeat';
-            if (window.location.protocol === 'file:' || !window.location.hostname) {
+            const activeBackend = await discoverActiveBackend();
+            let apiEndpoint = activeBackend ? `${activeBackend}/api/heartbeat` : '/api/heartbeat';
+            if (!activeBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
               apiEndpoint = 'http://localhost:3000/api/heartbeat';
             }
             await fetch(apiEndpoint, {
@@ -1332,8 +1503,9 @@
 
           // Send logout to server
           try {
-            let apiEndpoint = '/api/logout';
-            if (window.location.protocol === 'file:' || !window.location.hostname) {
+            const cachedBackend = sessionStorage.getItem('portfolio_resolved_backend') || '';
+            let apiEndpoint = cachedBackend ? `${cachedBackend}/api/logout` : '/api/logout';
+            if (!cachedBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
               apiEndpoint = 'http://localhost:3000/api/logout';
             }
             fetch(apiEndpoint, {
@@ -1422,11 +1594,14 @@
           webRefreshBtn.innerHTML = '🔄 Loading...';
         }
 
-        // Standard relative endpoints
-        let endpointsToTry = [
-          '/api/logs',
-          'http://localhost:3000/api/logs'
-        ];
+        // Standard relative endpoints and discovered dynamic backend candidate
+        const activeBackend = await discoverActiveBackend();
+        let endpointsToTry = [];
+        if (activeBackend) {
+          endpointsToTry.push(`${activeBackend}/api/logs`);
+        }
+        endpointsToTry.push('/api/logs');
+        endpointsToTry.push('http://localhost:3000/api/logs');
 
         let data = null;
         let successfulEndpoint = '';
@@ -1716,8 +1891,9 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
 
         // 2. Dispatch to local Express registration endpoint (non-blocking)
         try {
-          let apiEndpoint = '/api/register';
-          if (window.location.protocol === 'file:' || !window.location.hostname) {
+          const activeBackend = await discoverActiveBackend();
+          let apiEndpoint = activeBackend ? `${activeBackend}/api/register` : '/api/register';
+          if (!activeBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
             apiEndpoint = 'http://localhost:3000/api/register';
           }
 

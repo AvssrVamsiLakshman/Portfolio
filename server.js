@@ -72,6 +72,19 @@ app.get('/index.html', (req, res, next) => {
   next();
 });
 
+// Lightweight endpoint for server auto-discovery ping
+app.get('/api/ping', (req, res) => {
+  return res.json({ success: true, message: 'pong' });
+});
+
+// Endpoint to receive client page visits (especially for remote/static hosts like GitHub Pages)
+app.post('/api/visit', (req, res) => {
+  const ip = getClientIp(req);
+  const userAgent = req.headers['user-agent'] || 'Unknown Agent';
+  writeLog('VISIT', ip, `Page hit (Dynamic/Remote) - UserAgent: ${userAgent}`);
+  return res.json({ success: true });
+});
+
 // Endpoint to handle visitor registration submissions
 app.post('/api/register', async (req, res) => {
   const { name, phone, email, company, sessionId } = req.body;
