@@ -619,14 +619,8 @@
       const phoneError = document.getElementById('phone-error');
       const emailError = document.getElementById('email-error');
 
-      // Check if user is already verified/registered in local storage
-      if (localStorage.getItem('portfolio_registered') === 'true') {
-        overlay.classList.add('registered-bypass');
-        document.body.style.overflow = 'auto';
-      } else {
-        // Enforce no-scroll
-        document.body.style.overflow = 'hidden';
-      }
+      // Enforce no-scroll on page startup to show the Visitor Verification popup on every page open
+      document.body.style.overflow = 'hidden';
 
       // Email format regex validation
       function isValidEmail(email) {
@@ -685,8 +679,9 @@
         submitBtn.classList.add('btn-loading');
         submitBtn.querySelector('.btn-text').textContent = 'Verifying...';
         
+        // 1. Try local/relative registration endpoint first (for Express server logging)
         try {
-          const response = await fetch('/api/register', {
+          await fetch('/api/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -697,39 +692,36 @@
               email: emailVal
             })
           });
-          
-          const result = await response.json();
-          
-          if (response.ok && result.success) {
-            // Store registration flag in localStorage
-            localStorage.setItem('portfolio_registered', 'true');
-            
-            // Trigger exit animation
-            overlay.classList.add('reg-fade-out');
-            
-            // Restore page scrolling
-            document.body.style.overflow = 'auto';
-            
-            // Completely remove overlay from DOM after animation completes
-            setTimeout(() => {
-              overlay.style.display = 'none';
-            }, 600);
-          } else {
-            emailError.textContent = result.message || 'Registration failed. Please try again.';
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('btn-loading');
-            submitBtn.querySelector('.btn-text').textContent = 'Verify & Enter';
-          }
         } catch (error) {
-          console.error('Registration API Error:', error);
-          // Resilient bypass: Even if API network is down, we let them view the portfolio
-          localStorage.setItem('portfolio_registered', 'true');
-          overlay.classList.add('reg-fade-out');
-          document.body.style.overflow = 'auto';
-          setTimeout(() => {
-            overlay.style.display = 'none';
-          }, 600);
+          console.warn('Local Express registration omitted or unavailable:', error);
         }
+
+        // 2. Submit to FormSubmit.co for robust email delivery to lakshmanvamsi008@gmail.com
+        try {
+          await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name: nameVal,
+              phone: phoneVal,
+              email: emailVal,
+              _subject: `★ Portfolio Visitor: ${nameVal}`,
+              _captcha: "false"
+            })
+          });
+        } catch (error) {
+          console.error('FormSubmit dispatch failed:', error);
+        }
+
+        // 3. Resilient bypass & complete unlock of the portfolio layout
+        overlay.classList.add('reg-fade-out');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 600);
       });
     });
   </script>
