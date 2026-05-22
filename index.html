@@ -26,10 +26,6 @@
   <!-- ═══ Stylesheet ═══ -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- ═══ Firebase SDK (Global Cloud Sync) ═══ -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
   <!-- ═══════════════════════════════════════════
        Premium Glassmorphic Access Terminal Styles
        ═══════════════════════════════════════════ -->
@@ -1202,171 +1198,85 @@
       const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
 
       // ═══════════════════════════════════════════
-      // Firebase Global Cloud Database
+      // Global Cloud Sync (Google Apps Script)
       // ═══════════════════════════════════════════
-      const firebaseConfig = {
-        apiKey: "AIzaSyDummyKeyReplaceMeWithReal",
-        authDomain: "avssrvl-portfolio.firebaseapp.com",
-        databaseURL: "https://avssrvl-portfolio-default-rtdb.firebaseio.com",
-        projectId: "avssrvl-portfolio",
-        storageBucket: "avssrvl-portfolio.appspot.com",
-        messagingSenderId: "000000000000",
-        appId: "1:000000000000:web:0000000000000000000000"
-      };
+      // Deploy CloudSync.gs as a Google Apps Script Web App
+      // Then paste the deployed URL below (ends with /exec)
+      // Leave empty to use localStorage-only mode
+      const CLOUD_SYNC_URL = '';
 
-      let firebaseApp = null;
-      let firebaseDb = null;
-      let firebaseReady = false;
-
-      try {
-        if (typeof firebase !== 'undefined' && firebase.initializeApp) {
-          firebaseApp = firebase.initializeApp(firebaseConfig);
-          firebaseDb = firebase.database();
-          firebaseReady = true;
-          console.log('Firebase Global Cloud Database initialized successfully.');
-        }
-      } catch (fbErr) {
-        console.warn('Firebase initialization skipped:', fbErr.message);
-        firebaseReady = false;
-      }
-
-      // Firebase: Write a visitor registration to the global cloud database
-      async function firebaseWriteRegistration(regData) {
-        if (!firebaseReady || !firebaseDb) return;
+      // Cloud sync: POST helper with 4-second timeout
+      async function cloudPost(action, payload) {
+        if (!CLOUD_SYNC_URL) return null;
         try {
-          const safeKey = (regData.name + '_' + regData.phone + '_' + regData.email)
-            .replace(/[.#$\[\]\/]/g, '_').toLowerCase();
-          await firebaseDb.ref('registrations/' + safeKey).set(regData);
-          console.log('Firebase: Registration synced globally.');
-        } catch (e) {
-          console.warn('Firebase write failed:', e);
-        }
-      }
-
-      // Firebase: Write a log entry
-      async function firebaseWriteLog(logEntry) {
-        if (!firebaseReady || !firebaseDb) return;
-        try {
-          await firebaseDb.ref('logs').push(logEntry);
-        } catch (e) {
-          console.warn('Firebase log write failed:', e);
-        }
-      }
-
-      // Firebase: Update heartbeat for a session
-      async function firebaseUpdateHeartbeat(sessId, heartbeatData) {
-        if (!firebaseReady || !firebaseDb) return;
-        try {
-          await firebaseDb.ref('heartbeats/' + sessId).set(heartbeatData);
-        } catch (e) {
-          console.warn('Firebase heartbeat update failed:', e);
-        }
-      }
-
-      // Firebase: Mark session as logged out
-      async function firebaseMarkLogout(sessId, logoutTime) {
-        if (!firebaseReady || !firebaseDb) return;
-        try {
-          await firebaseDb.ref('heartbeats/' + sessId + '/logoutTime').set(logoutTime);
-          await firebaseDb.ref('heartbeats/' + sessId + '/online').set(false);
-        } catch (e) {
-          console.warn('Firebase logout update failed:', e);
-        }
-      }
-
-      // Firebase: Increment view counter
-      async function firebaseTrackView(ip, userAgent) {
-        if (!firebaseReady || !firebaseDb) return;
-        try {
-          const viewsRef = firebaseDb.ref('stats/totalViews');
-          await viewsRef.transaction((current) => (current || 0) + 1);
-          
-          // Track unique IPs
-          const safeIp = ip.replace(/[.#$\[\]\/]/g, '_');
-          await firebaseDb.ref('uniqueIps/' + safeIp).set(true);
-        } catch (e) {
-          console.warn('Firebase view tracking failed:', e);
-        }
-      }
-
-      // Firebase: Read ALL data for the admin monitor dashboard
-      async function firebaseReadAllData() {
-        if (!firebaseReady || !firebaseDb) return null;
-        try {
-          const [regsSnap, logsSnap, heartbeatsSnap, statsSnap, ipsSnap] = await Promise.all([
-            firebaseDb.ref('registrations').once('value'),
-            firebaseDb.ref('logs').orderByKey().limitToLast(80).once('value'),
-            firebaseDb.ref('heartbeats').once('value'),
-            firebaseDb.ref('stats').once('value'),
-            firebaseDb.ref('uniqueIps').once('value')
-          ]);
-
-          const regsObj = regsSnap.val() || {};
-          const logsObj = logsSnap.val() || {};
-          const heartbeatsObj = heartbeatsSnap.val() || {};
-          const statsObj = statsSnap.val() || {};
-          const ipsObj = ipsSnap.val() || {};
-
-          // Build visitors list
-          const uniqueVisitors = Object.values(regsObj).map(reg => {
-            const hb = heartbeatsObj[reg.sessionId];
-            let isOnline = false;
-            let logoutTime = reg.logoutTime || '';
-
-            if (hb) {
-              isOnline = hb.online !== false && !hb.logoutTime && hb.lastHeartbeat && (Date.now() - hb.lastHeartbeat < 15000);
-              if (!isOnline && hb.logoutTime) {
-                logoutTime = hb.logoutTime;
-              } else if (!isOnline && hb.lastHeartbeat && !logoutTime) {
-                const hbDate = new Date(hb.lastHeartbeat);
-                logoutTime = hbDate.getFullYear() + '-' +
-                  String(hbDate.getMonth()+1).padStart(2,'0') + '-' +
-                  String(hbDate.getDate()).padStart(2,'0') + ' ' +
-                  String(hbDate.getHours()).padStart(2,'0') + ':' +
-                  String(hbDate.getMinutes()).padStart(2,'0') + ':' +
-                  String(hbDate.getSeconds()).padStart(2,'0');
-              }
-            }
-
-            return {
-              name: reg.name,
-              phone: reg.phone,
-              email: reg.email,
-              company: reg.company || 'Individual',
-              timestamp: reg.timestamp || reg.loginTime,
-              loginTime: reg.loginTime || reg.timestamp,
-              sessionId: reg.sessionId,
-              status: isOnline ? '🟢 Online' : '🔴 Offline',
-              logoutTime: logoutTime || '—'
-            };
+          const controller = new AbortController();
+          const tid = setTimeout(() => controller.abort(), 4000);
+          const res = await fetch(CLOUD_SYNC_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ action, ...payload }),
+            signal: controller.signal,
+            mode: 'no-cors'
           });
-
-          // Build logs list
-          const recentLogs = Object.values(logsObj);
-
-          // Count unique registrations
-          const uniqueRegsSet = new Set();
-          uniqueVisitors.forEach(v => uniqueRegsSet.add((v.name + v.phone + v.email).toLowerCase()));
-
-          let warns = 0;
-          recentLogs.forEach(l => { if (l.type === 'WARN' || l.type === 'ERROR') warns++; });
-
-          return {
-            success: true,
-            stats: {
-              totalViews: statsObj.totalViews || 0,
-              uniqueViews: Object.keys(ipsObj).length,
-              totalRegistrations: Object.keys(regsObj).length,
-              uniqueRegistrations: uniqueRegsSet.size,
-              totalAlerts: warns
-            },
-            uniqueVisitors: uniqueVisitors,
-            recentLogs: recentLogs
-          };
+          clearTimeout(tid);
+          // no-cors means opaque response, we can't read it — just fire and forget
+          return { success: true };
         } catch (e) {
-          console.warn('Firebase read failed:', e);
+          console.warn('Cloud sync POST failed:', e.message);
           return null;
         }
+      }
+
+      // Cloud sync: GET helper with 5-second timeout
+      async function cloudGet(action) {
+        if (!CLOUD_SYNC_URL) return null;
+        try {
+          const controller = new AbortController();
+          const tid = setTimeout(() => controller.abort(), 5000);
+          const url = CLOUD_SYNC_URL + '?action=' + encodeURIComponent(action);
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(tid);
+          if (res.ok) {
+            const data = await res.json();
+            return data;
+          }
+          return null;
+        } catch (e) {
+          console.warn('Cloud sync GET failed:', e.message);
+          return null;
+        }
+      }
+
+      // Cloud: Write registration
+      async function cloudWriteRegistration(regData) {
+        return cloudPost('register', regData);
+      }
+
+      // Cloud: Write log
+      async function cloudWriteLog(logEntry) {
+        return cloudPost('log', logEntry);
+      }
+
+      // Cloud: Update heartbeat
+      async function cloudUpdateHeartbeat(sessId, hbData) {
+        return cloudPost('heartbeat', { sessionId: sessId, ...hbData });
+      }
+
+      // Cloud: Mark logout
+      async function cloudMarkLogout(sessId, logoutTime) {
+        return cloudPost('logout', { sessionId: sessId, logoutTime });
+      }
+
+      // Cloud: Track view
+      async function cloudTrackView(ip) {
+        return cloudPost('trackView', { ip });
+      }
+
+      // Cloud: Read all dashboard data
+      async function cloudReadAllData() {
+        const data = await cloudGet('readAll');
+        if (data && data.success) return data;
+        return null;
       }
 
       // ═══════════════════════════════════════════
@@ -1630,9 +1540,9 @@
         }
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
-        // Sync view to Firebase Global Cloud Database
-        firebaseTrackView(clientIp, userAgent);
-        firebaseWriteLog(logEntry);
+        // Sync view to Global Cloud Database
+        cloudTrackView(clientIp);
+        cloudWriteLog(logEntry);
 
         // Dynamically log the visit on the discovered Express backend if present
         const activeBackend = await discoverActiveBackend();
@@ -1664,8 +1574,8 @@
 
         // Helper to send heartbeat to server
         async function sendServerHeartbeat() {
-          // Update Firebase heartbeat globally
-          firebaseUpdateHeartbeat(sessionId, {
+          // Update Cloud heartbeat globally
+          cloudUpdateHeartbeat(sessionId, {
             name: name,
             phone: phone,
             email: email,
@@ -1723,8 +1633,8 @@
           });
           localStorage.setItem('portfolio_registrations', JSON.stringify(updatedRegs));
 
-          // Mark session as logged out in Firebase
-          firebaseMarkLogout(sessionId, getLocalTimestamp());
+          // Mark session as logged out in Cloud
+          cloudMarkLogout(sessionId, getLocalTimestamp());
 
           // Send logout to server
           try {
@@ -1798,10 +1708,10 @@
         }
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
-        // Sync registration to Firebase Global Cloud Database
-        firebaseWriteRegistration(newReg);
-        firebaseWriteLog(logEntryRegister);
-        firebaseWriteLog(logEntrySuccess);
+        // Sync registration to Global Cloud Database
+        cloudWriteRegistration(newReg);
+        cloudWriteLog(logEntryRegister);
+        cloudWriteLog(logEntrySuccess);
 
         // Trigger immediate UI refresh if monitor is visible in this tab
         if (webMonitorCard && webMonitorCard.style.display === 'flex') {
@@ -1827,15 +1737,15 @@
         let data = null;
         let syncSource = 'local';
 
-        // PRIORITY 1: Try Firebase Global Cloud Database first (always HTTPS, works from any device)
-        if (firebaseReady) {
+        // PRIORITY 1: Try Google Apps Script Cloud Database (always HTTPS, works from any device)
+        if (CLOUD_SYNC_URL) {
           try {
-            data = await firebaseReadAllData();
+            data = await cloudReadAllData();
             if (data && data.success) {
-              syncSource = 'firebase';
+              syncSource = 'cloud';
             }
           } catch (e) {
-            console.warn('Firebase read attempt failed:', e);
+            console.warn('Cloud sync read attempt failed:', e);
             data = null;
           }
         }
@@ -1931,7 +1841,7 @@
         {
           const now = new Date();
           const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          if (syncSource === 'firebase') {
+          if (syncSource === 'cloud') {
             if (statusText) statusText.textContent = `Active | ☁️ Global Cloud Synchronized (${timeStr})`;
           } else if (syncSource === 'server') {
             if (statusText) statusText.textContent = `Active | 🖥️ Server Synchronized (${timeStr})`;
