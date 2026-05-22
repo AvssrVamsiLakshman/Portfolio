@@ -26,7 +26,7 @@ fi
 print_header() {
     clear
     echo -e "${RED}${BOLD}================================================================================${NC}"
-    echo -e "${WHITE}${BOLD}                  AVSSR PORTFOLIO REAL-TIME SERVER MONITOR                      ${NC}"
+    echo -e "${WHITE}${BOLD}                   AvssrVL PORTFOLIO REAL-TIME SERVER MONITOR                    ${NC}"
     echo -e "${RED}${BOLD}================================================================================${NC}"
     echo -e "Server Time: $(date '+%Y-%m-%d %H:%M:%S') | Logging File: ${CYAN}${LOG_FILE}${NC}"
     
