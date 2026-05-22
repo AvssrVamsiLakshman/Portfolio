@@ -26,6 +26,10 @@
   <!-- ═══ Stylesheet ═══ -->
   <link rel="stylesheet" href="style.css">
 
+  <!-- ═══ Firebase SDK (Global Cloud Sync) ═══ -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
   <!-- ═══════════════════════════════════════════
        Premium Glassmorphic Access Terminal Styles
        ═══════════════════════════════════════════ -->
@@ -1198,15 +1202,183 @@
       const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
 
       // ═══════════════════════════════════════════
+      // Firebase Global Cloud Database
+      // ═══════════════════════════════════════════
+      const firebaseConfig = {
+        apiKey: "AIzaSyDummyKeyReplaceMeWithReal",
+        authDomain: "avssrvl-portfolio.firebaseapp.com",
+        databaseURL: "https://avssrvl-portfolio-default-rtdb.firebaseio.com",
+        projectId: "avssrvl-portfolio",
+        storageBucket: "avssrvl-portfolio.appspot.com",
+        messagingSenderId: "000000000000",
+        appId: "1:000000000000:web:0000000000000000000000"
+      };
+
+      let firebaseApp = null;
+      let firebaseDb = null;
+      let firebaseReady = false;
+
+      try {
+        if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+          firebaseApp = firebase.initializeApp(firebaseConfig);
+          firebaseDb = firebase.database();
+          firebaseReady = true;
+          console.log('Firebase Global Cloud Database initialized successfully.');
+        }
+      } catch (fbErr) {
+        console.warn('Firebase initialization skipped:', fbErr.message);
+        firebaseReady = false;
+      }
+
+      // Firebase: Write a visitor registration to the global cloud database
+      async function firebaseWriteRegistration(regData) {
+        if (!firebaseReady || !firebaseDb) return;
+        try {
+          const safeKey = (regData.name + '_' + regData.phone + '_' + regData.email)
+            .replace(/[.#$\[\]\/]/g, '_').toLowerCase();
+          await firebaseDb.ref('registrations/' + safeKey).set(regData);
+          console.log('Firebase: Registration synced globally.');
+        } catch (e) {
+          console.warn('Firebase write failed:', e);
+        }
+      }
+
+      // Firebase: Write a log entry
+      async function firebaseWriteLog(logEntry) {
+        if (!firebaseReady || !firebaseDb) return;
+        try {
+          await firebaseDb.ref('logs').push(logEntry);
+        } catch (e) {
+          console.warn('Firebase log write failed:', e);
+        }
+      }
+
+      // Firebase: Update heartbeat for a session
+      async function firebaseUpdateHeartbeat(sessId, heartbeatData) {
+        if (!firebaseReady || !firebaseDb) return;
+        try {
+          await firebaseDb.ref('heartbeats/' + sessId).set(heartbeatData);
+        } catch (e) {
+          console.warn('Firebase heartbeat update failed:', e);
+        }
+      }
+
+      // Firebase: Mark session as logged out
+      async function firebaseMarkLogout(sessId, logoutTime) {
+        if (!firebaseReady || !firebaseDb) return;
+        try {
+          await firebaseDb.ref('heartbeats/' + sessId + '/logoutTime').set(logoutTime);
+          await firebaseDb.ref('heartbeats/' + sessId + '/online').set(false);
+        } catch (e) {
+          console.warn('Firebase logout update failed:', e);
+        }
+      }
+
+      // Firebase: Increment view counter
+      async function firebaseTrackView(ip, userAgent) {
+        if (!firebaseReady || !firebaseDb) return;
+        try {
+          const viewsRef = firebaseDb.ref('stats/totalViews');
+          await viewsRef.transaction((current) => (current || 0) + 1);
+          
+          // Track unique IPs
+          const safeIp = ip.replace(/[.#$\[\]\/]/g, '_');
+          await firebaseDb.ref('uniqueIps/' + safeIp).set(true);
+        } catch (e) {
+          console.warn('Firebase view tracking failed:', e);
+        }
+      }
+
+      // Firebase: Read ALL data for the admin monitor dashboard
+      async function firebaseReadAllData() {
+        if (!firebaseReady || !firebaseDb) return null;
+        try {
+          const [regsSnap, logsSnap, heartbeatsSnap, statsSnap, ipsSnap] = await Promise.all([
+            firebaseDb.ref('registrations').once('value'),
+            firebaseDb.ref('logs').orderByKey().limitToLast(80).once('value'),
+            firebaseDb.ref('heartbeats').once('value'),
+            firebaseDb.ref('stats').once('value'),
+            firebaseDb.ref('uniqueIps').once('value')
+          ]);
+
+          const regsObj = regsSnap.val() || {};
+          const logsObj = logsSnap.val() || {};
+          const heartbeatsObj = heartbeatsSnap.val() || {};
+          const statsObj = statsSnap.val() || {};
+          const ipsObj = ipsSnap.val() || {};
+
+          // Build visitors list
+          const uniqueVisitors = Object.values(regsObj).map(reg => {
+            const hb = heartbeatsObj[reg.sessionId];
+            let isOnline = false;
+            let logoutTime = reg.logoutTime || '';
+
+            if (hb) {
+              isOnline = hb.online !== false && !hb.logoutTime && hb.lastHeartbeat && (Date.now() - hb.lastHeartbeat < 15000);
+              if (!isOnline && hb.logoutTime) {
+                logoutTime = hb.logoutTime;
+              } else if (!isOnline && hb.lastHeartbeat && !logoutTime) {
+                const hbDate = new Date(hb.lastHeartbeat);
+                logoutTime = hbDate.getFullYear() + '-' +
+                  String(hbDate.getMonth()+1).padStart(2,'0') + '-' +
+                  String(hbDate.getDate()).padStart(2,'0') + ' ' +
+                  String(hbDate.getHours()).padStart(2,'0') + ':' +
+                  String(hbDate.getMinutes()).padStart(2,'0') + ':' +
+                  String(hbDate.getSeconds()).padStart(2,'0');
+              }
+            }
+
+            return {
+              name: reg.name,
+              phone: reg.phone,
+              email: reg.email,
+              company: reg.company || 'Individual',
+              timestamp: reg.timestamp || reg.loginTime,
+              loginTime: reg.loginTime || reg.timestamp,
+              sessionId: reg.sessionId,
+              status: isOnline ? '🟢 Online' : '🔴 Offline',
+              logoutTime: logoutTime || '—'
+            };
+          });
+
+          // Build logs list
+          const recentLogs = Object.values(logsObj);
+
+          // Count unique registrations
+          const uniqueRegsSet = new Set();
+          uniqueVisitors.forEach(v => uniqueRegsSet.add((v.name + v.phone + v.email).toLowerCase()));
+
+          let warns = 0;
+          recentLogs.forEach(l => { if (l.type === 'WARN' || l.type === 'ERROR') warns++; });
+
+          return {
+            success: true,
+            stats: {
+              totalViews: statsObj.totalViews || 0,
+              uniqueViews: Object.keys(ipsObj).length,
+              totalRegistrations: Object.keys(regsObj).length,
+              uniqueRegistrations: uniqueRegsSet.size,
+              totalAlerts: warns
+            },
+            uniqueVisitors: uniqueVisitors,
+            recentLogs: recentLogs
+          };
+        } catch (e) {
+          console.warn('Firebase read failed:', e);
+          return null;
+        }
+      }
+
+      // ═══════════════════════════════════════════
       // Server Auto-Discovery Manager
       // ═══════════════════════════════════════════
       const BACKEND_CANDIDATES = [
         window.location.origin,
+        'https://www.riggingtd.in',
+        'https://riggingtd.in',
         'http://localhost:3000',
         'http://www.riggingtd.in',
-        'https://www.riggingtd.in',
         'http://riggingtd.in',
-        'https://riggingtd.in',
         'http://124.123.33.205:3000'
       ];
 
@@ -1458,6 +1630,10 @@
         }
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
+        // Sync view to Firebase Global Cloud Database
+        firebaseTrackView(clientIp, userAgent);
+        firebaseWriteLog(logEntry);
+
         // Dynamically log the visit on the discovered Express backend if present
         const activeBackend = await discoverActiveBackend();
         if (activeBackend) {
@@ -1488,6 +1664,17 @@
 
         // Helper to send heartbeat to server
         async function sendServerHeartbeat() {
+          // Update Firebase heartbeat globally
+          firebaseUpdateHeartbeat(sessionId, {
+            name: name,
+            phone: phone,
+            email: email,
+            company: company,
+            lastHeartbeat: Date.now(),
+            online: true,
+            logoutTime: ''
+          });
+
           try {
             const activeBackend = await discoverActiveBackend();
             let apiEndpoint = activeBackend ? `${activeBackend}/api/heartbeat` : '/api/heartbeat';
@@ -1535,6 +1722,9 @@
             return r;
           });
           localStorage.setItem('portfolio_registrations', JSON.stringify(updatedRegs));
+
+          // Mark session as logged out in Firebase
+          firebaseMarkLogout(sessionId, getLocalTimestamp());
 
           // Send logout to server
           try {
@@ -1608,6 +1798,11 @@
         }
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
+        // Sync registration to Firebase Global Cloud Database
+        firebaseWriteRegistration(newReg);
+        firebaseWriteLog(logEntryRegister);
+        firebaseWriteLog(logEntrySuccess);
+
         // Trigger immediate UI refresh if monitor is visible in this tab
         if (webMonitorCard && webMonitorCard.style.display === 'flex') {
           loadWebMonitorData();
@@ -1629,69 +1824,74 @@
           webRefreshBtn.innerHTML = '🔄 Loading...';
         }
 
-        const activeBackend = await discoverActiveBackend();
-        let endpointsToTry = [];
-        if (activeBackend) {
-          endpointsToTry.push(`${activeBackend}/api/logs`);
-        }
-        endpointsToTry.push('/api/logs');
-        endpointsToTry.push('http://localhost:3000/api/logs');
-
-        // De-duplicate endpoints
-        endpointsToTry = [...new Set(endpointsToTry)];
-
         let data = null;
-        let successfulEndpoint = '';
+        let syncSource = 'local';
 
-        // Fetch all endpoints in parallel and resolve with the fastest valid response
-        if (endpointsToTry.length > 0) {
+        // PRIORITY 1: Try Firebase Global Cloud Database first (always HTTPS, works from any device)
+        if (firebaseReady) {
           try {
-            data = await new Promise((resolve, reject) => {
-              let completed = 0;
-              let resolved = false;
-
-              // Safety timeout to force-resolve after 2.5 seconds if pings stall
-              const safetyTimeout = setTimeout(() => {
-                if (!resolved) {
-                  resolved = true;
-                  resolve(null);
-                }
-              }, 2500);
-
-              endpointsToTry.forEach((url) => {
-                fetchWithTimeout(url, {}, 1500)
-                  .then((res) => {
-                    if (res.ok) return res.json();
-                    throw new Error();
-                  })
-                  .then((resData) => {
-                    if (!resolved && resData && resData.success) {
-                      resolved = true;
-                      successfulEndpoint = url;
-                      clearTimeout(safetyTimeout);
-                      resolve(resData);
-                    } else {
-                      throw new Error();
-                    }
-                  })
-                  .catch(() => {
-                    completed++;
-                    if (completed === endpointsToTry.length && !resolved) {
-                      resolved = true;
-                      clearTimeout(safetyTimeout);
-                      resolve(null);
-                    }
-                  });
-              });
-            });
+            data = await firebaseReadAllData();
+            if (data && data.success) {
+              syncSource = 'firebase';
+            }
           } catch (e) {
-            console.warn('Error during parallel dashboard synchronization:', e);
+            console.warn('Firebase read attempt failed:', e);
+            data = null;
           }
         }
 
-        try {
-          // If remote fetch failed, construct local storage data structure
-          if (!data) {
+        // PRIORITY 2: Try Express backend server (for full server logs + visitors.log)
+        if (!data) {
+          const activeBackend = await discoverActiveBackend();
+          let endpointsToTry = [];
+          if (activeBackend) {
+            endpointsToTry.push(`${activeBackend}/api/logs`);
+          }
+          endpointsToTry.push('/api/logs');
+          endpointsToTry.push('http://localhost:3000/api/logs');
+          endpointsToTry = [...new Set(endpointsToTry)];
+
+          if (endpointsToTry.length > 0) {
+            try {
+              data = await new Promise((resolve, reject) => {
+                let completed = 0;
+                let resolved = false;
+                const safetyTimeout = setTimeout(() => {
+                  if (!resolved) { resolved = true; resolve(null); }
+                }, 2500);
+
+                endpointsToTry.forEach((url) => {
+                  fetchWithTimeout(url, {}, 1500)
+                    .then((res) => {
+                      if (res.ok) return res.json();
+                      throw new Error();
+                    })
+                    .then((resData) => {
+                      if (!resolved && resData && resData.success) {
+                        resolved = true;
+                        clearTimeout(safetyTimeout);
+                        resolve(resData);
+                      } else { throw new Error(); }
+                    })
+                    .catch(() => {
+                      completed++;
+                      if (completed === endpointsToTry.length && !resolved) {
+                        resolved = true;
+                        clearTimeout(safetyTimeout);
+                        resolve(null);
+                      }
+                    });
+                });
+              });
+              if (data) syncSource = 'server';
+            } catch (e) {
+              console.warn('Express backend sync failed:', e);
+            }
+          }
+        }
+
+        // PRIORITY 3: Fall back to localStorage (device-local only)
+        if (!data) {
             initLocalStorageData();
             
             const localViews = parseInt(localStorage.getItem('portfolio_views') || '0', 10);
@@ -1700,7 +1900,6 @@
             const localRegsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
             const localLogs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
 
-            // Parse unique visitors chronological card view like backend does
             const uniqueVisitorsList = [];
             const seenRegs = new Set();
             for (let i = localRegsList.length - 1; i >= 0; i--) {
@@ -1725,16 +1924,23 @@
               uniqueVisitors: uniqueVisitorsList,
               recentLogs: localLogs
             };
-            
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            if (statusText) statusText.textContent = `Active | Local Real-Time Sync (${timeStr})`;
-          } else {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            if (statusText) statusText.textContent = `Active | Cloud Synchronized (${timeStr})`;
-          }
+            syncSource = 'local';
+        }
 
+        // Update status indicator based on sync source
+        {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          if (syncSource === 'firebase') {
+            if (statusText) statusText.textContent = `Active | ☁️ Global Cloud Synchronized (${timeStr})`;
+          } else if (syncSource === 'server') {
+            if (statusText) statusText.textContent = `Active | 🖥️ Server Synchronized (${timeStr})`;
+          } else {
+            if (statusText) statusText.textContent = `Active | 📱 Local Device Sync (${timeStr})`;
+          }
+        }
+
+        try {
           // 1. Populate stats counters
           if (viewsVal) viewsVal.innerHTML = `${data.stats.totalViews} <span class="subval">/ ${data.stats.uniqueViews} IP</span>`;
           if (regsVal) regsVal.innerHTML = `${data.stats.totalRegistrations} <span class="subval">/ ${data.stats.uniqueRegistrations} UQ</span>`;
