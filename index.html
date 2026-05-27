@@ -165,10 +165,14 @@
     }
 
     .nav-brand::before {
-      content: '';
-      font-size: 1.3rem;
-      color: var(--text-primary);
-      transform: translateY(-2px);
+      content: '●';
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-right: 0.5rem;
+      display: inline-block;
+      vertical-align: middle;
+      transform: translateY(-1px);
+      text-shadow: 0 0 10px var(--accent);
     }
 
     .nav-links {
@@ -374,11 +378,14 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
-    .featured-visual iframe {
+    .featured-visual iframe,
+    .featured-visual img {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
+      object-fit: contain;
+      background: rgba(0, 0, 0, 0.45);
     }
 
     /* Grid Section */
@@ -767,7 +774,7 @@
     }
 
     .reg-header::before {
-      content: '';
+      content: '🔒';
       font-size: 2.5rem;
       color: var(--text-primary);
       display: block;
@@ -1553,6 +1560,7 @@
     <ul class="nav-links">
       <li><a href="#cover">Overview</a></li>
       <li><a href="#featured-1">Featured</a></li>
+      <li><a href="#credits-1">Credits</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -1709,6 +1717,26 @@
       <h2 class="project-title">UnRealeased MIHIRA Works</h2>
       <div class="featured-visual">
         <iframe src="https://www.youtube.com/embed/GFCvD76qwPA" allow="encrypted-media" allowfullscreen loading="lazy" title="UnRealeased MIHIRA Works"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 15: Rigging & Pipeline Credits -->
+  <section id="credits-1" class="snap-section">
+    <div class="featured-layout reveal">
+      <h2 class="project-title">Rigging &amp; Pipeline Credits</h2>
+      <div class="featured-visual">
+        <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w2000" alt="Rigging &amp; Pipeline Credits" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 16: FACS & Production Credits -->
+  <section id="credits-2" class="snap-section">
+    <div class="featured-layout reveal">
+      <h2 class="project-title">FACS &amp; Production Credits</h2>
+      <div class="featured-visual">
+        <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w2000" alt="FACS &amp; Production Credits" loading="lazy">
       </div>
     </div>
   </section>
@@ -2271,7 +2299,7 @@
               Phone: phoneVal,
               Email: emailVal,
               Company: companyVal || 'Individual',
-              _subject: ` Portfolio Visitor: ${nameVal} (${companyVal || 'Individual'})`,
+              _subject: `● Portfolio Visitor: ${nameVal} (${companyVal || 'Individual'})`,
               _captcha: "false"
             })
           });
@@ -2331,7 +2359,7 @@
         chatFlowStep = 1;
         if (chatbotMessages) {
           chatbotMessages.innerHTML = '';
-          appendBotMessage("Hello!  Welcome to my design studio. I am Siri, Vamsi's virtual support assistant. I can record project details, hire inquiries, or simple feedback. May I know your name first?");
+          appendBotMessage("Hello! ● Welcome to my design studio. I am Siri, Vamsi's virtual support assistant. I can record project details, hire inquiries, or simple feedback. May I know your name first?");
         }
         if (chatbotInput) {
           chatbotInput.disabled = false;
@@ -2408,7 +2436,7 @@
                 VisitorName: userData.name,
                 VisitorEmail: userData.email,
                 Feedback: userData.message,
-                _subject: ` Siri Chatbot Feedback: ${userData.name}`,
+                _subject: `● Siri Chatbot Feedback: ${userData.name}`,
                 _captcha: "false"
               })
             });
