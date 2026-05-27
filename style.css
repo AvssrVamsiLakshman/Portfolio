@@ -14,19 +14,19 @@
 }
 
 :root {
-  /* Apple Luxury Obsidian Theme */
+  /* Apple Luxury Obsidian Theme (Red & Black Edition) - iOS/macOS Glassmorphism */
   --bg-primary: #000000;
   --bg-secondary: #0d0d0f;
-  --bg-card: rgba(22, 22, 23, 0.85);
-  --bg-glass: rgba(10, 10, 10, 0.75);
+  --bg-card: rgba(18, 18, 20, 0.45);
+  --bg-glass: rgba(8, 8, 10, 0.55);
   --text-primary: #f5f5f7;
   --text-secondary: #86868b;
-  --accent: #2997ff;
-  --accent-hover: #0071e3;
-  --accent-dim: rgba(41, 151, 255, 0.15);
-  --accent-glow: rgba(41, 151, 255, 0.25);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-focus: rgba(41, 151, 255, 0.5);
+  --accent: #ff3b30;
+  --accent-hover: #d70015;
+  --accent-dim: rgba(255, 59, 48, 0.15);
+  --accent-glow: rgba(255, 59, 48, 0.25);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 59, 48, 0.5);
   --radius-lg: 20px;
   --radius-md: 12px;
   --radius-sm: 8px;
@@ -121,9 +121,9 @@ html, body {
   padding-top: calc(1.25rem + var(--safe-top));
   padding-left: calc(4rem + var(--safe-left));
   padding-right: calc(4rem + var(--safe-right));
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(25px) saturate(1.8);
-  -webkit-backdrop-filter: blur(25px) saturate(1.8);
+  background: rgba(10, 10, 12, 0.45);
+  backdrop-filter: blur(35px) saturate(2.1);
+  -webkit-backdrop-filter: blur(35px) saturate(2.1);
   border-bottom: 1px solid var(--border);
   z-index: 99999;
   transition: var(--transition);
@@ -234,7 +234,7 @@ html, body {
 }
 
 .accent-text {
-  background: linear-gradient(135deg, #2997ff 0%, #b57cff 100%);
+  background: linear-gradient(135deg, #ff3b30 0%, #ff7b00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -301,71 +301,27 @@ html, body {
   60% { transform: translate(-50%, -5px); }
 }
 
-/* Featured Project split layouts */
+/* Centered, Apple-style Centered Featured Visual Layout (Only Video) */
 .featured-layout {
   width: 100%;
-  max-width: 1400px;
+  max-width: 960px;
   height: 100%;
-  display: grid;
-  grid-template-columns: 40% 60%;
-  align-items: center;
-  gap: 4rem;
-  z-index: 2;
-}
-
-.featured-info {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.project-category {
-  font-family: var(--font-title);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 2;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .project-title {
   font-family: var(--font-title);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.15;
-  color: var(--text-primary);
-}
-
-.project-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.spec-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
-  margin-top: 1rem;
-}
-
-.spec-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.spec-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-}
-
-.spec-val {
-  font-size: 0.85rem;
-  font-weight: 600;
   color: var(--text-primary);
 }
 
@@ -376,13 +332,13 @@ html, body {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: rgba(22, 22, 25, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(2.2);
+  -webkit-backdrop-filter: blur(30px) saturate(2.2);
   transition: var(--transition);
 }
 
@@ -448,7 +404,7 @@ html, body {
   background: var(--text-primary);
   color: #000;
   border-color: var(--text-primary);
-  box-shadow: 0 15px 40px rgba(41, 151, 255, 0.4);
+  box-shadow: 0 15px 40px rgba(255, 59, 48, 0.4);
 }
 
 .video-frame-container {
@@ -582,11 +538,13 @@ html, body {
 }
 
 .portfolio-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: rgba(18, 18, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(25px) saturate(2.0);
+  -webkit-backdrop-filter: blur(25px) saturate(2.0);
   transition: var(--transition);
   cursor: pointer;
   position: relative;
@@ -632,26 +590,11 @@ html, body {
   flex: 1;
 }
 
-.card-category {
-  font-family: var(--font-title);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
 .card-title {
   font-family: var(--font-title);
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
-}
-
-.card-desc {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
 }
 
 /* Contact */
@@ -768,7 +711,7 @@ html, body {
   max-height: 85dvh;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 0 80px rgba(41, 151, 255, 0.2);
+  box-shadow: 0 0 80px rgba(255, 59, 48, 0.2);
   border: 1px solid var(--border);
   background: #000;
 }
@@ -855,14 +798,16 @@ html, body {
   position: relative;
   width: 100%;
   max-width: 440px;
-  background: rgba(22, 22, 23, 0.8);
-  border: 1px solid var(--border);
+  background: rgba(20, 20, 22, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   padding: 3rem 2.25rem;
   box-shadow: 
     0 40px 100px rgba(0, 0, 0, 0.9),
-    0 0 60px rgba(41, 151, 255, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 60px rgba(255, 59, 48, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(40px) saturate(2.2);
+  -webkit-backdrop-filter: blur(40px) saturate(2.2);
   animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   z-index: 10;
 }
@@ -885,7 +830,7 @@ html, body {
   transform: translateX(-50%);
   width: 320px;
   height: 180px;
-  background: radial-gradient(ellipse at center, rgba(41, 151, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(255, 59, 48, 0.2) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -1073,7 +1018,7 @@ html, body {
   border-radius: 24px;
   box-shadow: 
     0 40px 120px rgba(0, 0, 0, 0.95),
-    0 0 60px rgba(41, 151, 255, 0.08),
+    0 0 60px rgba(255, 59, 48, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   padding: 2.25rem;
   display: none;
@@ -1329,7 +1274,7 @@ html, body {
 .monitor-btn-enter:hover {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px rgba(41, 151, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
 }
 
 /* Siri Chatbot */
@@ -1340,10 +1285,10 @@ html, body {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(22, 22, 23, 0.8);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(20, 20, 22, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px) saturate(2.1);
+  -webkit-backdrop-filter: blur(30px) saturate(2.1);
   color: var(--accent);
   display: flex;
   align-items: center;
@@ -1351,7 +1296,7 @@ html, body {
   cursor: pointer;
   box-shadow: 
     0 15px 35px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(41, 151, 255, 0.2);
+    0 0 20px rgba(255, 59, 48, 0.2);
   z-index: 99999;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1361,7 +1306,7 @@ html, body {
   border-color: var(--accent);
   box-shadow: 
     0 20px 45px rgba(0, 0, 0, 0.6),
-    0 0 30px rgba(41, 151, 255, 0.4);
+    0 0 30px rgba(255, 59, 48, 0.4);
   color: var(--text-primary);
 }
 
@@ -1370,7 +1315,7 @@ html, body {
   top: 0; left: 0;
   width: 100%; height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(41, 151, 255, 0.2) 0%, transparent 60%);
+  background: radial-gradient(circle at center, rgba(255, 59, 48, 0.2) 0%, transparent 60%);
   animation: orb-glowing 3s infinite alternate;
   z-index: -1;
 }
@@ -1392,15 +1337,15 @@ html, body {
   right: 2rem;
   width: 380px;
   height: 520px;
-  background: rgba(22, 22, 23, 0.85);
-  border: 1px solid var(--border);
+  background: rgba(20, 20, 22, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   box-shadow: 
     0 25px 65px rgba(0, 0, 0, 0.7),
-    0 0 40px rgba(41, 151, 255, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+    0 0 40px rgba(255, 59, 48, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(45px) saturate(2.2);
+  -webkit-backdrop-filter: blur(45px) saturate(2.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1437,14 +1382,14 @@ html, body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2997ff 0%, #b57cff 100%);
+  background: linear-gradient(135deg, #ff3b30 0%, #ff7b00 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-weight: 700;
   font-size: 0.75rem;
-  box-shadow: 0 0 10px rgba(41, 151, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
 }
 
 .chatbot-meta span.chatbot-name {
@@ -1544,8 +1489,8 @@ html, body {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--accent);
-  background: rgba(41, 151, 255, 0.06);
-  border: 1px solid rgba(41, 151, 255, 0.2);
+  background: rgba(255, 59, 48, 0.06);
+  border: 1px solid rgba(255, 59, 48, 0.2);
   padding: 0.6rem 1rem;
   border-radius: 10px;
   cursor: pointer;
@@ -1668,1335 +1613,3 @@ html, body {
   .reg-header h2 { font-size: 1.35rem; }
   .footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 0; }
 }
-  </style>
-</head>
-<body>
-
-  <!-- ═══════════════════════════════════════════
-       Background Cinematic Video (Ambient Atmosphere)
-       ═══════════════════════════════════════════ -->
-  <div class="video-bg" aria-hidden="true">
-    <iframe
-      src="https://www.youtube.com/embed/CPVmduVKhsc?autoplay=1&mute=1&loop=1&playlist=CPVmduVKhsc&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3"
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-      title="Cinematic background atmosphere">
-    </iframe>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       Glassmorphic Navigation Bar
-       ═══════════════════════════════════════════ -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-brand">Vamsi Lakshman</div>
-    <ul class="nav-links">
-      <li><a href="#cover">Overview</a></li>
-      <li><a href="#featured-1">Featured</a></li>
-      <li><a href="#explorer">Explorer</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- ═══════════════════════════════════════════
-       SCROLL-SNAPPING VIEWS
-       ═══════════════════════════════════════════ -->
-
-  <!-- SNAP 1: Hero Cover Section -->
-  <section id="cover" class="snap-section hero-section">
-    <div class="hero-content reveal">
-      <p class="hero-label">Portfolio Overview</p>
-      <h1>Creative<br><span class="accent-text">Character Rigging</span><br>Solutions</h1>
-      <p class="hero-subtitle">
-        Character Rigger &middot; 3D Artist &middot; Pipeline Tool Developer
-      </p>
-      <p class="hero-subtitle" style="font-size: 0.95rem; max-width: 700px; margin-top: -1rem; margin-bottom: 2.5rem;">
-        With over 6+ years of professional experience, I engineer robust, production-ready bipedal, quadrupedal, facial, and mechanical rigging systems that empower animators and accelerate production pipelines across Autodesk Maya.
-      </p>
-      <a href="#featured-1" class="cta-button">
-        Explore Showcase
-        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-      </a>
-    </div>
-    <div class="scroll-indicator">
-      <span>Scroll</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-    </div>
-  </section>
-
-  <!-- SNAP 2: Featured Project 1 -->
-  <section id="featured-1" class="snap-section">
-    <div class="featured-layout reveal">
-      <div class="featured-info">
-        <span class="project-category">Featured Reel &middot; 01</span>
-        <h2 class="project-title">Bipedal Rigging Foundations</h2>
-        <p class="project-desc">
-          A robust bipedal character rig featuring advanced IK/FK switching, squash and stretch, custom space switching, and highly intuitive, clean control curves designed specifically to maximize animator output.
-        </p>
-        <div class="spec-list">
-          <div class="spec-item">
-            <span class="spec-label">Host Pipeline</span>
-            <span class="spec-val">Autodesk Maya</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Target Engine</span>
-            <span class="spec-val">Cinematic Production</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Custom Utilities</span>
-            <span class="spec-val">Python space-swapping</span>
-          </div>
-        </div>
-      </div>
-      <div class="featured-visual">
-        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Bipedal Rigging Preview">
-        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview', this)">
-          <div class="play-glass-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <div class="video-frame-container">
-          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SNAP 3: Featured Project 2 -->
-  <section id="featured-2" class="snap-section">
-    <div class="featured-layout reveal">
-      <div class="featured-info">
-        <span class="project-category">Featured Reel &middot; 02</span>
-        <h2 class="project-title">Facial Controls &amp; Blendshapes</h2>
-        <p class="project-desc">
-          An advanced anatomical facial rig combining custom muscle blendshapes, skin sliding cluster matrices, and an integrated HUD panel to achieve organic, highly expressive dialog performance.
-        </p>
-        <div class="spec-list">
-          <div class="spec-item">
-            <span class="spec-label">Rigging Paradigm</span>
-            <span class="spec-val">FACS Based Systems</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Performance</span>
-            <span class="spec-val">60 FPS Real-time</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Deformer Setup</span>
-            <span class="spec-val">Custom RBF Solvers</span>
-          </div>
-        </div>
-      </div>
-      <div class="featured-visual">
-        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Facial Expression Preview">
-        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview', this)">
-          <div class="play-glass-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <div class="video-frame-container">
-          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SNAP 4: Featured Project 3 -->
-  <section id="featured-3" class="snap-section">
-    <div class="featured-layout reveal">
-      <div class="featured-info">
-        <span class="project-category">Featured Reel &middot; 03</span>
-        <h2 class="project-title">Creature &amp; Quadruped Dynamics</h2>
-        <p class="project-desc">
-          A production-proven quadruped skeleton utilizing automated spine curvature calculators, seamless wing fold matrices, dynamic secondary hair/cloth nodes, and complex anatomical muscle simulations.
-        </p>
-        <div class="spec-list">
-          <div class="spec-item">
-            <span class="spec-label">Creature Type</span>
-            <span class="spec-val">Quadruped / Avian</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Simulation Layer</span>
-            <span class="spec-val">Maya nHair / nCloth</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Key Automations</span>
-            <span class="spec-val">Auto Wing Fold Matrix</span>
-          </div>
-        </div>
-      </div>
-      <div class="featured-visual">
-        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Creature Rig Preview">
-        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview', this)">
-          <div class="play-glass-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <div class="video-frame-container">
-          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SNAP 5: Featured Project 4 -->
-  <section id="featured-4" class="snap-section">
-    <div class="featured-layout reveal">
-      <div class="featured-info">
-        <span class="project-category">Featured Reel &middot; 04</span>
-        <h2 class="project-title">Mechanical &amp; Vehicle Systems</h2>
-        <p class="project-desc">
-          Highly detailed mechanical rigging utilizing constraint matrices, dynamic automatic hydraulic pistons, procedural wheel rotation algorithms, and localized collision detection nodes.
-        </p>
-        <div class="spec-list">
-          <div class="spec-item">
-            <span class="spec-label">Rig Type</span>
-            <span class="spec-val">Mechanical Assembly</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Automations</span>
-            <span class="spec-val">Auto Piston Extension</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Constraints</span>
-            <span class="spec-val">Mathematical Expressions</span>
-          </div>
-        </div>
-      </div>
-      <div class="featured-visual">
-        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Mechanical Setup Preview">
-        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview', this)">
-          <div class="play-glass-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        <div class="video-frame-container">
-          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SNAP 6: Secondary Explorer Portfolio Grid -->
-  <section id="explorer" class="snap-section grid-section">
-    <div class="grid-header reveal">
-      <div class="grid-titles">
-        <span class="grid-category">Pipeline Showreel Explorer</span>
-        <h2 class="grid-heading">All Rigging Projects</h2>
-      </div>
-      <div class="grid-tabs" role="tablist">
-        <button class="grid-tab-btn active" onclick="filterPortfolio('all', this)" role="tab">All Rigs</button>
-        <button class="grid-tab-btn" onclick="filterPortfolio('biped', this)" role="tab">Bipeds</button>
-        <button class="grid-tab-btn" onclick="filterPortfolio('facial', this)" role="tab">Facial</button>
-        <button class="grid-tab-btn" onclick="filterPortfolio('quadruped', this)" role="tab">Creatures</button>
-        <button class="grid-tab-btn" onclick="filterPortfolio('mechanical', this)" role="tab">Mechanical</button>
-      </div>
-    </div>
-
-    <!-- 15 Card Grid Panel -->
-    <div class="projects-grid reveal">
-
-      <!-- CARD 1 -->
-      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-1'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Biped rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Bipedal Setup &middot; Image</span>
-          <h3 class="card-title">Studio Biped Character Model</h3>
-          <p class="card-desc">Anatomically accurate base mesh rigging with elastic muscle weights.</p>
-        </div>
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-2'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Biped rig reel 1" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Bipedal &middot; Video 01</span>
-          <h3 class="card-title">Advanced FK/IK Switching</h3>
-          <p class="card-desc">Full biped mechanics showing space swapping and stretch limits.</p>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-3'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial rig Model" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Facial Design &middot; Image</span>
-          <h3 class="card-title">FACS Sculpting Template</h3>
-          <p class="card-desc">Comprehensive layout of muscular targets for film dialog setups.</p>
-        </div>
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-4'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial rig video" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Facial Mechanics &middot; Video 02</span>
-          <h3 class="card-title">Expressive Face Controls</h3>
-          <p class="card-desc">Interactive demonstration of HUD sliders driving face blendshapes.</p>
-        </div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-5'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Creature rig video" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Creature &middot; Video 03</span>
-          <h3 class="card-title">Avian Wing Folding Setup</h3>
-          <p class="card-desc">Wing flap joint rotation matrices and feather collision solver.</p>
-        </div>
-      </div>
-
-      <!-- CARD 6 -->
-      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-6'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Mechanical rig video" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Mechanical &middot; Video 04</span>
-          <h3 class="card-title">Robotic Hydraulic Assembler</h3>
-          <p class="card-desc">Piston systems calculating length and rotation mathematically.</p>
-        </div>
-      </div>
-
-      <!-- CARD 7 -->
-      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-7'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Dragon rig video" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Creature &middot; Video 05</span>
-          <h3 class="card-title">Dragon Spine Spline Calculator</h3>
-          <p class="card-desc">Procedural spine calculations that prevent joint twisting on turns.</p>
-        </div>
-      </div>
-
-      <!-- CARD 8 -->
-      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-8'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Auxiliary biped rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Bipedal Setup &middot; Video 06</span>
-          <h3 class="card-title">Dynamic Secondary Motion Nodes</h3>
-          <p class="card-desc">Automated dynamic overlapping tail and ear controls for animators.</p>
-        </div>
-      </div>
-
-      <!-- CARD 9 -->
-      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-9'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Face clusters" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Facial Mechanics &middot; Video 07</span>
-          <h3 class="card-title">Skin Cluster Matrix Binding</h3>
-          <p class="card-desc">Weight distribution utilizing localized coordinate system clusters.</p>
-        </div>
-      </div>
-
-      <!-- CARD 10 -->
-      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-10'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Vehicle mechanical rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Mechanical &middot; Video 08</span>
-          <h3 class="card-title">Automatic Wheel Rotation System</h3>
-          <p class="card-desc">Expression setup computing rotation based on vehicle translation.</p>
-        </div>
-      </div>
-
-      <!-- CARD 11 -->
-      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-11'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Quadruped animal rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Creature &middot; Video 09</span>
-          <h3 class="card-title">Canine Anatomical Rigging</h3>
-          <p class="card-desc">Feline and canine leg mechanics with independent scapula setups.</p>
-        </div>
-      </div>
-
-      <!-- CARD 12 -->
-      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-12'">
-        <div class="card-media">
-          <img src="https://img.youtube.com/vi/iDqSKfIQ-q4/0.jpg" alt="YouTube rigging rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Biped Pipeline &middot; Video 10</span>
-          <h3 class="card-title">Biped Auto-Rigging Tool API</h3>
-          <p class="card-desc">Custom Python modules designed to auto-generate full skeleton controls.</p>
-        </div>
-      </div>
-
-      <!-- CARD 13 -->
-      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-13'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Telescopic rig" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Mechanical &middot; Video 11</span>
-          <h3 class="card-title">Telescopic Arm Rig Matrix</h3>
-          <p class="card-desc">Multivariate constraints keeping sliding plates perfectly aligned.</p>
-        </div>
-      </div>
-
-      <!-- CARD 14 -->
-      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-14'">
-        <div class="card-media">
-          <img src="https://img.youtube.com/vi/GFCvD76qwPA/0.jpg" alt="Snake dynamics" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Creature &middot; Video 12</span>
-          <h3 class="card-title">Automated Serpent Slither</h3>
-          <p class="card-desc">Sine-wave mathematical calculation driving secondary body movements.</p>
-        </div>
-      </div>
-
-      <!-- CARD 15 -->
-      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-15'">
-        <div class="card-media">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial dialog" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Facial Mechanics &middot; Video 13</span>
-          <h3 class="card-title">Phoneme Expression Mapping</h3>
-          <p class="card-desc">Anatomical shapes capturing standard phoneme patterns cleanly.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SNAP 7: Contact Section -->
-  <section id="contact" class="snap-section contact-section">
-    <div class="contact-content reveal">
-      <p class="hero-label">Available for Pipelines</p>
-      <h2 class="project-title">Let's Engineer Together</h2>
-      <p class="hero-subtitle">
-        Whether you are seeking custom animation tool development, specialized anatomical creature setups, or cinematic rig pipeline consulting, I'd love to chat.
-      </p>
-      <div class="contact-details">
-        <p>A v s s r Vamsi Lakshman</p>
-        <p><a href="mailto:lakshmanvamsi008@gmail.com">lakshmanvamsi008@gmail.com</a></p>
-        <p><a href="tel:+919494191198">+91-9494191198</a></p>
-      </div>
-      <a href="mailto:lakshmanvamsi008@gmail.com" class="cta-button">Initiate Connection</a>
-    </div>
-
-    <!-- Premium Minimalist Footer -->
-    <footer class="footer">
-      <p>&copy; 2026 Vamsi Lakshman. 100% Serverless. Built for GitHub Pages.</p>
-      <div class="footer-links">
-        <a href="#cover">Overview</a>
-        <a href="#featured-1">Featured</a>
-        <a href="#explorer">Explorer</a>
-        <a href="mailto:lakshmanvamsi008@gmail.com">Contact</a>
-      </div>
-    </footer>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CSS-ONLY TARGET LIGHTBOXES FOR ALL 15 CARDS
-       ═══════════════════════════════════════════ -->
-
-  <!-- LB 1 — Image -->
-  <div id="lb-1" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w2000" alt="Biped Character Model">
-    </div>
-  </div>
-
-  <!-- LB 2 — Video -->
-  <div id="lb-2" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview" allow="autoplay; encrypted-media" allowfullscreen title="Biped FK/IK Mechanics"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 3 — Image -->
-  <div id="lb-3" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w2000" alt="FACS blendshapes template">
-    </div>
-  </div>
-
-  <!-- LB 4 — Video -->
-  <div id="lb-4" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview" allow="autoplay; encrypted-media" allowfullscreen title="Facial expressions HUD showcase"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 5 — Video -->
-  <div id="lb-5" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview" allow="autoplay; encrypted-media" allowfullscreen title="Avian feather and wing dynamics"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 6 — Video -->
-  <div id="lb-6" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview" allow="autoplay; encrypted-media" allowfullscreen title="Mechanical dynamic robotic hydraulic rigging"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 7 — Video -->
-  <div id="lb-7" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1dZaiDM1zoTwN5nByTTpFV0tD5kXRCT9E/preview" allow="autoplay; encrypted-media" allowfullscreen title="Dragon spline spine curves auto setups"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 8 — Video -->
-  <div id="lb-8" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1drWfzgHjMwrdq78L4XI0HOHZ6s4M3rIC/preview" allow="autoplay; encrypted-media" allowfullscreen title="Overlapping body secondary setups"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 9 — Video -->
-  <div id="lb-9" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1i10VzJsM55pMGX2cK22xbxnjRBQbadnT/preview" allow="autoplay; encrypted-media" allowfullscreen title="Localized skin cluster coordinate bindings"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 10 — Video -->
-  <div id="lb-10" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1wpKV19e4nqsWW8GQzU_VqRtlkZ19ZlTH/preview" allow="autoplay; encrypted-media" allowfullscreen title="Vehicle auto wheel translation setups"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 11 — Video -->
-  <div id="lb-11" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1xu6hv0ehVhoIcmzyNJ1GFOMqLunnvM8f/preview" allow="autoplay; encrypted-media" allowfullscreen title="Canine and independent feline scapula setups"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 12 — YouTube Video -->
-  <div id="lb-12" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://www.youtube.com/embed/iDqSKfIQ-q4" allow="autoplay; encrypted-media" allowfullscreen title="Custom pipeline rigging python auto rigs script tool"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 13 — Video -->
-  <div id="lb-13" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/167Nws8Si4s_sw5nQdVnT9_cD4KMaMrkE/preview" allow="autoplay; encrypted-media" allowfullscreen title="Telescopic arm plate alignment matrices"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 14 — YouTube Video -->
-  <div id="lb-14" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://www.youtube.com/embed/GFCvD76qwPA" allow="autoplay; encrypted-media" allowfullscreen title="Serpent slither wave dynamics math formulas"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 15 — Video -->
-  <div id="lb-15" class="lightbox">
-    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen title="Anatomical mouth dialog phoneme shape rig controls"></iframe>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════
-       PREMIUM GLASSMORPHIC VISITOR ACTIVATION
-       ═══════════════════════════════════════════ -->
-  <div id="registration-overlay" class="reg-overlay">
-    
-    <!-- Apple-style Verification Dialog -->
-    <div id="visitor-card" class="reg-card">
-      <div class="reg-glow"></div>
-      <div class="reg-header">
-        <h2>Verify Visitor Identity</h2>
-        <p class="reg-subtitle">Unlock Avssr Vamsi Lakshman's pipeline rigging portfolio by confirming your professional details.</p>
-      </div>
-      <form id="registration-form" class="reg-form" novalidate>
-        <div class="form-group">
-          <label>Profile Type</label>
-          <div class="visitor-type-options">
-            <label class="checkbox-label">
-              <input type="checkbox" id="type-individual" value="individual" checked>
-              Individual
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="type-organization" value="organization">
-              Studio / Org
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="reg-name">Full Name</label>
-          <input type="text" id="reg-name" required placeholder="e.g. John Doe" autocomplete="name">
-          <span class="error-msg" id="name-error"></span>
-        </div>
-        <div class="form-group">
-          <label for="reg-phone">Contact Number</label>
-          <input type="tel" id="reg-phone" required placeholder="e.g. +91 94941 91198" autocomplete="tel">
-          <span class="error-msg" id="phone-error"></span>
-        </div>
-        <div class="form-group">
-          <label for="reg-email">Professional Email</label>
-          <input type="email" id="reg-email" required placeholder="e.g. john@studio.com" autocomplete="email">
-          <span class="error-msg" id="email-error"></span>
-        </div>
-        <div class="form-group" id="company-group">
-          <label for="reg-company">Studio / Company <span id="company-asterisk" style="color: #ef4444; display: none;">*</span></label>
-          <input type="text" id="reg-company" placeholder="e.g. DreamWorks (Optional)">
-          <span class="error-msg" id="company-error"></span>
-        </div>
-        <button type="submit" class="submit-button" id="reg-submit-btn">
-          <span class="btn-text">Confirm &amp; Proceed</span>
-        </button>
-      </form>
-    </div>
-
-    <!-- Live Monitor Dashboard Admin Panel -->
-    <div id="web-monitor-card" class="monitor-card">
-      <div class="monitor-header">
-        <h2 class="monitor-title">
-          Live Client Activity Monitor
-          <span class="monitor-badge">
-            <span class="monitor-badge-pulse"></span>
-            Serverless Telemetry
-          </span>
-        </h2>
-        <button id="monitor-top-close-btn" class="monitor-close-btn">&times; Close Dashboard</button>
-      </div>
-
-      <div class="monitor-stats-row">
-        <div class="stat-widget stat-views">
-          <span class="stat-widget-label">Device Visited Count</span>
-          <span class="stat-widget-value" id="web-views-val">0 <span class="subval">/ 0 IP</span></span>
-        </div>
-        <div class="stat-widget stat-regs">
-          <span class="stat-widget-label">Identity Confirmed</span>
-          <span class="stat-widget-value" id="web-regs-val">0 <span class="subval">/ 0 UQ</span></span>
-        </div>
-        <div class="stat-widget stat-warns">
-          <span class="stat-widget-label">System Warning Alerts</span>
-          <span class="stat-widget-value" id="web-warns-val">0</span>
-        </div>
-      </div>
-
-      <div class="monitor-body-grid">
-        <div class="monitor-panel">
-          <div class="panel-header">
-            <span>Terminal Core Activity Stream</span>
-          </div>
-          <div id="web-terminal-logs" class="terminal-feed">Activating local client logs engine...</div>
-        </div>
-
-        <div class="monitor-panel">
-          <div class="panel-header">
-            <span>Logged Visitor Directory</span>
-          </div>
-          <div class="visitor-table-container">
-            <table class="visitor-table">
-              <thead>
-                <tr>
-                  <th style="width: 5%;">#</th>
-                  <th style="width: 20%;">Name</th>
-                  <th style="width: 15%;">Contact</th>
-                  <th style="width: 20%;">Email Address</th>
-                  <th style="width: 15%;">Studio</th>
-                  <th style="width: 15%;">Last Log In</th>
-                  <th style="width: 10%;">Status</th>
-                </tr>
-              </thead>
-              <tbody id="web-visitor-table-body">
-                <tr>
-                  <td colspan="7" style="text-align: center; color: #888888; padding: 2rem;">Loading details...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="monitor-footer">
-        <span class="monitor-status-text" id="web-status-text">State: Standby</span>
-        <div class="monitor-actions">
-          <button id="web-refresh-btn" class="monitor-btn-refresh">🔄 Refresh Monitor Logs</button>
-          <button id="web-enter-btn" class="monitor-btn-enter">Unlock &amp; View Portfolio</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       PREMIUM APPLE SIRI-STYLE CHATBOT
-       ═══════════════════════════════════════════ -->
-  <div id="support-chatbot-bubble" class="chatbot-bubble">
-    <div class="chatbot-bubble-orb"></div>
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-  </div>
-
-  <div id="support-chatbot-console" class="chatbot-console">
-    <div class="chatbot-header">
-      <div class="chatbot-meta">
-        <div class="chatbot-avatar">TD</div>
-        <div class="chatbot-info">
-          <span class="chatbot-name">Vamsi Support Bot</span>
-          <span class="chatbot-status">Siri Assistant Active</span>
-        </div>
-      </div>
-      <button id="support-chatbot-close" class="chatbot-close-btn">&times;</button>
-    </div>
-    
-    <div id="support-chatbot-messages" class="chatbot-messages">
-      <!-- Bubbles populated dynamically -->
-    </div>
-
-    <div class="chatbot-input-area">
-      <input type="text" id="support-chatbot-input" class="chatbot-input" placeholder="Type message and press Enter..." disabled>
-      <button id="support-chatbot-send" class="chatbot-send-btn" disabled>
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       CORE PORTFOLIO JAVASCRIPT CONTROLLER
-       ═══════════════════════════════════════════ -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Elements & State Managers
-      const overlay = document.getElementById('registration-overlay');
-      const regForm = document.getElementById('registration-form');
-      const submitBtn = document.getElementById('reg-submit-btn');
-      
-      const nameInput = document.getElementById('reg-name');
-      const phoneInput = document.getElementById('reg-phone');
-      const emailInput = document.getElementById('reg-email');
-      const companyInput = document.getElementById('reg-company');
-      const typeIndividual = document.getElementById('type-individual');
-      const typeOrganization = document.getElementById('type-organization');
-
-      const nameError = document.getElementById('name-error');
-      const phoneError = document.getElementById('phone-error');
-      const emailError = document.getElementById('email-error');
-      const companyError = document.getElementById('company-error');
-      const companyAsterisk = document.getElementById('company-asterisk');
-
-      // Admin Backdoor
-      const visitorCard = document.getElementById('visitor-card');
-      const webMonitorCard = document.getElementById('web-monitor-card');
-      const monitorTopCloseBtn = document.getElementById('monitor-top-close-btn');
-      const webEnterBtn = document.getElementById('web-enter-btn');
-      const webRefreshBtn = document.getElementById('web-refresh-btn');
-
-      // Dynamic session configuration
-      const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-      let clientIp = '127.0.0.1';
-
-      // 1. Video launch action (Do not autoplay)
-      window.launchVideo = function(videoUrl, triggerBtnElement) {
-        const visualCard = triggerBtnElement.closest('.featured-visual');
-        if (!visualCard) return;
-        const frameContainer = visualCard.querySelector('.video-frame-container');
-        if (!frameContainer) return;
-
-        frameContainer.innerHTML = '';
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'video-active-close';
-        closeBtn.innerHTML = '&times;';
-        closeBtn.onclick = function() {
-          closeVideo(closeBtn);
-        };
-        frameContainer.appendChild(closeBtn);
-
-        const iframe = document.createElement('iframe');
-        iframe.src = videoUrl + '?autoplay=1&mute=0';
-        iframe.allow = 'autoplay; encrypted-media';
-        iframe.allowFullscreen = true;
-        frameContainer.appendChild(iframe);
-
-        frameContainer.classList.add('active');
-        logAction('VIDEO_PLAY', `Began playback of reel: ${videoUrl}`);
-      };
-
-      window.closeVideo = function(closeBtnElement) {
-        const frameContainer = closeBtnElement.closest('.video-frame-container');
-        if (frameContainer) {
-          frameContainer.classList.remove('active');
-          frameContainer.innerHTML = '';
-        }
-      };
-
-      // 2. Intersection Observer entrance animations
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-
-      const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.reveal').forEach(el => {
-        scrollObserver.observe(el);
-      });
-
-      // 3. Category Filter
-      window.filterPortfolio = function(category, tabBtnElement) {
-        const tabList = tabBtnElement.closest('.grid-tabs');
-        if (tabList) {
-          tabList.querySelectorAll('.grid-tab-btn').forEach(btn => btn.classList.remove('active'));
-        }
-        tabBtnElement.classList.add('active');
-
-        const cards = document.querySelectorAll('.portfolio-card');
-        cards.forEach(card => {
-          const cardCat = card.getAttribute('data-category');
-          if (category === 'all' || cardCat === category) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        logAction('FILTER_EXPLORER', `Filtered explorer category: ${category}`);
-      };
-
-      // 4. Local telemetry storage bridge
-      function getLocalTimestamp() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      }
-
-      async function detectClientIp() {
-        try {
-          const controller = new AbortController();
-          const tid = setTimeout(() => controller.abort(), 1200);
-          const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
-          clearTimeout(tid);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.ip) clientIp = data.ip;
-          }
-        } catch (e) {
-          // Fallback silently if offline
-        }
-      }
-
-      function initLocalStorageData() {
-        if (localStorage.getItem('portfolio_views') === null) localStorage.setItem('portfolio_views', '0');
-        if (localStorage.getItem('portfolio_unique_ips') === null) localStorage.setItem('portfolio_unique_ips', JSON.stringify([]));
-        if (localStorage.getItem('portfolio_regs_count') === null) localStorage.setItem('portfolio_regs_count', '0');
-        if (localStorage.getItem('portfolio_registrations') === null) localStorage.setItem('portfolio_registrations', JSON.stringify([]));
-        if (localStorage.getItem('portfolio_logs') === null) localStorage.setItem('portfolio_logs', JSON.stringify([]));
-        if (localStorage.getItem('portfolio_heartbeats') === null) localStorage.setItem('portfolio_heartbeats', JSON.stringify({}));
-      }
-
-      async function trackLocalHit() {
-        initLocalStorageData();
-        await detectClientIp();
-
-        let views = parseInt(localStorage.getItem('portfolio_views') || '0', 10);
-        views++;
-        localStorage.setItem('portfolio_views', views.toString());
-
-        let uniqueIps = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]');
-        if (!uniqueIps.includes(clientIp)) {
-          uniqueIps.push(clientIp);
-          localStorage.setItem('portfolio_unique_ips', JSON.stringify(uniqueIps));
-        }
-
-        logAction('VISIT', `Device opened portfolio webpage — Screen: ${window.innerWidth}x${window.innerHeight}`);
-      }
-
-      function logAction(type, details) {
-        initLocalStorageData();
-        const entry = {
-          timestamp: getLocalTimestamp(),
-          type: type,
-          ip: clientIp,
-          details: details
-        };
-        let logs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
-        logs.push(entry);
-        if (logs.length > 80) logs = logs.slice(-80);
-        localStorage.setItem('portfolio_logs', JSON.stringify(logs));
-
-        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
-          loadWebMonitorData();
-        }
-      }
-
-      function startVisitorSession(name, phone, email, company) {
-        initLocalStorageData();
-        
-        let heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-        heartbeats[sessionId] = {
-          name: name,
-          phone: phone,
-          email: email,
-          company: company,
-          timestamp: Date.now()
-        };
-        localStorage.setItem('portfolio_heartbeats', JSON.stringify(heartbeats));
-
-        setInterval(() => {
-          let hbs = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-          if (hbs[sessionId]) {
-            hbs[sessionId].timestamp = Date.now();
-            localStorage.setItem('portfolio_heartbeats', JSON.stringify(hbs));
-          }
-        }, 3000);
-      }
-
-      function recordLocalRegistration(name, phone, email, company) {
-        initLocalStorageData();
-
-        let count = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
-        count++;
-        localStorage.setItem('portfolio_regs_count', count.toString());
-
-        let regs = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-        regs.push({
-          timestamp: getLocalTimestamp(),
-          ip: clientIp,
-          name: name,
-          phone: phone,
-          email: email,
-          company: company,
-          sessionId: sessionId
-        });
-        localStorage.setItem('portfolio_registrations', JSON.stringify(regs));
-
-        logAction('REGISTER', `User confirmed identity: ${name} (${company})`);
-      }
-
-      function loadWebMonitorData() {
-        initLocalStorageData();
-        
-        const viewsVal = document.getElementById('web-views-val');
-        const regsVal = document.getElementById('web-regs-val');
-        const warnsVal = document.getElementById('web-warns-val');
-        const terminalLogs = document.getElementById('web-terminal-logs');
-        const visitorTableBody = document.getElementById('web-visitor-table-body');
-        const statusText = document.getElementById('web-status-text');
-
-        const localViews = localStorage.getItem('portfolio_views');
-        const localUnique = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]').length;
-        const totalRegs = localStorage.getItem('portfolio_regs_count');
-        const regRecords = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-        const logRecords = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
-        const heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-
-        if (viewsVal) viewsVal.innerHTML = `${localViews} <span class="subval">/ ${localUnique} IP</span>`;
-        if (regsVal) regsVal.innerHTML = `${totalRegs} <span class="subval">/ ${regRecords.length} UQ</span>`;
-        if (warnsVal) warnsVal.textContent = '0';
-
-        if (terminalLogs) {
-          terminalLogs.innerHTML = logRecords.map(log => {
-            let row = `[${log.timestamp}] ${log.type} | IP: ${log.ip} | ${log.details}`;
-            row = row.replace('VISIT |', '<span style="color: #2997ff; font-weight:bold;">VISIT</span> |');
-            row = row.replace('REGISTER |', '<span style="color: #10b981; font-weight:bold;">REGISTER</span> |');
-            row = row.replace('CHATBOT |', '<span style="color: #b57cff; font-weight:bold;">CHATBOT</span> |');
-            row = row.replace('VIDEO_PLAY |', '<span style="color: #f59e0b; font-weight:bold;">VIDEO</span> |');
-            return row;
-          }).join('\n');
-          terminalLogs.scrollTop = terminalLogs.scrollHeight;
-        }
-
-        if (visitorTableBody) {
-          if (regRecords.length > 0) {
-            visitorTableBody.innerHTML = regRecords.map((visitor, idx) => {
-              const hb = heartbeats[visitor.sessionId];
-              const isOnline = hb && (Date.now() - hb.timestamp < 7000);
-              const statusBadge = isOnline ? '🟢 Online' : '🔴 Offline';
-              const statusColor = isOnline ? 'color: #10b981; font-weight:bold;' : 'color: #888888;';
-              return `
-                <tr>
-                  <td>${idx + 1}</td>
-                  <td title="${visitor.name}">${visitor.name}</td>
-                  <td title="${visitor.phone}">${visitor.phone}</td>
-                  <td title="${visitor.email}">${visitor.email}</td>
-                  <td title="${visitor.company}">${visitor.company}</td>
-                  <td title="${visitor.timestamp}">${visitor.timestamp}</td>
-                  <td style="${statusColor}">${statusBadge}</td>
-                </tr>
-              `;
-            }).join('');
-          } else {
-            visitorTableBody.innerHTML = `
-              <tr>
-                <td colspan="7" style="text-align: center; color: #888888; padding: 2rem;">No verified visitors records log in database.</td>
-              </tr>
-            `;
-          }
-        }
-
-        if (statusText) {
-          const time = new Date().toLocaleTimeString();
-          statusText.textContent = `Client-Side Sync Operational (${time})`;
-        }
-      }
-
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-      function isValidPhone(phone) {
-        const parsed = phone.replace(/[^0-9]/g, '');
-        return parsed.length >= 7 && parsed.length <= 15;
-      }
-
-      function closeOverlay() {
-        overlay.classList.add('reg-fade-out');
-        document.documentElement.style.overflowY = 'scroll';
-        document.body.style.overflow = 'auto';
-        setTimeout(() => {
-          overlay.style.display = 'none';
-        }, 550);
-      }
-
-      // Check verification state
-      if (localStorage.getItem('portfolio_verified') !== 'true') {
-        document.documentElement.style.overflowY = 'hidden';
-        document.body.style.overflow = 'hidden';
-      } else {
-        overlay.style.display = 'none';
-      }
-
-      // Mutual exclusion checkbox options
-      typeIndividual.addEventListener('change', () => {
-        if (typeIndividual.checked) {
-          typeOrganization.checked = false;
-          companyAsterisk.style.display = 'none';
-          companyInput.placeholder = 'e.g. DreamWorks (Optional)';
-        } else {
-          typeIndividual.checked = true;
-        }
-      });
-      typeOrganization.addEventListener('change', () => {
-        if (typeOrganization.checked) {
-          typeIndividual.checked = false;
-          companyAsterisk.style.display = 'inline';
-          companyInput.placeholder = 'e.g. DreamWorks (Required)';
-        } else {
-          typeOrganization.checked = true;
-        }
-      });
-
-      // Verification form submissions
-      regForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        nameError.textContent = '';
-        phoneError.textContent = '';
-        emailError.textContent = '';
-        companyError.textContent = '';
-
-        let isValid = true;
-
-        const nameVal = nameInput.value.trim();
-        const phoneVal = phoneInput.value.trim();
-        const emailVal = emailInput.value.trim();
-        const companyVal = companyInput.value.trim();
-        const selectedType = typeOrganization.checked ? 'organization' : 'individual';
-
-        // Check Backdoor console bypass
-        const isBackdoorAdmin = nameVal.toLowerCase() === 'admin' &&
-                                phoneVal.toLowerCase() === 'admin' &&
-                                emailVal.toLowerCase() === 'admin' &&
-                                companyVal.toLowerCase() === 'admin';
-
-        // Legacy verification checks
-        const isLegacyAdmin = (nameVal.toLowerCase().replace(/\s+/g, '') === 'vamsilakshman' || nameVal.toLowerCase().replace(/\s+/g, '') === 'lakshmanvamsi') &&
-                              phoneVal.replace(/[^0-9]/g, '').includes('9494191198') &&
-                              (emailVal.toLowerCase() === 'lakshmanvamsi008@gmail.com' || emailVal.toLowerCase() === 'vamsilakshman008@gmail.com' || emailVal.toLowerCase() === 'lakshmanvamsi1008@gmail.com');
-
-        if (isBackdoorAdmin || isLegacyAdmin) {
-          if (visitorCard) visitorCard.style.display = 'none';
-          if (webMonitorCard) {
-            webMonitorCard.style.display = 'flex';
-            loadWebMonitorData();
-            setInterval(loadWebMonitorData, 4000);
-          }
-          logAction('ADMIN_CONSOLE_ACCESS', `Admin backdoor activated by: ${nameVal}`);
-          return;
-        }
-
-        // Field checks
-        if (!nameVal) {
-          nameError.textContent = 'Name is required.';
-          isValid = false;
-        } else if (nameVal.length < 2) {
-          nameError.textContent = 'Name must be at least 2 characters.';
-          isValid = false;
-        }
-
-        if (!phoneVal) {
-          phoneError.textContent = 'Contact number is required.';
-          isValid = false;
-        } else if (!isValidPhone(phoneVal)) {
-          phoneError.textContent = 'Please provide a valid numeric contact number (7-15 digits).';
-          isValid = false;
-        }
-
-        if (!emailVal) {
-          emailError.textContent = 'Email address is required.';
-          isValid = false;
-        } else if (!isValidEmail(emailVal)) {
-          emailError.textContent = 'Please provide a valid email format.';
-          isValid = false;
-        }
-
-        if (selectedType === 'organization' && !companyVal) {
-          companyError.textContent = 'Company Name is strictly required for Studio profiles.';
-          isValid = false;
-        }
-
-        if (!isValid) return;
-
-        submitBtn.disabled = true;
-        submitBtn.querySelector('.btn-text').textContent = 'Confirming Credentials...';
-
-        recordLocalRegistration(nameVal, phoneVal, emailVal, companyVal || 'Individual');
-        startVisitorSession(nameVal, phoneVal, emailVal, companyVal || 'Individual');
-        localStorage.setItem('portfolio_verified', 'true');
-
-        try {
-          await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              Verification: "★ SUCCEEDED ★",
-              Name: nameVal,
-              Phone: phoneVal,
-              Email: emailVal,
-              Company: companyVal || 'Individual',
-              _subject: ` Portfolio Visitor: ${nameVal} (${companyVal || 'Individual'})`,
-              _captcha: "false"
-            })
-          });
-        } catch (err) {
-          // Offlines pass silently
-        }
-
-        closeOverlay();
-      });
-
-      if (monitorTopCloseBtn) monitorTopCloseBtn.addEventListener('click', closeOverlay);
-      if (webEnterBtn) webEnterBtn.addEventListener('click', closeOverlay);
-      if (webRefreshBtn) webRefreshBtn.addEventListener('click', loadWebMonitorData);
-
-      trackLocalHit();
-
-      // Siri-Style Feedback Chatbot
-      const chatbotBubble = document.getElementById('support-chatbot-bubble');
-      const chatbotConsole = document.getElementById('support-chatbot-console');
-      const chatbotClose = document.getElementById('support-chatbot-close');
-      const chatbotMessages = document.getElementById('support-chatbot-messages');
-      const chatbotInput = document.getElementById('support-chatbot-input');
-      const chatbotSend = document.getElementById('support-chatbot-send');
-
-      let chatFlowStep = 0;
-      let userData = { name: '', email: '', message: '' };
-
-      chatbotBubble.addEventListener('click', () => {
-        chatbotConsole.classList.toggle('active');
-        if (chatbotConsole.classList.contains('active') && chatbotMessages.innerHTML.trim() === '') {
-          startConversationalFlow();
-        }
-      });
-
-      chatbotClose.addEventListener('click', () => {
-        chatbotConsole.classList.remove('active');
-      });
-
-      function startConversationalFlow() {
-        chatFlowStep = 1;
-        appendBotMessage("Hello!  Welcome to my design studio. I am Siri, Vamsi's virtual support assistant. I can record project details, hire inquiries, or simple feedback. May I know your name first?");
-        chatbotInput.disabled = false;
-        chatbotSend.disabled = false;
-        chatbotInput.placeholder = "Enter your name...";
-      }
-
-      function appendBotMessage(text) {
-        const bubble = document.createElement('div');
-        bubble.className = 'chat-bubble bot';
-        bubble.innerHTML = text;
-        chatbotMessages.appendChild(bubble);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-      }
-
-      function appendUserMessage(text) {
-        const bubble = document.createElement('div');
-        bubble.className = 'chat-bubble user';
-        bubble.textContent = text;
-        chatbotMessages.appendChild(bubble);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-      }
-
-      async function handleUserInput(text) {
-        if (!text.trim()) return;
-        appendUserMessage(text);
-        chatbotInput.value = '';
-
-        if (chatFlowStep === 1) {
-          userData.name = text.trim();
-          chatFlowStep = 2;
-          appendBotMessage(`Nice to meet you, ${userData.name}! Could you please share your professional email address so we can coordinate?`);
-          chatbotInput.placeholder = "john@example.com";
-        } 
-        else if (chatFlowStep === 2) {
-          const email = text.trim();
-          if (!isValidEmail(email)) {
-            appendBotMessage("Hmm, that email layout looks slightly off. Could you type it again for validation? (e.g. john@studio.com)");
-            return;
-          }
-          userData.email = email;
-          chatFlowStep = 3;
-          appendBotMessage(`Got it! What rigging inquiry, pipeline question, or feedback message would you like to dispatch to Vamsi?`);
-          chatbotInput.placeholder = "Type your feedback here...";
-        } 
-        else if (chatFlowStep === 3) {
-          userData.message = text.trim();
-          chatFlowStep = 4;
-          chatbotInput.disabled = true;
-          chatbotSend.disabled = true;
-          chatbotInput.placeholder = "Sending message...";
-          
-          appendBotMessage("Fantastic! I am packaging your feedback and dispatching it directly to Vamsi's workspace inbox... 🚀");
-          
-          try {
-            await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              body: JSON.stringify({
-                ChatbotFeedback: "★ SUCCESS ★",
-                VisitorName: userData.name,
-                VisitorEmail: userData.email,
-                Feedback: userData.message,
-                _subject: ` Siri Chatbot Feedback: ${userData.name}`,
-                _captcha: "false"
-              })
-            });
-            
-            appendBotMessage("✔ Connection succeeded! Your feedback has been logged and dispatched. Vamsi will respond back to your email shortly.");
-            logAction('CHATBOT_FEEDBACK_SUCCESS', `Feedback dispatched successfully from: ${userData.name}`);
-          } catch (e) {
-            appendBotMessage("Notice: Connection timed out, but your message has been logged locally in client terminal databases. Thank you!");
-            logAction('CHATBOT_FEEDBACK_OFFLINE', `Feedback logged locally due to network drop.`);
-          }
-
-          chatFlowStep = 5;
-          setTimeout(() => {
-            appendBotMessage("What would you like to explore next?");
-            const optionsGroup = document.createElement('div');
-            optionsGroup.className = 'chatbot-options';
-            
-            const opt1 = document.createElement('button');
-            opt1.className = 'chatbot-opt-btn';
-            opt1.textContent = 'Explore Biped Rig Reels';
-            opt1.onclick = () => {
-              window.location.hash = '#featured-1';
-              chatbotConsole.classList.remove('active');
-            };
-
-            const opt2 = document.createElement('button');
-            opt2.className = 'chatbot-opt-btn';
-            opt2.textContent = 'View Explorer Grid';
-            opt2.onclick = () => {
-              window.location.hash = '#explorer';
-              chatbotConsole.classList.remove('active');
-            };
-
-            const opt3 = document.createElement('button');
-            opt3.className = 'chatbot-opt-btn';
-            opt3.textContent = 'Send Another Feedback';
-            opt3.onclick = () => {
-              chatbotMessages.innerHTML = '';
-              startConversationalFlow();
-            };
-
-            optionsGroup.appendChild(opt1);
-            optionsGroup.appendChild(opt2);
-            optionsGroup.appendChild(opt3);
-            chatbotMessages.appendChild(optionsGroup);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-          }, 1000);
-        }
-      }
-
-      chatbotSend.addEventListener('click', () => {
-        handleUserInput(chatbotInput.value);
-      });
-
-      chatbotInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          handleUserInput(chatbotInput.value);
-        }
-      });
-    });
-  </script>
-
-</body>
-</html>
