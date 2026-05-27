@@ -8,721 +8,609 @@
 
   <!-- ═══ SEO & Social ═══ -->
   <title>Avssr Vamsi Lakshman — Character Rigger &amp; 3D Artist</title>
-  <meta name="description" content="Portfolio of Avssr Vamsi Lakshman — Character Rigger, 3D Artist, and Tool Developer with 6+ years of professional experience.">
+  <meta name="description" content="Portfolio of Avssr Vamsi Lakshman — Character Rigger, 3D Artist, and Tool Developer with 6+ years of professional experience. Fully optimized for film, game, and TV pipelines.">
   <meta name="author" content="Avssr Vamsi Lakshman">
 
-  <!-- ═══ Cross-Platform: iOS / Android / Windows ═══ -->
+  <!-- ═══ Cross-Platform Theme Meta ═══ -->
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
 
-  <!-- ═══ Fonts ═══ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
   <!-- ═══ Stylesheet ═══ -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- ═══════════════════════════════════════════
-       Premium Glassmorphic Access Terminal Styles
-       ═══════════════════════════════════════════ -->
-  <style>
-    .reg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      background: rgba(5, 5, 5, 0.45); /* High-end dark translucency */
-      backdrop-filter: blur(20px) saturate(1.8); /* Gorgeous glass blur over portfolio background */
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
-      z-index: 9999999; /* Force rendering above all page lightboxes & navbars */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                  visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  backdrop-filter 0.5s ease;
-      padding: 1.5rem;
-    }
-
-    /* Bypass for returning users */
-    .reg-overlay.registered-bypass {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-    }
-
-    /* Elegant entry scale and exit fade animation */
-    .reg-overlay.reg-fade-out {
-      opacity: 0;
-      visibility: hidden;
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-    }
-
-    .reg-card {
-      position: relative;
-      width: 100%;
-      max-width: 460px;
-      background: rgba(15, 15, 15, 0.65); /* Elegant frosted card body */
-      border: 1px solid rgba(239, 68, 68, 0.25); /* Sleek translucent red borders */
-      border-radius: 16px;
-      padding: 3rem 2.5rem;
-      overflow: hidden;
-      box-shadow: 
-        0 30px 100px rgba(0, 0, 0, 0.85),
-        0 0 50px rgba(239, 68, 68, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(25px); /* Double blur card overlay */
-      -webkit-backdrop-filter: blur(25px);
-      animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      z-index: 10;
-    }
-
-    @keyframes reg-card-intro {
-      from {
-        opacity: 0;
-        transform: scale(0.94) translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .reg-glow {
-      position: absolute;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 180px;
-      background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .reg-header {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      margin-bottom: 2.25rem;
-    }
-
-    .reg-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: #ef4444;
-      margin-bottom: 0.75rem;
-      display: inline-block;
-      text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
-    }
-
-    .reg-header h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -1px;
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
-      color: #f5f5f5;
-    }
-
-    .reg-header h2 .accent-text {
-      color: #ef4444;
-      text-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
-    }
-
-    .reg-subtitle {
-      font-size: 0.8rem;
-      color: #888888;
-      line-height: 1.5;
-    }
-
-    .reg-form {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-group label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #888888;
-      font-weight: 600;
-    }
-
-    .form-group input {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.85rem;
-      background: rgba(5, 5, 5, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 0.8rem 1rem;
-      color: #f5f5f5;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      width: 100%;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #ef4444;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
-    }
-
-    .form-group input::placeholder {
-      color: rgba(255, 255, 255, 0.25);
-    }
-
-    .error-msg {
-      font-size: 0.7rem;
-      color: #ef4444;
-      margin-top: 0.2rem;
-      min-height: 14px;
-      font-weight: 500;
-      letter-spacing: 0.1px;
-    }
-
-    /* Premium Glassmorphic Checkbox Selector */
-    .visitor-type-options {
-      display: flex;
-      gap: 1.5rem;
-      margin: 0.25rem 0 0.5rem 0;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      color: #f5f5f5;
-      font-size: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      position: relative;
-      user-select: none;
-      transition: color 0.3s ease;
-    }
-
-    .checkbox-label:hover {
-      color: #ef4444;
-    }
-
-    .checkbox-label input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      outline: none;
-      background: rgba(5, 5, 5, 0.65);
-      cursor: pointer;
-      display: inline-grid;
-      place-content: center;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .checkbox-label input[type="checkbox"]::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 1px;
-      transform: scale(0);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      background-color: #ef4444;
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
-    }
-
-    .checkbox-label input[type="checkbox"]:checked {
-      border-color: #ef4444;
-      box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
-    }
-
-    .checkbox-label input[type="checkbox"]:checked::before {
-      transform: scale(1);
-    }
-
-    .submit-button {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 0.9rem;
-      background: transparent;
-      color: #ef4444;
-      border: 1px solid #ef4444;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      min-height: 48px;
-      margin-top: 0.5rem;
-    }
-
-    .submit-button:hover,
-    .submit-button:focus-visible {
-      outline: none;
-      background: #ef4444;
-      color: #000000;
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.4);
-    }
-
-    .submit-button:disabled {
-      border-color: rgba(255, 255, 255, 0.05);
-      color: rgba(255, 255, 255, 0.25);
-      cursor: not-allowed;
-      box-shadow: none;
-      background: transparent;
-    }
-
-    @media (max-width: 480px) {
-      .reg-card {
-        padding: 2.25rem 1.75rem;
-      }
-      .reg-header h2 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* ==========================================
-       Premium Glassmorphic Web Monitor Dashboard
-       ========================================== */
-    .monitor-card {
-      position: relative;
-      width: 98%;
-      max-width: 1750px;
-      height: 92vh;
-      background: rgba(10, 10, 10, 0.85);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      border-radius: 16px;
-      box-shadow: 
-        0 40px 120px rgba(0, 0, 0, 0.95),
-        0 0 60px rgba(239, 68, 68, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(35px) saturate(2);
-      -webkit-backdrop-filter: blur(35px) saturate(2);
-      padding: 2rem;
-      display: none; /* Initially hidden */
-      flex-direction: column;
-      gap: 1.5rem;
-      overflow: hidden;
-      animation: reg-card-intro 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      z-index: 20;
-    }
-
-    .monitor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 1rem;
-    }
-
-    .monitor-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .monitor-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #f5f5f5;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .monitor-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.2rem 0.6rem;
-      border-radius: 99px;
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #10b981;
-      font-weight: 600;
-    }
-
-    .monitor-badge-pulse {
-      width: 6px;
-      height: 6px;
-      background: #10b981;
-      border-radius: 50%;
-      animation: pulse-green 1.5s infinite;
-    }
-
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    .monitor-close-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #888888;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .monitor-close-btn:hover {
-      border-color: #ef4444;
-      color: #ef4444;
-      background: rgba(239, 68, 68, 0.05);
-    }
-
-    /* Stats Dashboard Row */
-    .monitor-stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .stat-widget {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .stat-widget-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #888888;
-      font-weight: 500;
-    }
-
-    .stat-widget-value {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #f5f5f5;
-    }
-
-    .stat-widget-value span.subval {
-      font-size: 0.8rem;
-      color: #888888;
-      font-weight: 400;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .stat-views .stat-widget-value { color: #3b82f6; }
-    .stat-regs .stat-widget-value { color: #10b981; }
-    .stat-warns .stat-widget-value { color: #f59e0b; }
-
-    /* Split Dashboard Content */
-    .monitor-body-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 35% 65%;
-      gap: 1.25rem;
-      min-height: 0; /* Important for inner scrolls */
-    }
-
-    .monitor-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      min-height: 0;
-    }
-
-    .panel-header {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #ef4444;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Monospace Terminal Panel */
-    .terminal-feed {
-      flex: 1;
-      background: #050505;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #f5f5f5;
-      padding: 1rem;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      line-height: 1.4;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.9);
-    }
-
-    .terminal-feed::-webkit-scrollbar {
-      width: 6px;
-    }
-    .terminal-feed::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-    }
-
-    /* Visitor Grid Table */
-    .visitor-table-container {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.01);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      overflow-y: auto;
-      overflow-x: auto;
-    }
-
-    .visitor-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      text-align: left;
-    }
-
-    .visitor-table th {
-      background: rgba(255, 255, 255, 0.03);
-      position: sticky;
-      top: 0;
-      padding: 0.6rem 0.8rem;
-      color: #888888;
-      font-weight: 600;
-      text-transform: uppercase;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 5;
-    }
-
-    .visitor-table td {
-      padding: 0.6rem 0.8rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #f5f5f5;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .visitor-table tr:hover td {
-      background: rgba(239, 68, 68, 0.03);
-      color: #ef4444;
-    }
-
-    .visitor-table-container::-webkit-scrollbar {
-      width: 6px;
-    }
-    .visitor-table-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-    }
-
-    /* Footer Dashboard Row */
-    .monitor-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1rem;
-      margin-top: auto;
-    }
-
-    .monitor-status-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: #888888;
-    }
-
-    .monitor-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .monitor-btn-refresh {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      background: transparent;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #10b981;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .monitor-btn-refresh:hover {
-      background: rgba(16, 185, 129, 0.1);
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-    }
-
-    .monitor-btn-enter {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      background: #ef4444;
-      border: 1px solid #ef4444;
-      color: #000000;
-      padding: 0.5rem 1.25rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: all 0.25s ease;
-    }
-
-    .monitor-btn-enter:hover {
-      background: transparent;
-      color: #ef4444;
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .monitor-card {
-        height: 95vh;
-        padding: 1.25rem;
-        gap: 1rem;
-      }
-      .monitor-stats-row {
-        gap: 0.5rem;
-      }
-      .stat-widget-value {
-        font-size: 1.2rem;
-      }
-      .monitor-body-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: 50% 50%;
-        gap: 0.75rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .monitor-card {
-        width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        border-radius: 0;
-        padding: 1rem;
-        gap: 0.75rem;
-        border: none;
-      }
-      .monitor-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding-bottom: 0.5rem;
-      }
-      .monitor-close-btn {
-        align-self: flex-end;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
-      .monitor-title {
-        font-size: 1.1rem;
-      }
-      .monitor-stats-row {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.35rem;
-      }
-      .stat-widget {
-        padding: 0.5rem;
-        align-items: center;
-        text-align: center;
-      }
-      .stat-widget-label {
-        font-size: 0.5rem;
-        letter-spacing: 0.5px;
-      }
-      .stat-widget-value {
-        font-size: 0.9rem;
-      }
-      .stat-widget-value span.subval {
-        font-size: 0.6rem;
-        display: block;
-      }
-      .monitor-body-grid {
-        grid-template-rows: 40% 60%;
-        gap: 0.5rem;
-      }
-      .terminal-feed {
-        font-size: 0.65rem;
-        padding: 0.5rem;
-      }
-      .visitor-table th, .visitor-table td {
-        padding: 0.4rem 0.5rem;
-        font-size: 0.65rem;
-      }
-      .monitor-footer {
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: center;
-        padding-top: 0.5rem;
-      }
-      .monitor-actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .monitor-btn-refresh, .monitor-btn-enter {
-        flex: 1;
-        font-size: 0.7rem;
-        padding: 0.5rem;
-        justify-content: center;
-      }
-    }
-  </style>
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════
-       Registration Blocking Overlay
+       Background Cinematic Video (Ambient Ambient)
+       ═══════════════════════════════════════════ -->
+  <div class="video-bg" aria-hidden="true">
+    <iframe
+      src="https://www.youtube.com/embed/CPVmduVKhsc?autoplay=1&mute=1&loop=1&playlist=CPVmduVKhsc&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="Cinematic background atmosphere">
+    </iframe>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       Glassmorphic Navigation Bar
+       ═══════════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">Vamsi Lakshman</div>
+    <ul class="nav-links">
+      <li><a href="#cover">Overview</a></li>
+      <li><a href="#featured-1">Featured</a></li>
+      <li><a href="#explorer">Explorer</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       SCROLL-SNAPPING VIEWS
+       ═══════════════════════════════════════════ -->
+
+  <!-- SNAP 1: Hero Cover Section -->
+  <section id="cover" class="snap-section hero-section">
+    <div class="hero-content reveal">
+      <p class="hero-label">Portfolio Overview</p>
+      <h1>Creative<br><span class="accent-text">Character Rigging</span><br>Solutions</h1>
+      <p class="hero-subtitle">
+        Character Rigger &middot; 3D Artist &middot; Pipeline Tool Developer
+      </p>
+      <p class="hero-subtitle" style="font-size: 0.95rem; max-width: 700px; margin-top: -1rem; margin-bottom: 2.5rem;">
+        With over 6+ years of professional experience, I engineer robust, production-ready bipedal, quadrupedal, facial, and mechanical rigging systems that empower animators and accelerate production pipelines across Autodesk Maya.
+      </p>
+      <a href="#featured-1" class="cta-button">
+        Explore Showcase
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+    </div>
+  </section>
+
+  <!-- SNAP 2: Featured Project 1 -->
+  <section id="featured-1" class="snap-section">
+    <div class="featured-layout reveal">
+      <div class="featured-info">
+        <span class="project-category">Featured Reel &middot; 01</span>
+        <h2 class="project-title">Bipedal Rigging Foundations</h2>
+        <p class="project-desc">
+          A robust bipedal character rig featuring advanced IK/FK switching, squash and stretch, custom space switching, and highly intuitive, clean control curves designed specifically to maximize animator output.
+        </p>
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">Host Pipeline</span>
+            <span class="spec-val">Autodesk Maya</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Target Engine</span>
+            <span class="spec-val">Cinematic Production</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Custom Utilities</span>
+            <span class="spec-val">Python space-swapping</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Bipedal Rigging Preview">
+        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview', this)">
+          <div class="play-glass-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-frame-container">
+          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 3: Featured Project 2 -->
+  <section id="featured-2" class="snap-section">
+    <div class="featured-layout reveal">
+      <div class="featured-info">
+        <span class="project-category">Featured Reel &middot; 02</span>
+        <h2 class="project-title">Facial Controls &amp; Blendshapes</h2>
+        <p class="project-desc">
+          An advanced anatomical facial rig combining custom muscle blendshapes, skin sliding cluster matrices, and an integrated HUD panel to achieve organic, highly expressive dialog performance.
+        </p>
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">Rigging Paradigm</span>
+            <span class="spec-val">FACS Based Systems</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Performance</span>
+            <span class="spec-val">60 FPS Real-time</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Deformer Setup</span>
+            <span class="spec-val">Custom RBF Solvers</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Facial Expression Preview">
+        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview', this)">
+          <div class="play-glass-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-frame-container">
+          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 4: Featured Project 3 -->
+  <section id="featured-3" class="snap-section">
+    <div class="featured-layout reveal">
+      <div class="featured-info">
+        <span class="project-category">Featured Reel &middot; 03</span>
+        <h2 class="project-title">Creature &amp; Quadruped Dynamics</h2>
+        <p class="project-desc">
+          A production-proven quadruped skeleton utilizing automated spine curvature calculators, seamless wing fold matrices, dynamic secondary hair/cloth nodes, and complex anatomical muscle simulations.
+        </p>
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">Creature Type</span>
+            <span class="spec-val">Quadruped / Avian</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Simulation Layer</span>
+            <span class="spec-val">Maya nHair / nCloth</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Key Automations</span>
+            <span class="spec-val">Auto Wing Fold Matrix</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Creature Rig Preview">
+        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview', this)">
+          <div class="play-glass-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-frame-container">
+          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 5: Featured Project 4 -->
+  <section id="featured-4" class="snap-section">
+    <div class="featured-layout reveal">
+      <div class="featured-info">
+        <span class="project-category">Featured Reel &middot; 04</span>
+        <h2 class="project-title">Mechanical &amp; Vehicle Systems</h2>
+        <p class="project-desc">
+          Highly detailed mechanical rigging utilizing constraint matrices, dynamic automatic hydraulic pistons, procedural wheel rotation algorithms, and localized collision detection nodes.
+        </p>
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">Rig Type</span>
+            <span class="spec-val">Mechanical Assembly</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Automations</span>
+            <span class="spec-val">Auto Piston Extension</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Constraints</span>
+            <span class="spec-val">Mathematical Expressions</span>
+          </div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <img class="video-preview-img" src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Mechanical Setup Preview">
+        <div class="play-trigger-overlay" onclick="launchVideo('https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview', this)">
+          <div class="play-glass-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-frame-container">
+          <button class="video-active-close" onclick="closeVideo(this)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAP 6: Secondary Explorer Portfolio Grid -->
+  <section id="explorer" class="snap-section grid-section">
+    <div class="grid-header reveal">
+      <div class="grid-titles">
+        <span class="grid-category">Pipeline Showreel Explorer</span>
+        <h2 class="grid-heading">All Rigging Projects</h2>
+      </div>
+      <div class="grid-tabs" role="tablist">
+        <button class="grid-tab-btn active" onclick="filterPortfolio('all', this)" role="tab">All Rigs</button>
+        <button class="grid-tab-btn" onclick="filterPortfolio('biped', this)" role="tab">Bipeds</button>
+        <button class="grid-tab-btn" onclick="filterPortfolio('facial', this)" role="tab">Facial</button>
+        <button class="grid-tab-btn" onclick="filterPortfolio('quadruped', this)" role="tab">Creatures</button>
+        <button class="grid-tab-btn" onclick="filterPortfolio('mechanical', this)" role="tab">Mechanical</button>
+      </div>
+    </div>
+
+    <!-- 15 Card Grid Panel -->
+    <div class="projects-grid reveal">
+
+      <!-- CARD 1 -->
+      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-1'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Biped rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Bipedal Setup &middot; Image</span>
+          <h3 class="card-title">Studio Biped Character Model</h3>
+          <p class="card-desc">Anatomically accurate base mesh rigging with elastic muscle weights.</p>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-2'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Biped rig reel 1" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Bipedal &middot; Video 01</span>
+          <h3 class="card-title">Advanced FK/IK Switching</h3>
+          <p class="card-desc">Full biped mechanics showing space swapping and stretch limits.</p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-3'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial rig Model" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Facial Design &middot; Image</span>
+          <h3 class="card-title">FACS Sculpting Template</h3>
+          <p class="card-desc">Comprehensive layout of muscular targets for film dialog setups.</p>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-4'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial rig video" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Facial Mechanics &middot; Video 02</span>
+          <h3 class="card-title">Expressive Face Controls</h3>
+          <p class="card-desc">Interactive demonstration of HUD sliders driving face blendshapes.</p>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-5'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Creature rig video" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Creature &middot; Video 03</span>
+          <h3 class="card-title">Avian Wing Folding Setup</h3>
+          <p class="card-desc">Wing flap joint rotation matrices and feather collision solver.</p>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-6'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Mechanical rig video" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Mechanical &middot; Video 04</span>
+          <h3 class="card-title">Robotic Hydraulic Assembler</h3>
+          <p class="card-desc">Piston systems calculating length and rotation mathematically.</p>
+        </div>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-7'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Dragon rig video" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Creature &middot; Video 05</span>
+          <h3 class="card-title">Dragon Spine Spline Calculator</h3>
+          <p class="card-desc">Procedural spine calculations that prevent joint twisting on turns.</p>
+        </div>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-8'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Auxiliary biped rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Bipedal Setup &middot; Video 06</span>
+          <h3 class="card-title">Dynamic Secondary Motion Nodes</h3>
+          <p class="card-desc">Automated dynamic overlapping tail and ear controls for animators.</p>
+        </div>
+      </div>
+
+      <!-- CARD 9 -->
+      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-9'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Face clusters" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Facial Mechanics &middot; Video 07</span>
+          <h3 class="card-title">Skin Cluster Matrix Binding</h3>
+          <p class="card-desc">Weight distribution utilizing localized coordinate system clusters.</p>
+        </div>
+      </div>
+
+      <!-- CARD 10 -->
+      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-10'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Vehicle mechanical rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Mechanical &middot; Video 08</span>
+          <h3 class="card-title">Automatic Wheel Rotation System</h3>
+          <p class="card-desc">Expression setup computing rotation based on vehicle translation.</p>
+        </div>
+      </div>
+
+      <!-- CARD 11 -->
+      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-11'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w600" alt="Quadruped animal rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Creature &middot; Video 09</span>
+          <h3 class="card-title">Canine Anatomical Rigging</h3>
+          <p class="card-desc">Feline and canine leg mechanics with independent scapula setups.</p>
+        </div>
+      </div>
+
+      <!-- CARD 12 -->
+      <div class="portfolio-card" data-category="biped" onclick="window.location.hash = '#lb-12'">
+        <div class="card-media">
+          <img src="https://img.youtube.com/vi/iDqSKfIQ-q4/0.jpg" alt="YouTube rigging rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Biped Pipeline &middot; Video 10</span>
+          <h3 class="card-title">Biped Auto-Rigging Tool API</h3>
+          <p class="card-desc">Custom Python modules designed to auto-generate full skeleton controls.</p>
+        </div>
+      </div>
+
+      <!-- CARD 13 -->
+      <div class="portfolio-card" data-category="mechanical" onclick="window.location.hash = '#lb-13'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Telescopic rig" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Mechanical &middot; Video 11</span>
+          <h3 class="card-title">Telescopic Arm Rig Matrix</h3>
+          <p class="card-desc">Multivariate constraints keeping sliding plates perfectly aligned.</p>
+        </div>
+      </div>
+
+      <!-- CARD 14 -->
+      <div class="portfolio-card" data-category="quadruped" onclick="window.location.hash = '#lb-14'">
+        <div class="card-media">
+          <img src="https://img.youtube.com/vi/GFCvD76qwPA/0.jpg" alt="Snake dynamics" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Creature &middot; Video 12</span>
+          <h3 class="card-title">Automated Serpent Slither</h3>
+          <p class="card-desc">Sine-wave mathematical calculation driving secondary body movements.</p>
+        </div>
+      </div>
+
+      <!-- CARD 15 -->
+      <div class="portfolio-card" data-category="facial" onclick="window.location.hash = '#lb-15'">
+        <div class="card-media">
+          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w600" alt="Facial dialog" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-category">Facial Mechanics &middot; Video 13</span>
+          <h3 class="card-title">Phoneme Expression Mapping</h3>
+          <p class="card-desc">Anatomical shapes capturing standard phoneme patterns cleanly.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SNAP 7: Contact Section -->
+  <section id="contact" class="snap-section contact-section">
+    <div class="contact-content reveal">
+      <p class="hero-label">Available for Pipelines</p>
+      <h2 class="project-title">Let's Engineer Together</h2>
+      <p class="hero-subtitle">
+        Whether you are seeking custom animation tool development, specialized anatomical creature setups, or cinematic rig pipeline consulting, I'd love to chat.
+      </p>
+      <div class="contact-details">
+        <p>A v s s r Vamsi Lakshman</p>
+        <p><a href="mailto:lakshmanvamsi008@gmail.com">lakshmanvamsi008@gmail.com</a></p>
+        <p><a href="tel:+919494191198">+91-9494191198</a></p>
+      </div>
+      <a href="mailto:lakshmanvamsi008@gmail.com" class="cta-button">Initiate Connection</a>
+    </div>
+
+    <!-- Premium Minimalist Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 Vamsi Lakshman. 100% Serverless. Built for GitHub Pages.</p>
+      <div class="footer-links">
+        <a href="#cover">Overview</a>
+        <a href="#featured-1">Featured</a>
+        <a href="#explorer">Explorer</a>
+        <a href="mailto:lakshmanvamsi008@gmail.com">Contact</a>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CSS-ONLY TARGET LIGHTBOXES FOR ALL 15 CARDS
+       ═══════════════════════════════════════════ -->
+
+  <!-- LB 1 — Image -->
+  <div id="lb-1" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w2000" alt="Biped Character Model">
+    </div>
+  </div>
+
+  <!-- LB 2 — Video -->
+  <div id="lb-2" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview" allow="autoplay; encrypted-media" allowfullscreen title="Biped FK/IK Mechanics"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 3 — Image -->
+  <div id="lb-3" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w2000" alt="FACS blendshapes template">
+    </div>
+  </div>
+
+  <!-- LB 4 — Video -->
+  <div id="lb-4" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview" allow="autoplay; encrypted-media" allowfullscreen title="Facial expressions HUD showcase"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 5 — Video -->
+  <div id="lb-5" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview" allow="autoplay; encrypted-media" allowfullscreen title="Avian feather and wing dynamics"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 6 — Video -->
+  <div id="lb-6" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview" allow="autoplay; encrypted-media" allowfullscreen title="Mechanical dynamic robotic hydraulic rigging"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 7 — Video -->
+  <div id="lb-7" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1dZaiDM1zoTwN5nByTTpFV0tD5kXRCT9E/preview" allow="autoplay; encrypted-media" allowfullscreen title="Dragon spline spine curves auto setups"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 8 — Video -->
+  <div id="lb-8" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1drWfzgHjMwrdq78L4XI0HOHZ6s4M3rIC/preview" allow="autoplay; encrypted-media" allowfullscreen title="Overlapping body secondary setups"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 9 — Video -->
+  <div id="lb-9" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1i10VzJsM55pMGX2cK22xbxnjRBQbadnT/preview" allow="autoplay; encrypted-media" allowfullscreen title="Localized skin cluster coordinate bindings"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 10 — Video -->
+  <div id="lb-10" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1wpKV19e4nqsWW8GQzU_VqRtlkZ19ZlTH/preview" allow="autoplay; encrypted-media" allowfullscreen title="Vehicle auto wheel translation setups"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 11 — Video -->
+  <div id="lb-11" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1xu6hv0ehVhoIcmzyNJ1GFOMqLunnvM8f/preview" allow="autoplay; encrypted-media" allowfullscreen title="Canine and independent feline scapula setups"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 12 — YouTube Video -->
+  <div id="lb-12" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://www.youtube.com/embed/iDqSKfIQ-q4" allow="autoplay; encrypted-media" allowfullscreen title="Custom pipeline rigging python auto rigs script tool"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 13 — Video -->
+  <div id="lb-13" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/167Nws8Si4s_sw5nQdVnT9_cD4KMaMrkE/preview" allow="autoplay; encrypted-media" allowfullscreen title="Telescopic arm plate alignment matrices"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 14 — YouTube Video -->
+  <div id="lb-14" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://www.youtube.com/embed/GFCvD76qwPA" allow="autoplay; encrypted-media" allowfullscreen title="Serpent slither wave dynamics math formulas"></iframe>
+    </div>
+  </div>
+
+  <!-- LB 15 — Video -->
+  <div id="lb-15" class="lightbox">
+    <a href="#explorer" class="lightbox-backdrop" aria-label="Close lightbox"></a>
+    <div class="lightbox-body">
+      <a href="#explorer" class="lightbox-close" aria-label="Close">&times;</a>
+      <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen title="Anatomical mouth dialog phoneme shape rig controls"></iframe>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       PREMIUM GLASSMORPHIC VISITOR ACTIVATION
        ═══════════════════════════════════════════ -->
   <div id="registration-overlay" class="reg-overlay">
-    <!-- Verification Card (Standard Visitor) -->
+    
+    <!-- Apple-style Verification Dialog -->
     <div id="visitor-card" class="reg-card">
       <div class="reg-glow"></div>
       <div class="reg-header">
-        <span class="reg-label">Access Terminal</span>
-        <h2>Visitor<br><span class="accent-text">Verification</span></h2>
-        <p class="reg-subtitle">Please verify your details to access the portfolio.</p>
+        <h2>Verify Visitor Identity</h2>
+        <p class="reg-subtitle">Unlock Avssr Vamsi Lakshman's pipeline rigging portfolio by confirming your professional details.</p>
       </div>
       <form id="registration-form" class="reg-form" novalidate>
         <div class="form-group">
-          <label>Visitor Type</label>
+          <label>Profile Type</label>
           <div class="visitor-type-options">
             <label class="checkbox-label">
               <input type="checkbox" id="type-individual" value="individual" checked>
@@ -730,7 +618,7 @@
             </label>
             <label class="checkbox-label">
               <input type="checkbox" id="type-organization" value="organization">
-              Organization
+              Studio / Org
             </label>
           </div>
         </div>
@@ -740,90 +628,82 @@
           <span class="error-msg" id="name-error"></span>
         </div>
         <div class="form-group">
-          <label for="reg-phone">Phone Number</label>
+          <label for="reg-phone">Contact Number</label>
           <input type="tel" id="reg-phone" required placeholder="e.g. +91 94941 91198" autocomplete="tel">
           <span class="error-msg" id="phone-error"></span>
         </div>
         <div class="form-group">
-          <label for="reg-email">Email Address</label>
-          <input type="email" id="reg-email" required placeholder="e.g. john@example.com" autocomplete="email">
+          <label for="reg-email">Professional Email</label>
+          <input type="email" id="reg-email" required placeholder="e.g. john@studio.com" autocomplete="email">
           <span class="error-msg" id="email-error"></span>
         </div>
         <div class="form-group" id="company-group">
-          <label for="reg-company">Company <span id="company-asterisk" style="color: #ef4444; display: none;">*</span></label>
-          <input type="text" id="reg-company" placeholder="e.g. Acme Corp (Optional)">
+          <label for="reg-company">Studio / Company <span id="company-asterisk" style="color: #ef4444; display: none;">*</span></label>
+          <input type="text" id="reg-company" placeholder="e.g. DreamWorks (Optional)">
           <span class="error-msg" id="company-error"></span>
         </div>
         <button type="submit" class="submit-button" id="reg-submit-btn">
-          <span class="btn-text">Verify &amp; Enter</span>
+          <span class="btn-text">Confirm &amp; Proceed</span>
         </button>
       </form>
     </div>
 
-    <!-- Real-Time Server Monitor Card (Admin Backdoor Dashboard) -->
+    <!-- Live Monitor Dashboard Admin Panel -->
     <div id="web-monitor-card" class="monitor-card">
       <div class="monitor-header">
-        <div class="monitor-title-group">
-          <span class="reg-label" style="margin-bottom: 0;">Admin Console</span>
-          <h2 class="monitor-title">
-            AvssrVL Portfolio Monitor
-            <span class="monitor-badge">
-              <span class="monitor-badge-pulse"></span>
-              Live Link
-            </span>
-          </h2>
-        </div>
-        <button id="monitor-top-close-btn" class="monitor-close-btn">&times; Close</button>
+        <h2 class="monitor-title">
+          Live Client Activity Monitor
+          <span class="monitor-badge">
+            <span class="monitor-badge-pulse"></span>
+            Serverless Telemetry
+          </span>
+        </h2>
+        <button id="monitor-top-close-btn" class="monitor-close-btn">&times; Close Dashboard</button>
       </div>
 
-      <!-- Stats Bar -->
       <div class="monitor-stats-row">
         <div class="stat-widget stat-views">
-          <span class="stat-widget-label">Total / Unique Views</span>
+          <span class="stat-widget-label">Device Visited Count</span>
           <span class="stat-widget-value" id="web-views-val">0 <span class="subval">/ 0 IP</span></span>
         </div>
         <div class="stat-widget stat-regs">
-          <span class="stat-widget-label">Verified Registrations</span>
+          <span class="stat-widget-label">Identity Confirmed</span>
           <span class="stat-widget-value" id="web-regs-val">0 <span class="subval">/ 0 UQ</span></span>
         </div>
         <div class="stat-widget stat-warns">
-          <span class="stat-widget-label">System Alerts / Warns</span>
+          <span class="stat-widget-label">System Warning Alerts</span>
           <span class="stat-widget-value" id="web-warns-val">0</span>
         </div>
       </div>
 
-      <!-- Main Dashboard Grid -->
       <div class="monitor-body-grid">
-        <!-- Terminal Panel -->
         <div class="monitor-panel">
           <div class="panel-header">
-            <span>📟 Live Server logs Console</span>
+            <span>Terminal Core Activity Stream</span>
           </div>
-          <div id="web-terminal-logs" class="terminal-feed">Initializing monitor protocol...</div>
+          <div id="web-terminal-logs" class="terminal-feed">Activating local client logs engine...</div>
         </div>
 
-        <!-- Registered Visitors Table -->
         <div class="monitor-panel">
           <div class="panel-header">
-            <span>📋 Verified Visitor Cards</span>
+            <span>Logged Visitor Directory</span>
           </div>
           <div class="visitor-table-container">
             <table class="visitor-table">
               <thead>
                 <tr>
                   <th style="width: 5%;">#</th>
-                  <th style="width: 18%;">Visitor Name</th>
-                  <th style="width: 12%;">Phone</th>
-                  <th style="width: 15%;">Email Address</th>
-                  <th style="width: 12%;">Company</th>
-                  <th style="width: 15%;">Log In</th>
+                  <th style="width: 20%;">Name</th>
+                  <th style="width: 15%;">Contact</th>
+                  <th style="width: 20%;">Email Address</th>
+                  <th style="width: 15%;">Studio</th>
+                  <th style="width: 15%;">Last Log In</th>
                   <th style="width: 10%;">Status</th>
-                  <th style="width: 13%;">Log Out</th>
                 </tr>
               </thead>
               <tbody id="web-visitor-table-body">
                 <tr>
-                  <td colspan="8" style="text-align: center; color: #888888; padding: 2rem;">Fetching databases...</td>
+                  <td colspan="7" style="text-align: center; color: #888888; padding: 2rem;">Loading details...</td>
                 </tr>
               </tbody>
             </table>
@@ -831,347 +711,62 @@
         </div>
       </div>
 
-      <!-- Dashboard Footer -->
       <div class="monitor-footer">
-        <span class="monitor-status-text" id="web-status-text">Server Status: Standby</span>
+        <span class="monitor-status-text" id="web-status-text">State: Standby</span>
         <div class="monitor-actions">
-          <button id="web-refresh-btn" class="monitor-btn-refresh">
-            🔄 Refresh Logs
-          </button>
-          <button id="web-enter-btn" class="monitor-btn-enter">
-            Close Monitor &amp; Enter Page
-          </button>
+          <button id="web-refresh-btn" class="monitor-btn-refresh">🔄 Refresh Monitor Logs</button>
+          <button id="web-enter-btn" class="monitor-btn-enter">Unlock &amp; View Portfolio</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
-       Background: YouTube Video
+       PREMIUM APPLE SIRI-STYLE CHATBOT
        ═══════════════════════════════════════════ -->
-  <div class="video-bg" aria-hidden="true">
-    <iframe
-      src="https://www.youtube.com/embed/CPVmduVKhsc?autoplay=1&mute=1&loop=1&playlist=CPVmduVKhsc&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3"
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-      title="Background video">
-    </iframe>
+  <!-- Floating bubble button launcher -->
+  <div id="support-chatbot-bubble" class="chatbot-bubble">
+    <div class="chatbot-bubble-orb"></div>
+    <!-- Siri-style chat speech bubble icon -->
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
   </div>
+
+  <!-- Support Chat Console -->
+  <div id="support-chatbot-console" class="chatbot-console">
+    <div class="chatbot-header">
+      <div class="chatbot-meta">
+        <div class="chatbot-avatar">TD</div>
+        <div class="chatbot-info">
+          <span class="chatbot-name">Vamsi Support Bot</span>
+          <span class="chatbot-status">Siri Assistant Active</span>
+        </div>
+      </div>
+      <button id="support-chatbot-close" class="chatbot-close-btn">&times;</button>
+    </div>
+    
+    <div id="support-chatbot-messages" class="chatbot-messages">
+      <!-- Chat bubbles populated dynamically via script -->
+    </div>
+
+    <div class="chatbot-input-area">
+      <input type="text" id="support-chatbot-input" class="chatbot-input" placeholder="Type message and press Enter..." disabled>
+      <button id="support-chatbot-send" class="chatbot-send-btn" disabled>
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
 
   <!-- ═══════════════════════════════════════════
-       Navigation
-       ═══════════════════════════════════════════ -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-brand">A v s s r Vamsi Lakshman</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- ═══════════════════════════════════════════
-       Hero Section
-       ═══════════════════════════════════════════ -->
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <p class="hero-label">Portfolio</p>
-      <h1>Creative<br><span class="accent-text">Character Rigging</span><br>Solutions</h1>
-      <p class="hero-subtitle">Character Rigger &middot; 3D Artist &middot; Tool Developer</p>
-      <p class="hero-bio">
-        With over 6+ years of professional experience in character rigging, I specialize in building
-        robust and animator-friendly rigs for film, television, and game productions. My expertise
-        spans bipeds, quadrupeds, facial rigs, and complex mechanical setups across Maya and other
-        industry-standard tools. I have contributed to multiple animated series and feature projects,
-        delivering production-ready rigs that empower animators to bring characters to life seamlessly.
-        I also develop custom rigging tools and scripts to streamline pipelines and accelerate production workflows.
-      </p>
-      <a href="#work" class="cta-button">View My Work</a>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       Gallery Section
-       ═══════════════════════════════════════════ -->
-  <section id="work" class="gallery-section">
-    <h2 class="section-title">My Work</h2>
-
-    <div class="gallery-grid">
-
-      <!-- Card 1 — Image -->
-      <a href="#lb-1" class="gallery-card">
-        <div class="media-wrapper">
-          <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Character rig showcase" loading="lazy">
-        </div>
-      </a>
-
-      <!-- Card 2 — Video -->
-      <a href="#lb-2" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 1"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 3 — Image -->
-      <a href="#lb-3" class="gallery-card">
-        <div class="media-wrapper">
-          <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Character rig showcase" loading="lazy">
-        </div>
-      </a>
-
-      <!-- Card 4 — Video -->
-      <a href="#lb-4" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 2"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 5 — Video -->
-      <a href="#lb-5" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 3"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 6 — Video -->
-      <a href="#lb-6" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 4"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 7 — Video -->
-      <a href="#lb-7" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1dZaiDM1zoTwN5nByTTpFV0tD5kXRCT9E/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 5"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 8 — Video -->
-      <a href="#lb-8" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1drWfzgHjMwrdq78L4XI0HOHZ6s4M3rIC/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 6"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 9 — Video -->
-      <a href="#lb-9" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1i10VzJsM55pMGX2cK22xbxnjRBQbadnT/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 7"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 10 — Video -->
-      <a href="#lb-10" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1wpKV19e4nqsWW8GQzU_VqRtlkZ19ZlTH/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 8"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 11 — Video -->
-      <a href="#lb-11" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1xu6hv0ehVhoIcmzyNJ1GFOMqLunnvM8f/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 9"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 12 — YouTube Video -->
-      <a href="#lb-12" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/iDqSKfIQ-q4" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="YouTube demo 1"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 13 — Video -->
-      <a href="#lb-13" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/167Nws8Si4s_sw5nQdVnT9_cD4KMaMrkE/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 10"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 14 — YouTube Video -->
-      <a href="#lb-14" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/GFCvD76qwPA" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="YouTube demo 2"></iframe>
-        </div>
-      </a>
-
-      <!-- Card 15 — Video -->
-      <a href="#lb-15" class="gallery-card">
-        <div class="video-wrapper">
-          <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Demo reel 11"></iframe>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       Contact Section
-       ═══════════════════════════════════════════ -->
-  <section id="contact" class="contact-section">
-    <h2 class="section-title">Get In Touch</h2>
-    <p class="section-subtitle">Interested in working together? Feel free to reach out.</p>
-    <div class="contact-details">
-      <p>A v s s r Vamsi Lakshman</p>
-      <p><a href="mailto:lakshmanvamsi008@gmail.com">lakshmanvamsi008@gmail.com</a></p>
-      <p><a href="tel:+919494191198">+91-9494191198</a></p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       Footer
-       ═══════════════════════════════════════════ -->
-  <footer class="footer">
-    <p>&copy; 2026 My Portfolio. All rights reserved.</p>
-  </footer>
-
-  <!-- ═══════════════════════════════════════════
-       CSS-Only Lightboxes (:target)
-       ═══════════════════════════════════════════ -->
-
-  <!-- LB 1 — Image -->
-  <div id="lb-1" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w2000" alt="Character rig showcase">
-    </div>
-  </div>
-
-  <!-- LB 2 — Video -->
-  <div id="lb-2" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/17a54JtiOLqTYzlMd8HQiPbW1q2bDu-Hc/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 1"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 3 — Image -->
-  <div id="lb-3" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w2000" alt="Character rig showcase">
-    </div>
-  </div>
-
-  <!-- LB 4 — Video -->
-  <div id="lb-4" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1P5nXy3TrEH9t7BY2LY4gO_C0Frc5oCYD/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 2"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 5 — Video -->
-  <div id="lb-5" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1RtR7oIH0vvAN00_ml_4gO_NOSZ-tFBvv/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 3"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 6 — Video -->
-  <div id="lb-6" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1Vbb0LRzcfUD9UTouH-tf6uAllTaXIQ69/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 4"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 7 — Video -->
-  <div id="lb-7" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1dZaiDM1zoTwN5nByTTpFV0tD5kXRCT9E/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 5"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 8 — Video -->
-  <div id="lb-8" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1drWfzgHjMwrdq78L4XI0HOHZ6s4M3rIC/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 6"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 9 — Video -->
-  <div id="lb-9" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1i10VzJsM55pMGX2cK22xbxnjRBQbadnT/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 7"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 10 — Video -->
-  <div id="lb-10" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1wpKV19e4nqsWW8GQzU_VqRtlkZ19ZlTH/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 8"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 11 — Video -->
-  <div id="lb-11" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1xu6hv0ehVhoIcmzyNJ1GFOMqLunnvM8f/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 9"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 12 — YouTube Video -->
-  <div id="lb-12" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://www.youtube.com/embed/iDqSKfIQ-q4" allow="autoplay; encrypted-media" allowfullscreen title="YouTube demo 1"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 13 — Video -->
-  <div id="lb-13" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/167Nws8Si4s_sw5nQdVnT9_cD4KMaMrkE/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 10"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 14 — YouTube Video -->
-  <div id="lb-14" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://www.youtube.com/embed/GFCvD76qwPA" allow="autoplay; encrypted-media" allowfullscreen title="YouTube demo 2"></iframe>
-    </div>
-  </div>
-
-  <!-- LB 15 — Video -->
-  <div id="lb-15" class="lightbox">
-    <a href="#work" class="lightbox-backdrop" aria-label="Close lightbox"></a>
-    <div class="lightbox-body">
-      <a href="#work" class="lightbox-close" aria-label="Close">&times;</a>
-      <iframe src="https://drive.google.com/file/d/1mbQ1up3yyyGAbjGczIV5l6-6EflMxgvS/preview" allow="autoplay; encrypted-media" allowfullscreen title="Demo reel 11"></iframe>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       Registration Overlay Script
+       CORE PORTFOLIO JAVASCRIPT CONTROLLER
        ═══════════════════════════════════════════ -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // ═══════════════════════════════════════════
+      // Elements & State Managers
+      // ═══════════════════════════════════════════
       const overlay = document.getElementById('registration-overlay');
-      const form = document.getElementById('registration-form');
+      const regForm = document.getElementById('registration-form');
       const submitBtn = document.getElementById('reg-submit-btn');
       
       const nameInput = document.getElementById('reg-name');
@@ -1187,280 +782,107 @@
       const companyError = document.getElementById('company-error');
       const companyAsterisk = document.getElementById('company-asterisk');
 
-      // Admin Backdoor Elements
+      // Admin Panel Backdoor UI
       const visitorCard = document.getElementById('visitor-card');
       const webMonitorCard = document.getElementById('web-monitor-card');
       const monitorTopCloseBtn = document.getElementById('monitor-top-close-btn');
       const webEnterBtn = document.getElementById('web-enter-btn');
       const webRefreshBtn = document.getElementById('web-refresh-btn');
 
-      // Generate a unique Session ID for this specific tab session
+      // Unique tab tracking session key
       const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-
-      // ═══════════════════════════════════════════
-      // Global Cloud Sync (Google Apps Script)
-      // ═══════════════════════════════════════════
-      // Deploy CloudSync.gs as a Google Apps Script Web App
-      // Then paste the deployed URL below (ends with /exec)
-      // Leave empty to use localStorage-only mode
-      const CLOUD_SYNC_URL = '';
-
-      // Cloud sync: POST helper with 4-second timeout
-      async function cloudPost(action, payload) {
-        if (!CLOUD_SYNC_URL) return null;
-        try {
-          const controller = new AbortController();
-          const tid = setTimeout(() => controller.abort(), 4000);
-          const res = await fetch(CLOUD_SYNC_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ action, ...payload }),
-            signal: controller.signal,
-            mode: 'no-cors'
-          });
-          clearTimeout(tid);
-          // no-cors means opaque response, we can't read it — just fire and forget
-          return { success: true };
-        } catch (e) {
-          console.warn('Cloud sync POST failed:', e.message);
-          return null;
-        }
-      }
-
-      // Cloud sync: GET helper with 5-second timeout
-      async function cloudGet(action) {
-        if (!CLOUD_SYNC_URL) return null;
-        try {
-          const controller = new AbortController();
-          const tid = setTimeout(() => controller.abort(), 5000);
-          const url = CLOUD_SYNC_URL + '?action=' + encodeURIComponent(action);
-          const res = await fetch(url, { signal: controller.signal });
-          clearTimeout(tid);
-          if (res.ok) {
-            const data = await res.json();
-            return data;
-          }
-          return null;
-        } catch (e) {
-          console.warn('Cloud sync GET failed:', e.message);
-          return null;
-        }
-      }
-
-      // Cloud: Write registration
-      async function cloudWriteRegistration(regData) {
-        return cloudPost('register', regData);
-      }
-
-      // Cloud: Write log
-      async function cloudWriteLog(logEntry) {
-        return cloudPost('log', logEntry);
-      }
-
-      // Cloud: Update heartbeat
-      async function cloudUpdateHeartbeat(sessId, hbData) {
-        return cloudPost('heartbeat', { sessionId: sessId, ...hbData });
-      }
-
-      // Cloud: Mark logout
-      async function cloudMarkLogout(sessId, logoutTime) {
-        return cloudPost('logout', { sessionId: sessId, logoutTime });
-      }
-
-      // Cloud: Track view
-      async function cloudTrackView(ip) {
-        return cloudPost('trackView', { ip });
-      }
-
-      // Cloud: Read all dashboard data
-      async function cloudReadAllData() {
-        const data = await cloudGet('readAll');
-        if (data && data.success) return data;
-        return null;
-      }
-
-      // ═══════════════════════════════════════════
-      // Server Auto-Discovery Manager
-      // ═══════════════════════════════════════════
-      const BACKEND_CANDIDATES = [
-        window.location.origin,
-        'https://www.riggingtd.in',
-        'https://riggingtd.in',
-        'http://localhost:3000',
-        'http://www.riggingtd.in',
-        'http://riggingtd.in',
-        'http://124.123.33.205:3000'
-      ];
-
-      let resolvedBackendBaseUrl = sessionStorage.getItem('portfolio_resolved_backend') || '';
-      let discoveryPromise = null;
-
-      // Normalize candidate URLs
-      function getCleanCandidates() {
-        const unique = [];
-        const seen = new Set();
-        for (const candidate of BACKEND_CANDIDATES) {
-          if (!candidate || candidate.startsWith('file:') || candidate.includes('github.io')) {
-            continue;
-          }
-          const clean = candidate.replace(/\/$/, '');
-          if (!seen.has(clean)) {
-            seen.add(clean);
-            unique.push(clean);
-          }
-        }
-        return unique;
-      }
-
-      async function discoverActiveBackend() {
-        if (discoveryPromise) {
-          return discoveryPromise;
-        }
-
-        discoveryPromise = (async () => {
-          // If we already resolved it in this session, verify it's still alive
-          if (resolvedBackendBaseUrl) {
-            try {
-              const res = await fetchWithTimeout(`${resolvedBackendBaseUrl}/api/ping`, {}, 1200);
-              if (res.ok) {
-                const data = await res.json();
-                if (data.success && data.message === 'pong') {
-                  return resolvedBackendBaseUrl;
-                }
-              }
-            } catch (e) {
-              resolvedBackendBaseUrl = '';
-              sessionStorage.removeItem('portfolio_resolved_backend');
-            }
-          }
-
-          const candidates = getCleanCandidates();
-          if (candidates.length === 0) {
-            resolvedBackendBaseUrl = '';
-            return '';
-          }
-
-          // Race all candidate endpoints in parallel to find the fastest responder
-          const fastestOrigin = await new Promise((resolve) => {
-            let completed = 0;
-            let resolved = false;
-
-            // Safety timeout to force-resolve after 2.5 seconds if pings stall
-            const safetyTimeout = setTimeout(() => {
-              if (!resolved) {
-                resolved = true;
-                resolve('');
-              }
-            }, 2500);
-
-            candidates.forEach((origin) => {
-              fetchWithTimeout(`${origin}/api/ping`, {}, 1500)
-                .then((res) => {
-                  if (res.ok) return res.json();
-                  throw new Error();
-                })
-                .then((data) => {
-                  if (!resolved && data && data.success && data.message === 'pong') {
-                    resolved = true;
-                    clearTimeout(safetyTimeout);
-                    resolve(origin);
-                  } else {
-                    throw new Error();
-                  }
-                })
-                .catch(() => {
-                  completed++;
-                  if (completed === candidates.length && !resolved) {
-                    resolved = true;
-                    clearTimeout(safetyTimeout);
-                    resolve('');
-                  }
-                });
-            });
-          });
-
-          if (fastestOrigin) {
-            resolvedBackendBaseUrl = fastestOrigin;
-            sessionStorage.setItem('portfolio_resolved_backend', fastestOrigin);
-            console.log(`Backend server successfully discovered at: ${fastestOrigin}`);
-            return fastestOrigin;
-          }
-
-          console.warn('No active portfolio server discovered. Operating in Local Standalone Mode.');
-          resolvedBackendBaseUrl = '';
-          return '';
-        })();
-
-        const result = await discoveryPromise;
-        discoveryPromise = null; // Reset to allow subsequent re-discovery calls if network/server states change
-        return result;
-      }
-
-      // Enforce no-scroll on page startup to show the Visitor Verification popup on every page open
-      document.body.style.overflow = 'hidden';
-
-      // Dynamic checkbox changes with mutual exclusion to adjust asterisk and placeholder
-      typeIndividual.addEventListener('change', () => {
-        if (typeIndividual.checked) {
-          typeOrganization.checked = false;
-          companyAsterisk.style.display = 'none';
-          companyInput.placeholder = 'e.g. Acme Corp (Optional)';
-        } else {
-          typeIndividual.checked = true; // Prevent both being unchecked
-        }
-      });
-
-      typeOrganization.addEventListener('change', () => {
-        if (typeOrganization.checked) {
-          typeIndividual.checked = false;
-          companyAsterisk.style.display = 'inline';
-          companyInput.placeholder = 'e.g. Acme Corp (Required)';
-        } else {
-          typeOrganization.checked = true; // Prevent both being unchecked
-        }
-      });
-
-      // Email format regex validation
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      // Phone format validation (7 to 15 digits)
-      function isValidPhone(phone) {
-        const digits = phone.replace(/[^0-9]/g, '');
-        return digits.length >= 7 && digits.length <= 15;
-      }
-
-      // Close the modal / overlay and reveal the main portfolio webpage
-      function closeOverlay() {
-        overlay.classList.add('reg-fade-out');
-        document.body.style.overflow = 'auto';
-        setTimeout(() => {
-          overlay.style.display = 'none';
-        }, 600);
-      }
-
-      // Safe fetch helper with timeout abort signal support
-      async function fetchWithTimeout(url, options = {}, timeoutMs = 3000) {
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeoutMs);
-        try {
-          const response = await fetch(url, { ...options, signal: controller.signal });
-          clearTimeout(id);
-          return response;
-        } catch (error) {
-          clearTimeout(id);
-          throw error;
-        }
-      }
-
-      // ═══════════════════════════════════════════
-      // Local Storage Synchronization Engine
-      // ═══════════════════════════════════════════
-
       let clientIp = '127.0.0.1';
 
-      // Utility to get current localized timestamp in YYYY-MM-DD HH:mm:ss
+      // ═══════════════════════════════════════════
+      // 1. Interactive Video Handlers (Don't Autoplay)
+      // ═══════════════════════════════════════════
+      window.launchVideo = function(videoUrl, triggerBtnElement) {
+        const visualCard = triggerBtnElement.closest('.featured-visual');
+        if (!visualCard) return;
+        const frameContainer = visualCard.querySelector('.video-frame-container');
+        if (!frameContainer) return;
+
+        // Clear existing elements in frame first
+        frameContainer.innerHTML = '';
+
+        // Add dynamic close button
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'video-active-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+          closeVideo(closeBtn);
+        };
+        frameContainer.appendChild(closeBtn);
+
+        // Inject active iframe player
+        const iframe = document.createElement('iframe');
+        iframe.src = videoUrl + '?autoplay=1&mute=0';
+        iframe.allow = 'autoplay; encrypted-media';
+        iframe.allowFullscreen = true;
+        frameContainer.appendChild(iframe);
+
+        // Show player
+        frameContainer.classList.add('active');
+        logAction('VIDEO_PLAY', `Began playback of reel: ${videoUrl}`);
+      };
+
+      window.closeVideo = function(closeBtnElement) {
+        const frameContainer = closeBtnElement.closest('.video-frame-container');
+        if (frameContainer) {
+          frameContainer.classList.remove('active');
+          frameContainer.innerHTML = ''; // Kill player immediately
+        }
+      };
+
+      // ═══════════════════════════════════════════
+      // 2. Out-of-the-Box Scroll Animations (Intersection Observer)
+      // ═══════════════════════════════════════════
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        scrollObserver.observe(el);
+      });
+
+      // ═══════════════════════════════════════════
+      // 3. Apple-style Portfolio Explorer Category Filter
+      // ═══════════════════════════════════════════
+      window.filterPortfolio = function(category, tabBtnElement) {
+        // Update active tab styling
+        const tabList = tabBtnElement.closest('.grid-tabs');
+        if (tabList) {
+          tabList.querySelectorAll('.grid-tab-btn').forEach(btn => btn.classList.remove('active'));
+        }
+        tabBtnElement.classList.add('active');
+
+        // Toggle card states
+        const cards = document.querySelectorAll('.portfolio-card');
+        cards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (category === 'all' || cardCat === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        logAction('FILTER_EXPLORER', `Filtered items category to: ${category}`);
+      };
+
+      // ═══════════════════════════════════════════
+      // 4. Serverless Client Storage Engine
+      // ═══════════════════════════════════════════
       function getLocalTimestamp() {
         const now = new Date();
         const year = now.getFullYear();
@@ -1472,44 +894,30 @@
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       }
 
-      // Background public IP detector
       async function detectClientIp() {
         try {
-          const res = await fetchWithTimeout('https://api.ipify.org?format=json', {}, 1500);
+          const controller = new AbortController();
+          const tid = setTimeout(() => controller.abort(), 1500);
+          const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+          clearTimeout(tid);
           if (res.ok) {
             const data = await res.json();
-            if (data.ip) {
-              clientIp = data.ip;
-            }
+            if (data.ip) clientIp = data.ip;
           }
         } catch (e) {
           // Fallback silently if offline or blocked
         }
       }
 
-      // Initialize localStorage structure if empty
       function initLocalStorageData() {
-        if (localStorage.getItem('portfolio_views') === null) {
-          localStorage.setItem('portfolio_views', '0');
-        }
-        if (localStorage.getItem('portfolio_unique_ips') === null) {
-          localStorage.setItem('portfolio_unique_ips', JSON.stringify([]));
-        }
-        if (localStorage.getItem('portfolio_regs_count') === null) {
-          localStorage.setItem('portfolio_regs_count', '0');
-        }
-        if (localStorage.getItem('portfolio_registrations') === null) {
-          localStorage.setItem('portfolio_registrations', JSON.stringify([]));
-        }
-        if (localStorage.getItem('portfolio_logs') === null) {
-          localStorage.setItem('portfolio_logs', JSON.stringify([]));
-        }
-        if (localStorage.getItem('portfolio_heartbeats') === null) {
-          localStorage.setItem('portfolio_heartbeats', JSON.stringify({}));
-        }
+        if (localStorage.getItem('portfolio_views') === null) localStorage.setItem('portfolio_views', '0');
+        if (localStorage.getItem('portfolio_unique_ips') === null) localStorage.setItem('portfolio_unique_ips', JSON.stringify([]));
+        if (localStorage.getItem('portfolio_regs_count') === null) localStorage.setItem('portfolio_regs_count', '0');
+        if (localStorage.getItem('portfolio_registrations') === null) localStorage.setItem('portfolio_registrations', JSON.stringify([]));
+        if (localStorage.getItem('portfolio_logs') === null) localStorage.setItem('portfolio_logs', JSON.stringify([]));
+        if (localStorage.getItem('portfolio_heartbeats') === null) localStorage.setItem('portfolio_heartbeats', JSON.stringify({}));
       }
 
-      // Track page hit / visit locally
       async function trackLocalHit() {
         initLocalStorageData();
         await detectClientIp();
@@ -1524,501 +932,236 @@
           localStorage.setItem('portfolio_unique_ips', JSON.stringify(uniqueIps));
         }
 
-        const timestamp = getLocalTimestamp();
-        const userAgent = navigator.userAgent || 'Local Browser';
-        const logEntry = {
-          timestamp: timestamp,
-          type: 'VISIT',
-          ip: clientIp,
-          details: `Page hit - UserAgent: ${userAgent}`
-        };
+        logAction('VISIT', `Device opened portfolio webpage — Screen: ${window.innerWidth}x${window.innerHeight}`);
+      }
 
+      function logAction(type, details) {
+        initLocalStorageData();
+        const entry = {
+          timestamp: getLocalTimestamp(),
+          type: type,
+          ip: clientIp,
+          details: details
+        };
         let logs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
-        logs.push(logEntry);
-        if (logs.length > 80) {
-          logs = logs.slice(-80);
-        }
+        logs.push(entry);
+        if (logs.length > 80) logs = logs.slice(-80);
         localStorage.setItem('portfolio_logs', JSON.stringify(logs));
 
-        // Sync view to Global Cloud Database
-        cloudTrackView(clientIp);
-        cloudWriteLog(logEntry);
-
-        // Dynamically log the visit on the discovered Express backend if present
-        const activeBackend = await discoverActiveBackend();
-        if (activeBackend) {
-          try {
-            await fetchWithTimeout(`${activeBackend}/api/visit`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
-            }, 2000);
-          } catch (e) {
-            console.warn('Failed to register visit hit on active backend:', e);
-          }
-        }
-
-        // Trigger local visual update if monitor is currently open in this tab
+        // Trigger updates if monitor is visual
         if (webMonitorCard && webMonitorCard.style.display === 'flex') {
           loadWebMonitorData();
         }
       }
 
-      // Start live session heartbeats and unload tracker
       function startVisitorSession(name, phone, email, company) {
         initLocalStorageData();
-
-        // 1. Set initial heartbeat locally
+        
         let heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-        heartbeats[sessionId] = Date.now();
+        heartbeats[sessionId] = {
+          name: name,
+          phone: phone,
+          email: email,
+          company: company,
+          timestamp: Date.now()
+        };
         localStorage.setItem('portfolio_heartbeats', JSON.stringify(heartbeats));
 
-        // Helper to send heartbeat to server
-        async function sendServerHeartbeat() {
-          // Update Cloud heartbeat globally
-          cloudUpdateHeartbeat(sessionId, {
-            name: name,
-            phone: phone,
-            email: email,
-            company: company,
-            lastHeartbeat: Date.now(),
-            online: true,
-            logoutTime: ''
-          });
-
-          try {
-            const activeBackend = await discoverActiveBackend();
-            let apiEndpoint = activeBackend ? `${activeBackend}/api/heartbeat` : '/api/heartbeat';
-            if (!activeBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
-              apiEndpoint = 'http://localhost:3000/api/heartbeat';
-            }
-            await fetch(apiEndpoint, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                sessionId: sessionId,
-                name: name,
-                phone: phone,
-                email: email,
-                company: company
-              })
-            });
-          } catch (e) {
-            // Silently ignore
-          }
-        }
-
-        // Send initial heartbeat to server
-        sendServerHeartbeat();
-
-        // 2. Set 3-second heartbeat pulse
+        // 3-second heartbeat pulse
         setInterval(() => {
           let hbs = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-          hbs[sessionId] = Date.now();
-          localStorage.setItem('portfolio_heartbeats', JSON.stringify(hbs));
-
-          // Send heartbeat to server
-          sendServerHeartbeat();
-        }, 3000);
-
-        // 3. Tab Closed listener to update logoutTime in localStorage and Server
-        window.addEventListener('beforeunload', () => {
-          let regsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-          const updatedRegs = regsList.map(r => {
-            if (r.sessionId === sessionId) {
-              r.logoutTime = getLocalTimestamp();
-            }
-            return r;
-          });
-          localStorage.setItem('portfolio_registrations', JSON.stringify(updatedRegs));
-
-          // Mark session as logged out in Cloud
-          cloudMarkLogout(sessionId, getLocalTimestamp());
-
-          // Send logout to server
-          try {
-            const cachedBackend = sessionStorage.getItem('portfolio_resolved_backend') || '';
-            let apiEndpoint = cachedBackend ? `${cachedBackend}/api/logout` : '/api/logout';
-            if (!cachedBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
-              apiEndpoint = 'http://localhost:3000/api/logout';
-            }
-            fetch(apiEndpoint, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ sessionId: sessionId }),
-              keepalive: true
-            });
-          } catch (e) {
-            // Silently ignore
+          if (hbs[sessionId]) {
+            hbs[sessionId].timestamp = Date.now();
+            localStorage.setItem('portfolio_heartbeats', JSON.stringify(hbs));
           }
-        });
+        }, 3000);
       }
 
-      // Track registration locally
-      function trackLocalRegistration(name, phone, email, company) {
+      function recordLocalRegistration(name, phone, email, company) {
         initLocalStorageData();
 
-        let regsCount = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
-        regsCount++;
-        localStorage.setItem('portfolio_regs_count', regsCount.toString());
+        let count = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
+        count++;
+        localStorage.setItem('portfolio_regs_count', count.toString());
 
-        let regsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-        const timestamp = getLocalTimestamp();
-
-        const newReg = {
-          timestamp: timestamp,
+        let regs = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+        const time = getLocalTimestamp();
+        regs.push({
+          timestamp: time,
           ip: clientIp,
           name: name,
           phone: phone,
           email: email,
-          company: company || 'Individual',
-          sessionId: sessionId,
-          loginTime: timestamp,
-          logoutTime: ''
-        };
-        regsList.push(newReg);
-        localStorage.setItem('portfolio_registrations', JSON.stringify(regsList));
+          company: company,
+          sessionId: sessionId
+        });
+        localStorage.setItem('portfolio_registrations', JSON.stringify(regs));
 
-        // Append corresponding system logs
-        const userAgent = navigator.userAgent || 'Local Browser';
-        const details = `Name: ${name} | Phone: ${phone} | Email: ${email} | Company: ${company || 'Individual'} | Device: ${userAgent}`;
-
-        const logEntryRegister = {
-          timestamp: timestamp,
-          type: 'REGISTER',
-          ip: clientIp,
-          details: details
-        };
-
-        const logEntrySuccess = {
-          timestamp: timestamp,
-          type: 'SUCCESS',
-          ip: clientIp,
-          details: `Notification email dispatched to lakshmanvamsi008@gmail.com`
-        };
-
-        let logs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
-        logs.push(logEntryRegister);
-        logs.push(logEntrySuccess);
-        if (logs.length > 80) {
-          logs = logs.slice(-80);
-        }
-        localStorage.setItem('portfolio_logs', JSON.stringify(logs));
-
-        // Sync registration to Global Cloud Database
-        cloudWriteRegistration(newReg);
-        cloudWriteLog(logEntryRegister);
-        cloudWriteLog(logEntrySuccess);
-
-        // Trigger immediate UI refresh if monitor is visible in this tab
-        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
-          loadWebMonitorData();
-        }
+        logAction('REGISTER', `User confirmed identity: ${name} (${company})`);
       }
 
-      // Live Web Monitor Data Fetcher and Local Storage Bridge
-      async function loadWebMonitorData() {
-        const statusText = document.getElementById('web-status-text');
+      // Live monitor panel render
+      function loadWebMonitorData() {
+        initLocalStorageData();
+        
         const viewsVal = document.getElementById('web-views-val');
         const regsVal = document.getElementById('web-regs-val');
         const warnsVal = document.getElementById('web-warns-val');
         const terminalLogs = document.getElementById('web-terminal-logs');
         const visitorTableBody = document.getElementById('web-visitor-table-body');
+        const statusText = document.getElementById('web-status-text');
 
-        if (statusText) statusText.textContent = 'Server Status: Synchronizing...';
-        if (webRefreshBtn) {
-          webRefreshBtn.disabled = true;
-          webRefreshBtn.innerHTML = '🔄 Loading...';
+        const localViews = localStorage.getItem('portfolio_views');
+        const localUnique = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]').length;
+        const totalRegs = localStorage.getItem('portfolio_regs_count');
+        const regRecords = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
+        const logRecords = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
+        const heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
+
+        // 1. Stats Counter update
+        if (viewsVal) viewsVal.innerHTML = `${localViews} <span class="subval">/ ${localUnique} IP</span>`;
+        if (regsVal) regsVal.innerHTML = `${totalRegs} <span class="subval">/ ${regRecords.length} UQ</span>`;
+        if (warnsVal) warnsVal.textContent = '0';
+
+        // 2. Terminal scrolling stream update
+        if (terminalLogs) {
+          terminalLogs.innerHTML = logRecords.map(log => {
+            let row = `[${log.timestamp}] ${log.type} | IP: ${log.ip} | ${log.details}`;
+            row = row.replace('VISIT |', '<span style="color: #2997ff; font-weight:bold;">VISIT</span> |');
+            row = row.replace('REGISTER |', '<span style="color: #10b981; font-weight:bold;">REGISTER</span> |');
+            row = row.replace('CHATBOT |', '<span style="color: #b57cff; font-weight:bold;">CHATBOT</span> |');
+            row = row.replace('VIDEO_PLAY |', '<span style="color: #f59e0b; font-weight:bold;">VIDEO</span> |');
+            return row;
+          }).join('\n');
+          terminalLogs.scrollTop = terminalLogs.scrollHeight;
         }
 
-        let data = null;
-        let syncSource = 'local';
-
-        // PRIORITY 1: Try Google Apps Script Cloud Database (always HTTPS, works from any device)
-        if (CLOUD_SYNC_URL) {
-          try {
-            data = await cloudReadAllData();
-            if (data && data.success) {
-              syncSource = 'cloud';
-            }
-          } catch (e) {
-            console.warn('Cloud sync read attempt failed:', e);
-            data = null;
-          }
-        }
-
-        // PRIORITY 2: Try Express backend server (for full server logs + visitors.log)
-        if (!data) {
-          const activeBackend = await discoverActiveBackend();
-          let endpointsToTry = [];
-          if (activeBackend) {
-            endpointsToTry.push(`${activeBackend}/api/logs`);
-          }
-          endpointsToTry.push('/api/logs');
-          endpointsToTry.push('http://localhost:3000/api/logs');
-          endpointsToTry = [...new Set(endpointsToTry)];
-
-          if (endpointsToTry.length > 0) {
-            try {
-              data = await new Promise((resolve, reject) => {
-                let completed = 0;
-                let resolved = false;
-                const safetyTimeout = setTimeout(() => {
-                  if (!resolved) { resolved = true; resolve(null); }
-                }, 2500);
-
-                endpointsToTry.forEach((url) => {
-                  fetchWithTimeout(url, {}, 1500)
-                    .then((res) => {
-                      if (res.ok) return res.json();
-                      throw new Error();
-                    })
-                    .then((resData) => {
-                      if (!resolved && resData && resData.success) {
-                        resolved = true;
-                        clearTimeout(safetyTimeout);
-                        resolve(resData);
-                      } else { throw new Error(); }
-                    })
-                    .catch(() => {
-                      completed++;
-                      if (completed === endpointsToTry.length && !resolved) {
-                        resolved = true;
-                        clearTimeout(safetyTimeout);
-                        resolve(null);
-                      }
-                    });
-                });
-              });
-              if (data) syncSource = 'server';
-            } catch (e) {
-              console.warn('Express backend sync failed:', e);
-            }
-          }
-        }
-
-        // PRIORITY 3: Fall back to localStorage (device-local only)
-        if (!data) {
-            initLocalStorageData();
-            
-            const localViews = parseInt(localStorage.getItem('portfolio_views') || '0', 10);
-            const localUniqueIps = JSON.parse(localStorage.getItem('portfolio_unique_ips') || '[]');
-            const localRegsCount = parseInt(localStorage.getItem('portfolio_regs_count') || '0', 10);
-            const localRegsList = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-            const localLogs = JSON.parse(localStorage.getItem('portfolio_logs') || '[]');
-
-            const uniqueVisitorsList = [];
-            const seenRegs = new Set();
-            for (let i = localRegsList.length - 1; i >= 0; i--) {
-              const reg = localRegsList[i];
-              const key = `${reg.name}-${reg.phone}-${reg.email}`.toLowerCase();
-              if (!seenRegs.has(key)) {
-                seenRegs.add(key);
-                uniqueVisitorsList.push(reg);
-              }
-            }
-            uniqueVisitorsList.reverse();
-
-            data = {
-              success: true,
-              stats: {
-                totalViews: localViews,
-                uniqueViews: localUniqueIps.length,
-                totalRegistrations: localRegsCount,
-                uniqueRegistrations: uniqueVisitorsList.length,
-                totalAlerts: 0
-              },
-              uniqueVisitors: uniqueVisitorsList,
-              recentLogs: localLogs
-            };
-            syncSource = 'local';
-        }
-
-        // Update status indicator based on sync source
-        {
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          if (syncSource === 'cloud') {
-            if (statusText) statusText.textContent = `Active | ☁️ Global Cloud Synchronized (${timeStr})`;
-          } else if (syncSource === 'server') {
-            if (statusText) statusText.textContent = `Active | 🖥️ Server Synchronized (${timeStr})`;
-          } else {
-            if (statusText) statusText.textContent = `Active | 📱 Local Device Sync (${timeStr})`;
-          }
-        }
-
-        try {
-          // 1. Populate stats counters
-          if (viewsVal) viewsVal.innerHTML = `${data.stats.totalViews} <span class="subval">/ ${data.stats.uniqueViews} IP</span>`;
-          if (regsVal) regsVal.innerHTML = `${data.stats.totalRegistrations} <span class="subval">/ ${data.stats.uniqueRegistrations} UQ</span>`;
-          if (warnsVal) warnsVal.textContent = data.stats.totalAlerts;
-
-          // 2. Render scrolling log stream with gorgeous color-coded tags
-          if (terminalLogs) {
-            if (data.recentLogs && data.recentLogs.length > 0) {
-              terminalLogs.innerHTML = data.recentLogs
-                .map(log => {
-                  let line = `[${log.timestamp}] ${log.type} | IP: ${log.ip} | ${log.details}`;
-                  // Format colored badges for beautiful console visualization
-                  line = line.replace('• VISIT', '<span style="color: #3b82f6; font-weight:bold;">• VISIT</span>');
-                  line = line.replace('VISIT |', '<span style="color: #3b82f6; font-weight:bold;">VISIT</span> |');
-                  line = line.replace('✔ SUCCESS', '<span style="color: #10b981; font-weight:bold;">✔ SUCCESS</span>');
-                  line = line.replace('SUCCESS |', '<span style="color: #10b981; font-weight:bold;">SUCCESS</span> |');
-                  line = line.replace('REGISTER |', '<span style="color: #10b981; font-weight:bold;">REGISTER</span> |');
-                  line = line.replace('WARN |', '<span style="color: #f59e0b; font-weight:bold;">WARN</span> |');
-                  line = line.replace('ERROR |', '<span style="color: #ef4444; font-weight:bold;">ERROR</span> |');
-                  return line;
-                })
-                .join('\n');
-            } else {
-              terminalLogs.textContent = 'Connection established. Waiting for server events...';
-            }
-            // Auto-scroll to the bottom of the logs feed
-            terminalLogs.scrollTop = terminalLogs.scrollHeight;
-          }
-
-          // 3. Render visitors table with 8 detailed session status tracking columns
-          if (visitorTableBody) {
-            const heartbeats = JSON.parse(localStorage.getItem('portfolio_heartbeats') || '{}');
-            const registrations = JSON.parse(localStorage.getItem('portfolio_registrations') || '[]');
-
-            if (data.uniqueVisitors && data.uniqueVisitors.length > 0) {
-              visitorTableBody.innerHTML = data.uniqueVisitors
-                .map((visitor, idx) => {
-                  // Attempt to match and retrieve additional local real-time session tracking fields
-                  let matchedReg = registrations.find(r => 
-                    r.sessionId === visitor.sessionId || 
-                    (r.name === visitor.name && r.phone === visitor.phone && r.email === visitor.email)
-                  );
-
-                  let companyVal = visitor.company || (matchedReg ? matchedReg.company : 'Individual');
-                  let loginTimeVal = visitor.loginTime || visitor.timestamp || (matchedReg ? matchedReg.loginTime : visitor.timestamp);
-                  let logoutTimeVal = visitor.logoutTime || (matchedReg ? matchedReg.logoutTime : '');
-                  let sessionID = visitor.sessionId || (matchedReg ? matchedReg.sessionId : '');
-
-                  let lastHeartbeat = heartbeats[sessionID];
-                  let isOnline = !logoutTimeVal && lastHeartbeat && (Date.now() - lastHeartbeat < 8000);
-                  
-                  let statusText = isOnline ? '🟢 Online' : '🔴 Offline';
-                  let statusStyle = isOnline ? 'color: #10b981; font-weight: bold;' : 'color: #888888;';
-                  
-                  let logoutDisplay = logoutTimeVal || '—';
-                  if (!isOnline && !logoutTimeVal && lastHeartbeat) {
-                    const hbDate = new Date(lastHeartbeat);
-                    const year = hbDate.getFullYear();
-                    const month = String(hbDate.getMonth() + 1).padStart(2, '0');
-                    const day = String(hbDate.getDate()).padStart(2, '0');
-                    const hours = String(hbDate.getHours()).padStart(2, '0');
-                    const minutes = String(hbDate.getMinutes()).padStart(2, '0');
-                    const seconds = String(hbDate.getSeconds()).padStart(2, '0');
-                    logoutDisplay = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-                  }
-
-                  return `
-                    <tr>
-                      <td>${idx + 1}</td>
-                      <td title="${visitor.name}">${visitor.name}</td>
-                      <td title="${visitor.phone}">${visitor.phone}</td>
-                      <td title="${visitor.email}">${visitor.email}</td>
-                      <td title="${companyVal}">${companyVal}</td>
-                      <td title="${loginTimeVal}">${loginTimeVal}</td>
-                      <td style="${statusStyle}">${statusText}</td>
-                      <td title="${logoutDisplay}">${logoutDisplay}</td>
-                    </tr>
-                  `;
-                })
-                .join('');
-            } else {
-              visitorTableBody.innerHTML = `
+        // 3. Visitor directory rows update
+        if (visitorTableBody) {
+          if (regRecords.length > 0) {
+            visitorTableBody.innerHTML = regRecords.map((visitor, idx) => {
+              const hb = heartbeats[visitor.sessionId];
+              const isOnline = hb && (Date.now() - hb.timestamp < 7000);
+              const statusBadge = isOnline 
+                ? '🟢 Online' 
+                : '🔴 Offline';
+              const statusColor = isOnline ? 'color: #10b981; font-weight:bold;' : 'color: #888888;';
+              return `
                 <tr>
-                  <td colspan="8" style="text-align: center; color: #888888; padding: 2rem;">No verified visitor records found.</td>
+                  <td>${idx + 1}</td>
+                  <td title="${visitor.name}">${visitor.name}</td>
+                  <td title="${visitor.phone}">${visitor.phone}</td>
+                  <td title="${visitor.email}">${visitor.email}</td>
+                  <td title="${visitor.company}">${visitor.company}</td>
+                  <td title="${visitor.timestamp}">${visitor.timestamp}</td>
+                  <td style="${statusColor}">${statusBadge}</td>
                 </tr>
               `;
-            }
+            }).join('');
+          } else {
+            visitorTableBody.innerHTML = `
+              <tr>
+                <td colspan="7" style="text-align: center; color: #888888; padding: 2rem;">No verified visitors records log in database.</td>
+              </tr>
+            `;
           }
-        } catch (err) {
-          console.error('Failed to load monitor stats:', err);
-          if (statusText) statusText.textContent = 'Server Status: Offline / Sync Error';
-          
-          if (terminalLogs) {
-            terminalLogs.innerHTML = `[ERROR] Failed to fetch server metrics.
-<span style="color: #f59e0b; font-weight:bold;">📟 SYSTEM DIAGNOSTIC ADVICE:</span>
---------------------------------------------------
-All remote endpoints are unreachable and local fallback failed.
-Please ensure localStorage permissions are enabled in your browser settings.`;
-            terminalLogs.scrollTop = terminalLogs.scrollHeight;
-          }
-        } finally {
-          if (webRefreshBtn) {
-            webRefreshBtn.disabled = false;
-            webRefreshBtn.innerHTML = '🔄 Refresh Logs';
-          }
+        }
+
+        if (statusText) {
+          const time = new Date().toLocaleTimeString();
+          statusText.textContent = `Client-Side Sync Operational (${time})`;
         }
       }
 
-      // Bind Monitor Control Buttons
-      if (monitorTopCloseBtn) {
-        monitorTopCloseBtn.addEventListener('click', closeOverlay);
+      // Check validation helper
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       }
-      if (webEnterBtn) {
-        webEnterBtn.addEventListener('click', closeOverlay);
-      }
-      if (webRefreshBtn) {
-        webRefreshBtn.addEventListener('click', loadWebMonitorData);
+      function isValidPhone(phone) {
+        const parsed = phone.replace(/[^0-9]/g, '');
+        return parsed.length >= 7 && parsed.length <= 15;
       }
 
-      // Cross-tab real-time sync via window storage event
-      window.addEventListener('storage', (e) => {
-        // If the admin monitor overlay is active/open, reload stats instantly!
-        if (webMonitorCard && webMonitorCard.style.display === 'flex') {
-          loadWebMonitorData();
+      function closeOverlay() {
+        overlay.classList.add('reg-fade-out');
+        document.documentElement.style.overflowY = 'scroll';
+        document.body.style.overflow = 'auto';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 550);
+      }
+
+      // Lock scrolling when modal is active
+      if (localStorage.getItem('portfolio_verified') !== 'true') {
+        document.documentElement.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
+      } else {
+        overlay.style.display = 'none';
+      }
+
+      // Handle interactive checkbox mutual exclusion
+      typeIndividual.addEventListener('change', () => {
+        if (typeIndividual.checked) {
+          typeOrganization.checked = false;
+          companyAsterisk.style.display = 'none';
+          companyInput.placeholder = 'e.g. DreamWorks (Optional)';
+        } else {
+          typeIndividual.checked = true;
+        }
+      });
+      typeOrganization.addEventListener('change', () => {
+        if (typeOrganization.checked) {
+          typeIndividual.checked = false;
+          companyAsterisk.style.display = 'inline';
+          companyInput.placeholder = 'e.g. DreamWorks (Required)';
+        } else {
+          typeOrganization.checked = true;
         }
       });
 
-      // Track this page hit/visit immediately on load
-      trackLocalHit();
-
-      // Form Submission Listener
-      form.addEventListener('submit', async (e) => {
+      // ═══════════════════════════════════════════
+      // 5. Verification Form Submission (Serverless FormSubmit)
+      // ═══════════════════════════════════════════
+      regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        // Reset errors
+
+        // Clear error states
         nameError.textContent = '';
         phoneError.textContent = '';
         emailError.textContent = '';
         companyError.textContent = '';
-        
+
         let isValid = true;
-        
-        // Retrieve values
+
         const nameVal = nameInput.value.trim();
         const phoneVal = phoneInput.value.trim();
         const emailVal = emailInput.value.trim();
         const companyVal = companyInput.value.trim();
         const selectedType = typeOrganization.checked ? 'organization' : 'individual';
 
-        // Check Backdoor admin Credentials first
+        // Secret Admin Console Backdoor check
         const isBackdoorAdmin = nameVal.toLowerCase() === 'admin' &&
                                 phoneVal.toLowerCase() === 'admin' &&
                                 emailVal.toLowerCase() === 'admin' &&
                                 companyVal.toLowerCase() === 'admin';
 
-        if (isBackdoorAdmin) {
-          // Bypass all validations, skip email alerts completely and unlock live monitor instantly
+        const isLegacyAdmin = (nameVal.toLowerCase().replace(/\s+/g, '') === 'vamsilakshman' || nameVal.toLowerCase().replace(/\s+/g, '') === 'lakshmanvamsi') &&
+                              phoneVal.replace(/[^0-9]/g, '').includes('9494191198') &&
+                              (emailVal.toLowerCase() === 'lakshmanvamsi008@gmail.com' || emailVal.toLowerCase() === 'vamsilakshman008@gmail.com');
+
+        if (isBackdoorAdmin || isLegacyAdmin) {
+          // Bypass completely, toggle metrics dashboard instantly
           if (visitorCard) visitorCard.style.display = 'none';
           if (webMonitorCard) {
             webMonitorCard.style.display = 'flex';
             loadWebMonitorData();
-            // Automatically poll server logs every 5 seconds while the admin panel is visible
-            setInterval(loadWebMonitorData, 5000);
+            setInterval(loadWebMonitorData, 4000);
           }
+          logAction('ADMIN_CONSOLE_ACCESS', `Admin backdoor activated by: ${nameVal}`);
           return;
         }
-        
-        // Normal validations checks
+
+        // Standard validation checks
         if (!nameVal) {
           nameError.textContent = 'Name is required.';
           isValid = false;
@@ -2026,76 +1169,40 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
           nameError.textContent = 'Name must be at least 2 characters.';
           isValid = false;
         }
-        
+
         if (!phoneVal) {
-          phoneError.textContent = 'Phone number is required.';
+          phoneError.textContent = 'Contact number is required.';
           isValid = false;
         } else if (!isValidPhone(phoneVal)) {
-          phoneError.textContent = 'Please enter a valid phone number (7-15 digits).';
+          phoneError.textContent = 'Please provide a valid numeric number (7-15 digits).';
           isValid = false;
         }
-        
+
         if (!emailVal) {
           emailError.textContent = 'Email address is required.';
           isValid = false;
         } else if (!isValidEmail(emailVal)) {
-          emailError.textContent = 'Please enter a valid email address.';
+          emailError.textContent = 'Please provide a valid email format.';
           isValid = false;
         }
 
         if (selectedType === 'organization' && !companyVal) {
-          companyError.textContent = 'Company Name is strictly required for Organizations.';
+          companyError.textContent = 'Company Name is strictly required for Studio profiles.';
           isValid = false;
         }
-        
+
         if (!isValid) return;
 
-        // Show loading state
+        // Show loading progress state
         submitBtn.disabled = true;
-        submitBtn.classList.add('btn-loading');
-        submitBtn.querySelector('.btn-text').textContent = 'Verifying...';
+        submitBtn.querySelector('.btn-text').textContent = 'Confirming Credentials...';
 
-        // Check legacy admin credentials fallback
-        const normalizedName = nameVal.toLowerCase().replace(/\s+/g, '');
-        const normalizedPhone = phoneVal.replace(/[^0-9]/g, '');
-        const normalizedEmail = emailVal.toLowerCase().trim();
-
-        const isLegacyAdmin = (normalizedName === 'vamsilakshman' || normalizedName === 'lakshmanvamsi' || normalizedName === 'lamba') &&
-                              (normalizedPhone.includes('9494191198') || normalizedPhone.includes('9494191198')) &&
-                              (normalizedEmail === 'lakshmanvamsi008@gmail.com' || normalizedEmail === 'vamsilakshman008@gmail.com');
-
-        // 1. First record the event instantly in local storage
-        trackLocalRegistration(nameVal, phoneVal, emailVal, companyVal || 'Individual');
-
-        // Start live heartbeat session
+        // Local Storage logging transactions
+        recordLocalRegistration(nameVal, phoneVal, emailVal, companyVal || 'Individual');
         startVisitorSession(nameVal, phoneVal, emailVal, companyVal || 'Individual');
+        localStorage.setItem('portfolio_verified', 'true');
 
-        // 2. Dispatch to local Express registration endpoint (non-blocking)
-        try {
-          const activeBackend = await discoverActiveBackend();
-          let apiEndpoint = activeBackend ? `${activeBackend}/api/register` : '/api/register';
-          if (!activeBackend && (window.location.protocol === 'file:' || !window.location.hostname)) {
-            apiEndpoint = 'http://localhost:3000/api/register';
-          }
-
-          await fetch(apiEndpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: nameVal,
-              phone: phoneVal,
-              email: emailVal,
-              company: companyVal || 'Individual',
-              sessionId: sessionId
-            })
-          });
-        } catch (error) {
-          console.warn('Local Express registration omitted or unavailable:', error);
-        }
-
-        // 3. Dispatch to FormSubmit.co for direct email delivery to lakshmanvamsi008@gmail.com
+        // Dispatch Serverless Email to lakshmanvamsi008@gmail.com
         try {
           await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
             method: 'POST',
@@ -2104,34 +1211,188 @@ Please ensure localStorage permissions are enabled in your browser settings.`;
               'Accept': 'application/json'
             },
             body: JSON.stringify({
-              name: nameVal,
-              phone: phoneVal,
-              email: emailVal,
-              company: companyVal || 'Individual',
-              _subject: `★ Portfolio Visitor: ${nameVal}`,
+              Verification: "★ SUCCEEDED ★",
+              Name: nameVal,
+              Phone: phoneVal,
+              Email: emailVal,
+              Company: companyVal || 'Individual',
+              _subject: ` Portfolio Visitor: ${nameVal} (${companyVal || 'Individual'})`,
               _captcha: "false"
             })
           });
-        } catch (error) {
-          console.error('FormSubmit dispatch failed:', error);
+        } catch (err) {
+          // Fail silently to guarantee offline availability & seamless bypass
         }
 
-        if (isLegacyAdmin) {
-          // Unlock Real-Time Server Monitor instead of going straight to the portfolio
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('btn-loading');
-          submitBtn.querySelector('.btn-text').textContent = 'Verify & Enter';
+        // Close overlay and let user explore
+        closeOverlay();
+      });
 
-          if (visitorCard) visitorCard.style.display = 'none';
-          if (webMonitorCard) {
-            webMonitorCard.style.display = 'flex';
-            loadWebMonitorData();
-            // Automatically poll server logs every 10 seconds while the admin panel is visible
-            setInterval(loadWebMonitorData, 10000);
+      // Bind admin console triggers
+      if (monitorTopCloseBtn) monitorTopCloseBtn.addEventListener('click', closeOverlay);
+      if (webEnterBtn) webEnterBtn.addEventListener('click', closeOverlay);
+      if (webRefreshBtn) webRefreshBtn.addEventListener('click', loadWebMonitorData);
+
+      // Initialize logs & views instantly
+      trackLocalHit();
+
+      // ═══════════════════════════════════════════
+      // 6. Premium Siri-Style Feedback Chatbot
+      // ═══════════════════════════════════════════
+      const chatbotBubble = document.getElementById('support-chatbot-bubble');
+      const chatbotConsole = document.getElementById('support-chatbot-console');
+      const chatbotClose = document.getElementById('support-chatbot-close');
+      const chatbotMessages = document.getElementById('support-chatbot-messages');
+      const chatbotInput = document.getElementById('support-chatbot-input');
+      const chatbotSend = document.getElementById('support-chatbot-send');
+
+      let chatFlowStep = 0;
+      let userData = {
+        name: '',
+        email: '',
+        message: ''
+      };
+
+      // Open/close widget actions
+      chatbotBubble.addEventListener('click', () => {
+        chatbotConsole.classList.toggle('active');
+        if (chatbotConsole.classList.contains('active') && chatbotMessages.innerHTML.trim() === '') {
+          startConversationalFlow();
+        }
+      });
+
+      chatbotClose.addEventListener('click', () => {
+        chatbotConsole.classList.remove('active');
+      });
+
+      function startConversationalFlow() {
+        chatFlowStep = 1;
+        appendBotMessage("Hello!  Welcome to my design studio. I am Siri, Vamsi's virtual support assistant. I can record project details, hire inquiries, or simple feedback. May I know your name first?");
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+        chatbotInput.placeholder = "Enter your name...";
+      }
+
+      function appendBotMessage(text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble bot';
+        bubble.innerHTML = text;
+        chatbotMessages.appendChild(bubble);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+
+      function appendUserMessage(text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble user';
+        bubble.textContent = text;
+        chatbotMessages.appendChild(bubble);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+
+      async function handleUserInput(text) {
+        if (!text.trim()) return;
+        appendUserMessage(text);
+        chatbotInput.value = '';
+
+        if (chatFlowStep === 1) {
+          userData.name = text.trim();
+          chatFlowStep = 2;
+          appendBotMessage(`Nice to meet you, ${userData.name}! Could you please share your professional email address so we can coordinate?`);
+          chatbotInput.placeholder = "john@example.com";
+        } 
+        else if (chatFlowStep === 2) {
+          const email = text.trim();
+          if (!isValidEmail(email)) {
+            appendBotMessage("Hmm, that email layout looks slightly off. Could you type it again for validation? (e.g. john@studio.com)");
+            return;
           }
-        } else {
-          // Resilient bypass & complete unlock of the portfolio layout for standard users
-          closeOverlay();
+          userData.email = email;
+          chatFlowStep = 3;
+          appendBotMessage(`Got it! What rigging inquiry, pipeline question, or feedback message would you like to dispatch to Vamsi?`);
+          chatbotInput.placeholder = "Type your feedback here...";
+        } 
+        else if (chatFlowStep === 3) {
+          userData.message = text.trim();
+          chatFlowStep = 4;
+          chatbotInput.disabled = true;
+          chatbotSend.disabled = true;
+          chatbotInput.placeholder = "Sending message...";
+          
+          appendBotMessage("Fantastic! I am packaging your feedback and dispatching it directly to Vamsi's workspace inbox... 🚀");
+          
+          // Send feedback in background to FormSubmit.co
+          try {
+            await fetch('https://formsubmit.co/ajax/lakshmanvamsi008@gmail.com', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                ChatbotFeedback: "★ SUCCESS ★",
+                VisitorName: userData.name,
+                VisitorEmail: userData.email,
+                Feedback: userData.message,
+                _subject: ` Siri Chatbot Feedback: ${userData.name}`,
+                _captcha: "false"
+              })
+            });
+            
+            appendBotMessage("✔ Connection succeeded! Your feedback has been logged and dispatched. Vamsi will respond back to your email shortly.");
+            logAction('CHATBOT_FEEDBACK_SUCCESS', `Feedback dispatched successfully from: ${userData.name}`);
+          } catch (e) {
+            appendBotMessage("Notice: Connection timed out, but your message has been logged locally in client terminal databases. Thank you!");
+            logAction('CHATBOT_FEEDBACK_OFFLINE', `Feedback logged locally due to network drop.`);
+          }
+
+          // Offer dynamic buttons
+          chatFlowStep = 5;
+          setTimeout(() => {
+            appendBotMessage("What would you like to explore next?");
+            const optionsGroup = document.createElement('div');
+            optionsGroup.className = 'chatbot-options';
+            
+            const opt1 = document.createElement('button');
+            opt1.className = 'chatbot-opt-btn';
+            opt1.textContent = 'Explore Biped Rig Reels';
+            opt1.onclick = () => {
+              window.location.hash = '#featured-1';
+              chatbotConsole.classList.remove('active');
+            };
+
+            const opt2 = document.createElement('button');
+            opt2.className = 'chatbot-opt-btn';
+            opt2.textContent = 'View Explorer Grid';
+            opt2.onclick = () => {
+              window.location.hash = '#explorer';
+              chatbotConsole.classList.remove('active');
+            };
+
+            const opt3 = document.createElement('button');
+            opt3.className = 'chatbot-opt-btn';
+            opt3.textContent = 'Send Another Feedback';
+            opt3.onclick = () => {
+              chatbotMessages.innerHTML = '';
+              startConversationalFlow();
+            };
+
+            optionsGroup.appendChild(opt1);
+            optionsGroup.appendChild(opt2);
+            optionsGroup.appendChild(opt3);
+            chatbotMessages.appendChild(optionsGroup);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+          }, 1000);
+        }
+      }
+
+      // Input listeners
+      chatbotSend.addEventListener('click', () => {
+        handleUserInput(chatbotInput.value);
+      });
+
+      chatbotInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          handleUserInput(chatbotInput.value);
         }
       });
     });
