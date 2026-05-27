@@ -35,8 +35,8 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-title: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-title: 'JetBrains Mono', monospace;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
